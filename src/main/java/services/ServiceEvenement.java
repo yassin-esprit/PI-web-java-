@@ -20,7 +20,7 @@ public class ServiceEvenement
         String sql = "insert into evenement (titre, type, description, date, lieu, nbrplaces, sponsor) values (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setString(1, e.getTitre());
-        ste.setString(2, e.getType());
+        ste.setString(2, e.getType().name()); // Convert enum to String
         ste.setString(3, e.getDescription());
         ste.setDate(4, new java.sql.Date(e.getDate().getTime()));
         ste.setString(5, e.getLieu());
@@ -66,7 +66,7 @@ public class ServiceEvenement
             evenement e = new evenement(
                     rs.getInt("id"),
                     rs.getString("titre"),
-                    rs.getString("type"),
+                    models.type_evenement.valueOf(rs.getString("type")),
                     rs.getString("description"),
                     rs.getDate("date"),
                     rs.getString("lieu"),

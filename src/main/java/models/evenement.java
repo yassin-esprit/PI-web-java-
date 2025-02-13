@@ -1,21 +1,23 @@
 package models;
 
+import models.type_evenement;
 import java.util.Date;
 
 public class evenement {
     private int id;
     private String titre;
-    private String type;
+    private type_evenement type_evenement;
     private String description;
     private Date date;
     private String lieu;
     private int nbrplaces;
     private int sponsor;
 
-    public evenement(String titre, String type, String description, Date date, String lieu, int nbrplaces,
+    public evenement(String titre, type_evenement type_evenement, String description, Date date, String lieu,
+            int nbrplaces,
             int sponsor) {
         this.titre = titre;
-        this.type = type;
+        this.type_evenement = type_evenement;
         this.description = description;
         this.date = date;
         this.lieu = lieu;
@@ -23,11 +25,12 @@ public class evenement {
         this.sponsor = sponsor;
     }
 
-    public evenement(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
+    public evenement(int id, String titre, type_evenement type_evenement, String description, Date date, String lieu,
+            int nbrplaces,
             int sponsor) {
         this.id = id;
         this.titre = titre;
-        this.type = type;
+        this.type_evenement = type_evenement;
         this.description = description;
         this.date = date;
         this.lieu = lieu;
@@ -51,12 +54,12 @@ public class evenement {
         this.titre = titre;
     }
 
-    public String getType() {
-        return type;
+    public type_evenement getType() {
+        return type_evenement;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(type_evenement type) {
+        this.type_evenement = type;
     }
 
     public String getDescription() {
@@ -101,7 +104,7 @@ public class evenement {
 
     @Override
     public String toString() {
-        return "Evenement [id=" + id + ", titre=" + titre + ", type=" + type + ", description=" + description
+        return "Evenement [id=" + id + ", titre=" + titre + ", type=" + type_evenement + ", description=" + description
                 + ", date=" + date + ", lieu=" + lieu + ", nbrplaces=" + nbrplaces + ", sponsor=" + sponsor + "]";
     }
 }

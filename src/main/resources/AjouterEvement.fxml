@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.YourController" prefWidth="600" prefHeight="500">
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+    
+    <VBox alignment="CENTER" spacing="10" layoutX="100" layoutY="50">
+        <Label text="Add Event" style="-fx-font-size: 20px; -fx-text-fill: #2A9D8F;" />
+        
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            
+            <Label text="Title:" style="-fx-text-fill: #264653;" />
+            <TextField fx:id="titreField" promptText="Enter event title" />
+            
+            <Label text="Type:" style="-fx-text-fill: #264653;" />
+            <TextField fx:id="typeField" promptText="Enter event type" />
+            
+            <Label text="Description:" style="-fx-text-fill: #264653;" />
+            <TextArea fx:id="descriptionField" wrapText="true" prefRowCount="3" promptText="Enter event description" />
+            
+            <Label text="Date:" style="-fx-text-fill: #264653;" />
+            <DatePicker fx:id="dateField" />
+            
+            <Label text="Location:" style="-fx-text-fill: #264653;" />
+            <TextField fx:id="lieuField" promptText="Enter event location" />
+            
+            <Label text="Number of Places:" style="-fx-text-fill: #264653;" />
+            <TextField fx:id="nbrPlacesField" promptText="Enter number of places" />
+            
+            <Label text="Sponsor:" style="-fx-text-fill: #264653;" />
+            <TextField fx:id="sponsorField" promptText="Enter sponsor name" />
+        </GridPane>
+        
+        <Button text="Add Event" fx:id="addEventButton" style="-fx-background-color: #E76F51; -fx-text-fill: white;" />
+    </VBox>
+</AnchorPane>
