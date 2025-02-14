@@ -1,6 +1,6 @@
 package models;
 
-import models.type_evenement;
+// import models.type_evenement;
 import java.util.Date;
 
 public class evenement {
