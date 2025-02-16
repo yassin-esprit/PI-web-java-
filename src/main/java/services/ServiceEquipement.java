@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceEquipement implements IServices<Equipement> {
+
     private Connection cnx;
 
     public ServiceEquipement() {
@@ -65,7 +66,7 @@ public class ServiceEquipement implements IServices<Equipement> {
             eq.setQuantite_totale(rs.getInt("quantite_totale"));
             eq.setQuantite_disponible(rs.getInt("quantite_dispo"));
             eq.setDescription(rs.getString("description"));
-            eq.setStatut(Status_Equipement.valueOf(rs.getString("statut"))); // Correction ici
+            eq.setStatut(Status_Equipement.valueOf(rs.getString("statut")));
 
             equipements.add(eq);
         }
