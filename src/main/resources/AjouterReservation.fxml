@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterReservationController">
+    <children>
+        <VBox alignment="CENTER" spacing="10" prefWidth="400" prefHeight="300">
+            <Label text="Ajouter une réservation" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+            <HBox spacing="10">
+                <Label text="ID Événement:"/>
+                <TextField fx:id="txtIdEvenement" promptText="Entrez l'ID"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="ID Équipement:"/>
+                <TextField fx:id="txtIdEquipement" promptText="Entrez l'ID"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Date de réservation:"/>
+                <DatePicker fx:id="datePickerReservation"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Statut:"/>
+                <ChoiceBox fx:id="statutChoiceBox"/>
+            </HBox>
+
+            <Button text="Ajouter" fx:id="btnAjouter" onAction="#ajouterReservation"/>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -101,14 +101,24 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
         List<Reservation_Equipement> Reservations = new ArrayList<>();
         while (rs.next()) {
             Reservation_Equipement R = new Reservation_Equipement();
-            R.setId_equipement(rs.getInt("id"));
+            R.setId_reservation(rs.getInt("id")); // Correctement l'ID de réservation
             R.setId_equipement(rs.getInt("id_eq"));
             R.setId_evenement(rs.getInt("id_event"));
             R.setDateReservation(rs.getString("date_reservation"));
-            R.setStatus_reservation(Status_reservation.valueOf(rs.getString("statut")));
+
+            try {
+                String statut = rs.getString("statut");
+                // Convertir la chaîne en majuscules avant d'appeler valueOf
+                R.setStatus_reservation(Status_reservation.valueOf(statut.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur : Statut invalide pour la réservation (id=" + R.getId_reservation() + ")");
+                // Vous pouvez décider de gérer cela de manière différente, par exemple définir un statut par défaut
+            }
 
             Reservations.add(R);
         }
         return Reservations;
     }
+
+
 }
