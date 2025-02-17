@@ -18,7 +18,7 @@ public class ServiceCamp implements IServiceCamp<campagnes_publicitaires>{
     }
 
 
-    // Méthode pour vérifier si la publicite existe
+    // Mét hode pour vérifier si la publicite existe
     private boolean publiciteExiste(int idPublicite) throws SQLException {
         String sql = "SELECT COUNT(*) FROM publicites WHERE id_pub = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
