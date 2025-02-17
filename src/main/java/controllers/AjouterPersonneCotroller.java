@@ -41,8 +41,6 @@
 //            Parent root = loder.load();
 //            AfficherPersonnecontroller ac =
 //                    loder.getController();
-//            ac.setRnom(nom);
-//            ac.setRprenom(prenom);
 //            ac.setRlist(ps.recuperer().toString());
 //            txtnom.getScene().setRoot(root);
 //

@@ -22,7 +22,7 @@ public class MainFX extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Ajouter Personne");
+            primaryStage.setTitle("Ajouter Evenement");
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());

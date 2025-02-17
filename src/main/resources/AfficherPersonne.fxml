@@ -7,10 +7,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherPersonnecontroller">
    <children>
-      <TextField fx:id="rnom" layoutX="92.0" layoutY="65.0" />
-      <TextField fx:id="rprenom" layoutX="92.0" layoutY="146.0" />
       <TextField fx:id="rlist" layoutX="41.0" layoutY="241.0" prefHeight="133.0" prefWidth="627.0" />
-      <Label layoutX="34.0" layoutY="69.0" text="Nom" />
-      <Label layoutX="34.0" layoutY="150.0" text="Prenom" />
+
    </children>
 </AnchorPane>

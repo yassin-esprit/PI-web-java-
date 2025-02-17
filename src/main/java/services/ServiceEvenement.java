@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDate;
 
 import models.evenement;
+import models.type_evenement;
 import tools.MyDB;
 
 import java.sql.*;
@@ -78,4 +79,58 @@ public class ServiceEvenement
         }
         return evenements;
     }
+
+
+//    public List<evenement> getAllEvenements() {
+//        List<evenement> list = new ArrayList<>();
+//        String query = "SELECT * FROM evenement";
+//
+//        try (Statement stmt = cnx.createStatement();
+//             ResultSet rs = stmt.executeQuery(query)) {
+//
+//            while (rs.next()) {
+//                evenement e = new evenement(
+//                        rs.getInt("id"),
+//                        rs.getString("titre"),
+//                        type_evenement.valueOf(rs.getString("type")),
+//                        rs.getString("description"),
+//                        rs.getDate("date").toLocalDate(),
+//                        rs.getString("lieu"),
+//                        rs.getInt("nbrPlaces"),
+//                        rs.getInt("sponsor")
+//                );
+//                list.add(e);
+//            }
+//            System.out.println("✅ Récupération des événements réussie !");
+//        } catch (SQLException e) {
+//            System.err.println("❌ Erreur lors de la récupération : " + e.getMessage());
+//        }
+//        return list;
+//    }
+
+    public List<evenement> getAll() throws SQLException {
+        List<evenement> evenements = new ArrayList<>();
+        String query = "SELECT * FROM evenement";
+
+        try (
+             Statement stmt = cnx.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                evenement e = new evenement(
+                        rs.getString("titre"),
+                        models.type_evenement.valueOf(rs.getString("type")),
+                        rs.getString("description"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getString("lieu"),
+                        rs.getInt("nbr_places"),
+                        rs.getInt("sponsor")
+                );
+                evenements.add(e);
+            }
+        }
+        return evenements;
+    }
+
+
 }
