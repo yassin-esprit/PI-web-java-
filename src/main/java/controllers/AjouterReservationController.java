@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import models.Reservation_Equipement;
 import models.Status_reservation;
 import services.ServiceReservation;
+import models.Equipement;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,12 +28,15 @@ public class AjouterReservationController {
     private DatePicker datePickerReservation;
 
     @FXML
-    private ChoiceBox<String> statutChoiceBox;
+    private ComboBox<String> statutChoiceBox;
+
+    private Equipement equipement; // Déclaration de la variable equipement
 
     @FXML
     public void initialize() {
+        // Ajout des statuts possibles
         statutChoiceBox.getItems().addAll("attente", "confirme", "annule");
-        statutChoiceBox.setValue("attente");
+        statutChoiceBox.setValue("attente"); // Valeur par défaut
     }
 
     @FXML
@@ -61,7 +65,13 @@ public class AjouterReservationController {
             }
 
             // Conversion du statut en enum
-            Status_reservation statut = Status_reservation.valueOf(statutStr.replace(" ", "_").toUpperCase());
+            Status_reservation statut;
+            try {
+                statut = Status_reservation.valueOf(statutStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                showAlert("Erreur", "Statut de réservation invalide.");
+                return;
+            }
 
             // Création de la réservation
             Reservation_Equipement reservation = new Reservation_Equipement(idEvenement, idEquipement, dateReservation, statut);
@@ -72,34 +82,37 @@ public class AjouterReservationController {
 
             // Récupérer toutes les réservations après l'ajout
             List<Reservation_Equipement> reservations = serviceReservation.recuperer();
+            System.out.println("Nombre de réservations récupérées : " + reservations.size());
 
-            // Log de vérification
-            System.out.println("Nombre de réservations récupérées : " + reservations.size());  // Affiche le nombre de réservations récupérées
+            // Pour chaque réservation, affiche les détails pour débogage
+            for (Reservation_Equipement r : reservations) {
+                System.out.println(r); // Affiche l'objet pour vérifier le contenu
+            }
 
             // Chargement de la nouvelle fenêtre d'affichage
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReservation.fxml"));
-            Parent root = loader.load();  // Cette ligne peut lever une IOException
+            Parent root = loader.load();
 
             // Passer la liste des réservations au contrôleur
             AfficherReservationController rc = loader.getController();
-            rc.setReservations(reservations); // Assurez-vous que cette méthode existe
+            rc.setReservations(reservations);
 
             // Changer la scène pour afficher les réservations
             Stage stage = (Stage) txtIdEvenement.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Réinitialiser les champs
+            // Réinitialiser les champs après l'ajout
             resetFields();
 
         } catch (SQLException e) {
-            showAlert("Erreur", "Problème lors de l'ajout de la réservation: " + e.getMessage());
+            showAlert("Erreur", "Problème lors de l'ajout de la réservation : " + e.getMessage());
         } catch (IOException e) {
-            showAlert("Erreur", "Problème lors du chargement de la fenêtre d'affichage: " + e.getMessage());
+            showAlert("Erreur", "Problème lors du chargement de la fenêtre d'affichage : " + e.getMessage());
         }
     }
 
-
+    // Réinitialiser les champs après l'ajout
     private void resetFields() {
         txtIdEvenement.clear();
         txtIdEquipement.clear();
@@ -107,6 +120,12 @@ public class AjouterReservationController {
         statutChoiceBox.setValue("attente");
     }
 
+    public void initData(Equipement selectedEquipement) {
+        this.equipement = selectedEquipement;
+        txtIdEquipement.setText(String.valueOf(selectedEquipement.getId_eq()));
+    }
+
+    // Afficher une boîte de dialogue d'alerte
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

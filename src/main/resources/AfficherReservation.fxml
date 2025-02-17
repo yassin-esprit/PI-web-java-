@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.AfficherReservationController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
     <TableView fx:id="reservationTable">
         <columns>
-            <TableColumn fx:id="colIdReservation" text="ID Reservation" />
-            <TableColumn fx:id="colIdEquipement" text="ID Equipement" />
+            <TableColumn fx:id="colIdEquipment" text="ID Equipment" />
             <TableColumn fx:id="colIdEvenement" text="ID Evenement" />
             <TableColumn fx:id="colDateReservation" text="Date Reservation" />
             <TableColumn fx:id="colStatut" text="Statut" />
+
         </columns>
     </TableView>
 </VBox>

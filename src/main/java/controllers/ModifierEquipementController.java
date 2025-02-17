@@ -1,0 +1,119 @@
+package controllers;
+
+import models.Equipement;
+import models.Status_Equipement;
+import services.ServiceEquipement;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.stage.Stage;
+
+public class ModifierEquipementController {
+
+    @FXML
+    private TextField descriptionField;
+
+    @FXML
+    private TextField nomField;
+
+    @FXML
+    private TextField quantiteDisponibleField;
+
+    @FXML
+    private TextField quantiteTotaleField;
+
+    @FXML
+    private ComboBox<String> statutChoiceBox; // Correction du type générique
+
+    private Equipement equipement; // Déclaration de l'équipement à modifier
+
+    @FXML
+    public void initialize() {
+        // Ajouter les valeurs possibles du statut dans la ComboBox
+        ObservableList<String> statusList = FXCollections.observableArrayList("dispo", "indisponible", "maintenance");
+        statutChoiceBox.setItems(statusList);
+    }
+
+    // Méthode pour pré-remplir les champs avec les valeurs actuelles
+    public void initData(Equipement eq) {
+        this.equipement = eq;
+
+        // Pré-remplir les champs avec les valeurs actuelles de l'équipement
+        nomField.setText(eq.getNom());
+        descriptionField.setText(eq.getDescription());
+        quantiteTotaleField.setText(String.valueOf(eq.getQuantite_totale()));
+        quantiteDisponibleField.setText(String.valueOf(eq.getQuantite_disponible()));
+        statutChoiceBox.setValue(eq.getStatut().name()); // Convertir l'ENUM en minuscule
+    }
+
+    @FXML
+    void modifierEquipement(ActionEvent event) {
+        try {
+            if (equipement != null) {
+                // Vérifier si les champs sont remplis
+                if (nomField.getText().isEmpty() || descriptionField.getText().isEmpty() ||
+                        quantiteTotaleField.getText().isEmpty() || quantiteDisponibleField.getText().isEmpty()) {
+                    System.out.println("Veuillez remplir tous les champs.");
+                    return;
+                }
+
+                // Vérifier si les quantités sont des entiers valides
+                int quantiteTotale = Integer.parseInt(quantiteTotaleField.getText());
+                int quantiteDisponible = Integer.parseInt(quantiteDisponibleField.getText());
+
+                if (quantiteTotale < 0 || quantiteDisponible < 0 || quantiteDisponible > quantiteTotale) {
+                    System.out.println("Les quantités doivent être valides.");
+                    return;
+                }
+
+                equipement.setNom(nomField.getText());
+                equipement.setDescription(descriptionField.getText());
+                equipement.setQuantite_totale(quantiteTotale);
+                equipement.setQuantite_disponible(quantiteDisponible);
+
+                // Vérifier que la valeur dans la ComboBox est valide
+                String statutValue = statutChoiceBox.getValue();
+                if (statutValue != null && Status_Equipement.valueOf(statutValue) != null) {
+                    equipement.setStatut(Status_Equipement.valueOf(statutValue));
+                } else {
+                    System.out.println("Statut non valide.");
+                    return;
+                }
+
+                // Appel au service pour modifier l'équipement
+                ServiceEquipement service = new ServiceEquipement();
+                service.modifier(
+                        equipement.getId_eq(),
+                        equipement.getNom(),
+                        equipement.getDescription(),
+                        equipement.getQuantite_totale(),
+                        equipement.getQuantite_disponible(),
+                        equipement.getStatut()
+                );
+
+                System.out.println("Équipement modifié avec succès !");
+                fermerFenetre();
+            } else {
+                System.out.println("Aucun équipement sélectionné.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Veuillez entrer des nombres valides pour les quantités.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void annulerModification(ActionEvent event) {
+        fermerFenetre();
+    }
+
+    private void fermerFenetre() {
+        Stage stage = (Stage) nomField.getScene().getWindow();
+        stage.close();
+    }
+}

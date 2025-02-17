@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterReservationController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21.0.1"
+            fx:controller="controllers.AjouterReservationController">
+
     <children>
-        <VBox alignment="CENTER" spacing="10" prefWidth="400" prefHeight="300">
-            <Label text="Ajouter une réservation" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <VBox alignment="CENTER" layoutY="10.0" prefHeight="350" prefWidth="450" spacing="15">
 
+            <!-- Titre -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;"
+                   text="Ajouter une réservation d'équipement" />
+
+            <!-- Champ ID Événement -->
             <HBox spacing="10">
-                <Label text="ID Événement:"/>
-                <TextField fx:id="txtIdEvenement" promptText="Entrez l'ID"/>
+                <Label text="ID Événement:" />
+                <TextField fx:id="txtIdEvenement" promptText="Entrez l'ID" />
             </HBox>
 
+            <!-- Champ ID Équipement -->
             <HBox spacing="10">
-                <Label text="ID Équipement:"/>
-                <TextField fx:id="txtIdEquipement" promptText="Entrez l'ID"/>
+                <Label text="ID Équipement:" />
+                <TextField fx:id="txtIdEquipement" promptText="Entrez l'ID" />
             </HBox>
 
+            <!-- Champ Date de réservation -->
             <HBox spacing="10">
-                <Label text="Date de réservation:"/>
-                <DatePicker fx:id="datePickerReservation"/>
+                <Label text="Date de réservation:" />
+                <DatePicker fx:id="datePickerReservation" />
             </HBox>
 
+            <!-- Champ Statut -->
             <HBox spacing="10">
-                <Label text="Statut:"/>
-                <ChoiceBox fx:id="statutChoiceBox"/>
+                <Label text="Statut:" />
+                <ComboBox fx:id="statutChoiceBox" />
             </HBox>
 
-            <Button text="Ajouter" fx:id="btnAjouter" onAction="#ajouterReservation"/>
+            <!-- Bouton Ajouter -->
+            <Button fx:id="btnAjouter" onAction="#ajouterReservation" text="Ajouter"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 15px;" />
+
         </VBox>
     </children>
 </AnchorPane>
