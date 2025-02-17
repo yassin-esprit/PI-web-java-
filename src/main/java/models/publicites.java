@@ -8,8 +8,7 @@ public class publicites {
     private String emplacement_pub;
     private statut_pub statut_pub;
 
-    public publicites() {
-    }
+    public publicites() {}
 
     public publicites(String titre_pub , type_pub type_pub , String contenu_pub , String emplacement_pub, statut_pub statut_pub) {
         this.titre_pub = titre_pub;
