@@ -36,6 +36,8 @@ public class ModifierReservationController {
     private Reservation_Equipement reservation;
     private ServiceReservation reservationService;
 
+    private Runnable onModificationComplete;  // Déclaration du callback
+
     @FXML
     public void initialize() {
         // Initialiser le service
@@ -54,6 +56,11 @@ public class ModifierReservationController {
         txtIdEvenement.setText(String.valueOf(reservation.getId_evenement()));
         datePickerReservation.setValue(java.time.LocalDate.parse(reservation.getDateReservation()));
         statutChoiceBox.setValue(reservation.getStatus_reservation().name().toLowerCase());
+    }
+
+    // Méthode pour définir le callback qui sera exécuté après modification
+    public void setOnModificationComplete(Runnable onModificationComplete) {
+        this.onModificationComplete = onModificationComplete;
     }
 
     // Méthode pour gérer l'action du bouton Enregistrer
@@ -75,6 +82,10 @@ public class ModifierReservationController {
                     reservation.getStatus_reservation()
             );
 
+            // Appeler la méthode pour rafraîchir la table dans le contrôleur principal
+            if (onModificationComplete != null) {
+                onModificationComplete.run();  // Rafraîchir la table
+            }
 
             // Fermer la fenêtre de modification
             Stage stage = (Stage) btnEnregistrer.getScene().getWindow();

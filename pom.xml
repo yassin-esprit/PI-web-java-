@@ -26,9 +26,10 @@
         <!-- JavaFX Dependencies (Using ${javafx.version} for consistency) -->
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${javafx.version}</version>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>  <!-- Correction ici -->
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>

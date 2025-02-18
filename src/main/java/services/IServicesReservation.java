@@ -12,4 +12,5 @@ public interface IServicesReservation<T> {
     void supprimer(int id_reservation) throws SQLException;
     void modifier(int id_reservation, int id_equipement, int id_evenement, String dateReservation, Status_reservation status_reservation) throws SQLException;
     List<T> recuperer() throws SQLException;
+    boolean equipementExiste(int idEquipement) throws SQLException;
 }

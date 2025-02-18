@@ -1,7 +1,5 @@
 package services;
 
-import models.Equipement;
-import models.Status_Equipement;
 import models.Status_reservation;
 import tools.MyDB;
 import models.Reservation_Equipement;
@@ -18,7 +16,7 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
     }
 
     // Méthode pour vérifier si l'équipement existe
-    private boolean equipementExiste(int idEquipement) throws SQLException {
+    public boolean equipementExiste(int idEquipement) throws SQLException {
         String sql = "SELECT COUNT(*) FROM equipement WHERE id_eq = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, idEquipement);
@@ -27,8 +25,34 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
         return rs.getInt(1) > 0; // Retourne true si l'équipement existe
     }
 
+    // Méthode pour récupérer les ID des événements
+    public List<Integer> LesIdEvenements() throws SQLException {
+        List<Integer> ids = new ArrayList<>();
+        String sql = "SELECT id FROM evenement";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ResultSet rs = ste.executeQuery();
+
+        while (rs.next()) {
+            ids.add(rs.getInt("id"));
+        }
+        return ids;
+    }
+
+    // Méthode pour récupérer les ID des équipements
+    public List<Integer> LesIdEquipements() throws SQLException {
+        List<Integer> ids = new ArrayList<>();
+        String sql = "SELECT id_eq FROM equipement";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ResultSet rs = ste.executeQuery();
+
+        while (rs.next()) {
+            ids.add(rs.getInt("id_eq"));
+        }
+        return ids;
+    }
+
     // Méthode pour vérifier si l'événement existe
-    private boolean evenementExiste(int idEvenement) throws SQLException {
+    public boolean evenementExiste(int idEvenement) throws SQLException {
         String sql = "SELECT COUNT(*) FROM evenement WHERE id = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, idEvenement);
@@ -39,25 +63,25 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
 
     @Override
     public void ajouter(Reservation_Equipement R) throws SQLException {
-        // Vérification si l'équipement et l'événement existent
-        if (!equipementExiste(R.getId_equipement())) {
-            System.out.println("Erreur : L'équipement n'existe pas.");
-            return;
-        }
-        if (!evenementExiste(R.getId_evenement())) {
-            System.out.println("Erreur : L'événement n'existe pas.");
-            return;
-        }
+        String sql = "INSERT INTO reservation_equipement (id_eq, id_event, date_reservation, statut) " +
+                "SELECT e.id_eq, ev.id, ?, ? " +
+                "FROM equipement e " +
+                "INNER JOIN evenement ev ON ev.id = ? " +
+                "WHERE e.id_eq = ?";
 
-        String sql = "INSERT INTO reservation_equipement (id, id_eq, id_event, date_reservation, statut) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ste = cnx.prepareStatement(sql);
-        ste.setInt(1, R.getId_reservation());
-        ste.setInt(2, R.getId_equipement());
+        ste.setString(1, R.getDateReservation());
+        ste.setString(2, R.getStatus_reservation().name()); // Enum converti en String
         ste.setInt(3, R.getId_evenement());
-        ste.setString(4, R.getDateReservation());
-        ste.setString(5, R.getStatus_reservation().name()); // Enum converti en String
-        ste.executeUpdate();
-        System.out.println("Reservation ajouté");
+        ste.setInt(4, R.getId_equipement());
+
+        int rowsInserted = ste.executeUpdate();
+
+        if (rowsInserted > 0) {
+            System.out.println("Réservation ajoutée avec succès.");
+        } else {
+            System.out.println("Erreur : L'équipement ou l'événement n'existe pas.");
+        }
     }
 
     @Override
@@ -66,7 +90,7 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, id_reservation);
         ste.executeUpdate();
-        System.out.println("Reservation supprimé");
+        System.out.println("Réservation supprimée.");
     }
 
     @Override
@@ -81,7 +105,7 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
             return;
         }
 
-        String sql = "UPDATE reservation_equipement SET id_eq = ?, id_event = ?, date_reservation = ?,  statut = ? WHERE id = ?";
+        String sql = "UPDATE reservation_equipement SET id_eq = ?, id_event = ?, date_reservation = ?, statut = ? WHERE id = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setInt(1, id_equipement);
         ste.setInt(2, id_evenement);
@@ -89,7 +113,7 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
         ste.setString(4, status_reservation.name()); // Conversion enum en String
         ste.setInt(5, id_reservation);
         ste.executeUpdate();
-        System.out.println("Reservation modifié");
+        System.out.println("Réservation modifiée.");
     }
 
     @Override
@@ -113,16 +137,8 @@ public class ServiceReservation implements IServicesReservation<Reservation_Equi
                 System.out.println("Erreur : Statut invalide pour la réservation (id=" + R.getId_reservation() + ")");
             }
 
-            // Vérifiez ce qui est récupéré à chaque itération
-            System.out.println("ID Réservation: " + R.getId_reservation() + ", ID Equipement: " + R.getId_equipement() +
-                    ", ID Evenement: " + R.getId_evenement() + ", Date: " + R.getDateReservation() +
-                    ", Statut: " + R.getStatus_reservation());
-
             Reservations.add(R);
         }
         return Reservations;
     }
-
-
-
 }

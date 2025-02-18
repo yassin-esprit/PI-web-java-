@@ -19,52 +19,75 @@ import java.util.List;
 public class AjouterReservationController {
 
     @FXML
-    private TextField txtIdEvenement;
+    private ComboBox<Integer> comboBoxEvenement; // ComboBox pour l'ID de l'événement
 
     @FXML
-    private TextField txtIdEquipement;
+    private ComboBox<Integer> comboBoxEquipement; // ComboBox pour l'ID de l'équipement
 
     @FXML
-    private DatePicker datePickerReservation;
+    private DatePicker datePickerReservation; // DatePicker pour la date de réservation
 
     @FXML
-    private ComboBox<String> statutChoiceBox;
+    private ComboBox<String> statutChoiceBox; // ComboBox pour le statut de la réservation
 
-    private Equipement equipement; // Déclaration de la variable equipement
+    @FXML
+    private Button btnAjouter; // Bouton pour ajouter la réservation
+
+    private final ServiceReservation serviceReservation = new ServiceReservation();
 
     @FXML
     public void initialize() {
-        // Ajout des statuts possibles
+        // Initialisation des statuts
         statutChoiceBox.getItems().addAll("attente", "confirme", "annule");
         statutChoiceBox.setValue("attente"); // Valeur par défaut
+
+        chargerEvenements();
+        chargerEquipements();
+    }
+
+    private void chargerEvenements() {
+        try {
+            List<Integer> listeEvenements = serviceReservation.LesIdEvenements();
+            comboBoxEvenement.getItems().addAll(listeEvenements);
+        } catch (SQLException e) {
+            showAlert("Erreur", "Impossible de charger les événements : " + e.getMessage());
+        }
+    }
+
+    private void chargerEquipements() {
+        try {
+            List<Integer> listeEquipements = serviceReservation.LesIdEquipements();
+            comboBoxEquipement.getItems().addAll(listeEquipements);
+        } catch (SQLException e) {
+            showAlert("Erreur", "Impossible de charger les équipements : " + e.getMessage());
+        }
     }
 
     @FXML
     void ajouterReservation(ActionEvent event) {
         try {
-            // Récupération des valeurs des champs
-            String idEvenementStr = txtIdEvenement.getText().trim();
-            String idEquipementStr = txtIdEquipement.getText().trim();
-            String dateReservation = (datePickerReservation.getValue() != null) ? datePickerReservation.getValue().toString() : "";
+            // Récupération des valeurs sélectionnées
+            Integer idEvenement = comboBoxEvenement.getValue();
+            Integer idEquipement = comboBoxEquipement.getValue();
+            String dateReservation = (datePickerReservation.getValue() != null) ? datePickerReservation.getValue().toString() : null;
             String statutStr = statutChoiceBox.getValue();
 
-            // Vérification des champs obligatoires
-            if (idEvenementStr.isEmpty() || idEquipementStr.isEmpty() || dateReservation.isEmpty()) {
-                showAlert("Erreur", "Veuillez remplir tous les champs.");
+            // Vérifications des champs
+            if (idEvenement == null) {
+                showAlert("Erreur", "Veuillez sélectionner un événement.");
                 return;
             }
 
-            // Vérification des ID numériques
-            int idEvenement, idEquipement;
-            try {
-                idEvenement = Integer.parseInt(idEvenementStr);
-                idEquipement = Integer.parseInt(idEquipementStr);
-            } catch (NumberFormatException e) {
-                showAlert("Erreur", "Veuillez entrer des valeurs numériques valides pour les identifiants.");
+            if (idEquipement == null) {
+                showAlert("Erreur", "Veuillez sélectionner un équipement.");
                 return;
             }
 
-            // Conversion du statut en enum
+            if (dateReservation == null || dateReservation.isEmpty()) {
+                showAlert("Erreur", "Veuillez remplir la date de réservation.");
+                return;
+            }
+
             Status_reservation statut;
             try {
                 statut = Status_reservation.valueOf(statutStr.toUpperCase());
@@ -75,34 +98,14 @@ public class AjouterReservationController {
 
             // Création de la réservation
             Reservation_Equipement reservation = new Reservation_Equipement(idEvenement, idEquipement, dateReservation, statut);
-            ServiceReservation serviceReservation = new ServiceReservation();
-            serviceReservation.ajouter(reservation); // Ajouter à la base de données
+            serviceReservation.ajouter(reservation);
 
             showAlert("Succès", "Réservation ajoutée avec succès.");
 
-            // Récupérer toutes les réservations après l'ajout
-            List<Reservation_Equipement> reservations = serviceReservation.recuperer();
-            System.out.println("Nombre de réservations récupérées : " + reservations.size());
+            // Rafraîchir la liste des réservations et afficher la nouvelle fenêtre
+            afficherReservations();
 
-            // Pour chaque réservation, affiche les détails pour débogage
-            for (Reservation_Equipement r : reservations) {
-                System.out.println(r); // Affiche l'objet pour vérifier le contenu
-            }
-
-            // Chargement de la nouvelle fenêtre d'affichage
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReservation.fxml"));
-            Parent root = loader.load();
-
-            // Passer la liste des réservations au contrôleur
-            AfficherReservationController rc = loader.getController();
-            rc.setReservations(reservations);
-
-            // Changer la scène pour afficher les réservations
-            Stage stage = (Stage) txtIdEvenement.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            // Réinitialiser les champs après l'ajout
+            // Réinitialisation des champs
             resetFields();
 
         } catch (SQLException e) {
@@ -112,20 +115,36 @@ public class AjouterReservationController {
         }
     }
 
-    // Réinitialiser les champs après l'ajout
+    private void afficherReservations() throws IOException, SQLException {
+        List<Reservation_Equipement> reservations = serviceReservation.recuperer();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReservation.fxml"));
+        Parent root = loader.load();
+
+        AfficherReservationController rc = loader.getController();
+        rc.setReservations(reservations);
+
+        Stage stage = (Stage) comboBoxEvenement.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    private Equipement equipement;
+
+    public void initData(Equipement selectedEquipement) {
+        if (selectedEquipement != null) {
+            this.equipement = selectedEquipement;
+            comboBoxEquipement.setValue(selectedEquipement.getId_eq());
+        }
+    }
+
     private void resetFields() {
-        txtIdEvenement.clear();
-        txtIdEquipement.clear();
+        comboBoxEvenement.getSelectionModel().clearSelection();
+        comboBoxEquipement.getSelectionModel().clearSelection();
         datePickerReservation.setValue(null);
         statutChoiceBox.setValue("attente");
     }
 
-    public void initData(Equipement selectedEquipement) {
-        this.equipement = selectedEquipement;
-        txtIdEquipement.setText(String.valueOf(selectedEquipement.getId_eq()));
-    }
-
-    // Afficher une boîte de dialogue d'alerte
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

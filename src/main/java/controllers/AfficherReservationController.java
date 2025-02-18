@@ -1,17 +1,12 @@
 package controllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.util.Callback;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import models.Reservation_Equipement;
 import services.ServiceReservation;
 import java.sql.SQLException;
@@ -21,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-
 
 public class AfficherReservationController {
 
@@ -40,7 +34,15 @@ public class AfficherReservationController {
     @FXML
     private TableColumn<Reservation_Equipement, String> colStatut;
 
+    @FXML
+    private Button btnModifier;
+
+    @FXML
+    private Button btnSupprimer;
+
     private ServiceReservation reservationService;
+
+    private Reservation_Equipement selectedReservation;
 
     @FXML
     public void initialize() {
@@ -53,12 +55,14 @@ public class AfficherReservationController {
         // Initialiser le service
         reservationService = new ServiceReservation();
 
-        // Ajouter les boutons Modifier et Supprimer
-        addModifierButtonToTable();
-        addSupprimerButtonToTable();
-
         // Afficher les réservations
         afficherReservations();
+
+        // Gestion de la sélection dans la table
+        reservationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            selectedReservation = newValue;  // Réservation sélectionnée
+            updateButtonsState();  // Mettre à jour l'état des boutons
+        });
     }
 
     public void afficherReservations() {
@@ -76,113 +80,64 @@ public class AfficherReservationController {
         reservationTable.setItems(observableReservations);
     }
 
-    private void addModifierButtonToTable() {
-        TableColumn<Reservation_Equipement, Void> colModifier = new TableColumn<>("Modifier");
-        Callback<TableColumn<Reservation_Equipement, Void>, TableCell<Reservation_Equipement, Void>> cellFactory =
-                new Callback<>() {
-                    @Override
-                    public TableCell<Reservation_Equipement, Void> call(final TableColumn<Reservation_Equipement, Void> param) {
-                        final TableCell<Reservation_Equipement, Void> cell = new TableCell<>() {
-                            private final Button btn = new Button("Modifier");
+    @FXML
+    private void handleModifierButton() {
+        if (selectedReservation != null) {
+            try {
+                // Charger la vue ModifierReservation.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReservation.fxml"));
+                Parent root = loader.load();
 
-                            {
-                                btn.setOnAction(event -> {
-                                    Reservation_Equipement reservation = getTableView().getItems().get(getIndex());
-                                    handleModifierButton(reservation);
-                                });
-                            }
+                // Récupérer le contrôleur de la fenêtre ModifierReservation
+                ModifierReservationController controller = loader.getController();
 
-                            @Override
-                            public void updateItem(Void item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                } else {
-                                    setGraphic(btn);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
+                // Passer la réservation sélectionnée au contrôleur de modification
+                controller.setReservation(selectedReservation);
 
-        colModifier.setCellFactory(cellFactory);
-        reservationTable.getColumns().add(colModifier);
-    }
+                // Passer la méthode de rafraîchissement à ModifierReservationController
+                controller.setOnModificationComplete(() -> {
+                    afficherReservations();  // Rafraîchir la table après modification
+                });
 
-    private void addSupprimerButtonToTable() {
-        TableColumn<Reservation_Equipement, Void> colSupprimer = new TableColumn<>("Supprimer");
-        Callback<TableColumn<Reservation_Equipement, Void>, TableCell<Reservation_Equipement, Void>> cellFactory =
-                new Callback<>() {
-                    @Override
-                    public TableCell<Reservation_Equipement, Void> call(final TableColumn<Reservation_Equipement, Void> param) {
-                        final TableCell<Reservation_Equipement, Void> cell = new TableCell<>() {
-                            private final Button btn = new Button("Supprimer");
-
-                            {
-                                btn.setOnAction(event -> {
-                                    Reservation_Equipement reservation = getTableView().getItems().get(getIndex());
-                                    handleSupprimerButton(reservation);
-                                });
-                            }
-
-                            @Override
-                            public void updateItem(Void item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                } else {
-                                    setGraphic(btn);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-
-        colSupprimer.setCellFactory(cellFactory);
-        reservationTable.getColumns().add(colSupprimer);
-    }
-
-    private void handleModifierButton(Reservation_Equipement reservation) {
-        try {
-            // Charger la vue ModifierReservation.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReservation.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer le contrôleur de la fenêtre ModifierReservation
-            ModifierReservationController controller = loader.getController();
-
-            // Passer la réservation sélectionnée au contrôleur de modification
-            controller.setReservation(reservation);
-
-            // Afficher la nouvelle fenêtre
-            Stage stage = new Stage();
-            stage.setTitle("Modifier Réservation");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Impossible d'ouvrir la fenêtre de modification.");
+                // Afficher la nouvelle fenêtre
+                Stage stage = new Stage();
+                stage.setTitle("Modifier Réservation");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Impossible d'ouvrir la fenêtre de modification.");
+            }
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une réservation à modifier.");
         }
     }
 
 
-    private void handleSupprimerButton(Reservation_Equipement reservation) {
-        if (reservation != null) {
+    @FXML
+    private void handleSupprimerButton() {
+        if (selectedReservation != null) {
             try {
-                reservationService.supprimer(reservation.getId_reservation());
-                System.out.println("Réservation supprimée : " + reservation.getId_reservation());
+                reservationService.supprimer(selectedReservation.getId_reservation());
+                System.out.println("Réservation supprimée : " + selectedReservation.getId_reservation());
                 afficherReservations(); // Rafraîchir la TableView
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Erreur", "Une erreur s'est produite lors de la suppression de la réservation.");
             }
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une réservation à supprimer.");
         }
     }
 
+    private void updateButtonsState() {
+        boolean isSelected = selectedReservation != null;
+        btnModifier.setDisable(!isSelected);
+        btnSupprimer.setDisable(!isSelected);
+    }
+
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
