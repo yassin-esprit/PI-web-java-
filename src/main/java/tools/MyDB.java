@@ -5,24 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
-    public final String URL = "jdbc:mysql://localhost:3306/dbpi";
-    public final String USER = "root";
-    public final String pwd = "";
+    public final String URL="jdbc:mysql://localhost:3306/Esprit3A24";
+    public final String USER="root";
+    public final String pwd ="";
     private Connection connection;
     private static MyDB myDB;
-
-    private MyDB() {
+    private MyDB(){
         try {
-            connection = DriverManager.getConnection(URL, USER, pwd);
+            connection=DriverManager.getConnection(URL,USER,pwd);
             System.out.println("Connection etablie");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
+
     public static MyDB getInstance() {
-        if (myDB == null)
-            myDB = new MyDB();
+        if(myDB ==null)
+            myDB=new MyDB();
         return myDB;
     }
 
