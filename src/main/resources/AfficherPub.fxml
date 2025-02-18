@@ -26,5 +26,7 @@
         <Button fx:id="idSupprimer" layoutX="421.0" layoutY="356.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="113.0" text="Supprimer" />
         <!-- Add the Display button -->
         <Button fx:id="idDisplay" layoutX="300.0" layoutY="356.0" mnemonicParsing="false" onAction="#displayPublicites" prefHeight="26.0" prefWidth="113.0" text="Display" />
+        <Button fx:id="idModifier" layoutX="300.0" layoutY="356.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="113.0" text="Modifier" />
+
     </children>
 </AnchorPane>

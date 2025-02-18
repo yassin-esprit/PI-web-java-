@@ -1,11 +1,15 @@
 package controllers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -14,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import models.publicites;
 import models.statut_pub;
 import models.type_pub;
@@ -110,6 +115,23 @@ public class AfficherPubController {
         alert.show();
     }
 
-    public void modifier(MouseEvent mouseEvent) {
+    @FXML
+    void modifier(ActionEvent event) {
+        publicites selectedPub = idtable.getSelectionModel().getSelectedItem();
+        if (selectedPub != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierpub.fxml"));
+                Parent root = loader.load();
+                ModifierPubController controller = loader.getController();
+                controller.initData(selectedPub); // Pass the selected publicite to the modifier controller
+                Stage stage = (Stage) idtable.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité à modifier.");
+        }
     }
 }
