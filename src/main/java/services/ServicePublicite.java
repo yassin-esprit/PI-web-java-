@@ -71,26 +71,39 @@ public class ServicePublicite implements IServices<publicites> {
             System.out.println("Publicité modifiée avec succès !");
         }
     }
-
-    @Override
     public List<publicites> recuperer() throws SQLException {
         String sql = "SELECT * FROM publicites";
-        Statement ste = cnx.createStatement();
-        ResultSet rs = ste.executeQuery(sql);
-
+        Statement ste = null;
+        ResultSet rs = null;
         List<publicites> publicitesList = new ArrayList<>();
-        while (rs.next()) {
-            publicites p = new publicites();
-            p.setId_pub(rs.getInt("id_pub"));
-            p.setTitre_pub(rs.getString("titre_pub"));
-            p.setType_pub(type_pub.valueOf(rs.getString("type_pub")));
-            p.setContenu_pub(rs.getString("contenu_pub"));
-            p.setEmplacement_pub(rs.getString("emplacement_pub"));
-            p.setStatut_pub(statut_pub.valueOf(rs.getString("statut_pub"))); // Correction ici
 
-            publicitesList.add(p);
+        try {
+            ste = cnx.createStatement();
+            rs = ste.executeQuery(sql);
+            while (rs.next()) {
+                publicites p = new publicites();
+                p.setId_pub(rs.getInt("id_pub"));
+                p.setTitre_pub(rs.getString("titre_pub"));
+                p.setType_pub(type_pub.valueOf(rs.getString("type_pub")));  // Vérifiez les valeurs correspondantes dans la DB
+                p.setContenu_pub(rs.getString("contenu_pub"));
+                p.setEmplacement_pub(rs.getString("emplacement_pub"));
+                p.setStatut_pub(statut_pub.valueOf(rs.getString("statut_pub")));  // Vérifiez les valeurs correspondantes dans la DB
+                publicitesList.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // Affichez l'erreur dans la console pour plus de détails
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ste != null) {
+                ste.close();
+            }
         }
+
         return publicitesList;
     }
+
 }
 

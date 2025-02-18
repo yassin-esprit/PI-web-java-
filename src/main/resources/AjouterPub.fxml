@@ -3,24 +3,25 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="443.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubController">
+<AnchorPane prefHeight="450.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubController">
    <children>
       <Text layoutX="265.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AJOUTER PUBLICITE" textAlignment="CENTER" wrappingWidth="149.60000000000014">
          <font>
             <Font name="Bell MT" size="15.0" />
          </font>
       </Text>
-      <TextField fx:id="idTitre" layoutX="188.0" layoutY="94.0" />
-      <ChoiceBox fx:id="idType" layoutX="188.0" layoutY="156.0" prefWidth="150.0" />
-      <TextField fx:id="idContenu" layoutX="188.0" layoutY="199.0" prefHeight="46.0" prefWidth="200.0" />
-      <TextField fx:id="idEmplacement" layoutX="188.0" layoutY="275.0" />
-      <ChoiceBox fx:id="idStatut" layoutX="188.0" layoutY="339.0" prefWidth="150.0" />
-      <Button layoutX="483.0" layoutY="339.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter ">
+      <TextField fx:id="idTitre" layoutX="188.0" layoutY="94.0" prefHeight="26.0" prefWidth="190.0" />
+      <ChoiceBox fx:id="idType" layoutX="188.0" layoutY="156.0" prefHeight="26.0" prefWidth="190.0" />
+      <TextField fx:id="idContenu" layoutX="188.0" layoutY="199.0" prefHeight="46.0" prefWidth="190.0" />
+      <TextField fx:id="idEmplacement" layoutX="188.0" layoutY="275.0" prefHeight="26.0" prefWidth="190.0" />
+      <ChoiceBox fx:id="idStatut" layoutX="188.0" layoutY="339.0" prefHeight="26.0" prefWidth="190.0" />
+      <Button layoutX="227.0" layoutY="392.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="20.0" prefWidth="111.0" text="Ajouter ">
          <font>
             <Font name="Britannic Bold" size="12.0" />
          </font>
@@ -30,5 +31,6 @@
       <Text layoutX="50.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu publicite" />
       <Text layoutX="50.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Emplacement Publicite" />
       <Text layoutX="50.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statut Publicite" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="412.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
