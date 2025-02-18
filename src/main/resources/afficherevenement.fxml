@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEvenementController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to right, #1E3C72, #2A5298);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEvenementController">
+
     <children>
-        <!-- Add a new button to load events -->
-        <Button layoutX="274.0" layoutY="35.0" mnemonicParsing="false" onAction="#loadEvenements" text="Afficher les Événements" />
+        <VBox layoutX="50.0" layoutY="20.0" spacing="20">
 
-        <TableView fx:id="tableEvenements" layoutX="1.0" layoutY="100.0" prefHeight="200.0" prefWidth="594.0">
-            <columns>
-                <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="colTitre" prefWidth="75.0" text="Titre" />
-                <TableColumn fx:id="colType" prefWidth="75.0" text="Type" />
-                <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
-                <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
-                <TableColumn fx:id="colLieu" prefWidth="75.0" text="Lieu" />
-                <TableColumn fx:id="colNbrPlaces" prefWidth="75.0" text="Nbr Places" />
-                <TableColumn fx:id="colSponsor" prefWidth="75.0" text="Sponsor" />
-            </columns>
-        </TableView>
-        <Button layoutX="274.0" layoutY="35.0" mnemonicParsing="false" onAction="#retour" text="retour" />
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Gestion des Événements" />
+
+            <HBox spacing="20">
+                <Button onAction="#loadEvenements" style="-fx-background-color: #29c3d1; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="Afficher les Événements" />
+
+                <Button onAction="#retour" style="-fx-background-color: #36f439; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="ajouter" />
+            <Button onAction="#deleteEvenement" style="-fx-background-color: #f43636; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="supprimer" />
+            </HBox>
+
+            <TableView fx:id="tableEvenements" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-radius: 10px;">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="90.0" text="ID" />
+                    <TableColumn fx:id="colTitre" prefWidth="120.0" text="Titre" />
+                    <TableColumn fx:id="colType" prefWidth="120.0" text="Type" />
+                    <TableColumn fx:id="colDescription" prefWidth="180.0" text="Description" />
+                    <TableColumn fx:id="colDate" prefWidth="120.0" text="Date" />
+                    <TableColumn fx:id="colLieu" prefWidth="120.0" text="Lieu" />
+                    <TableColumn fx:id="colNbrPlaces" prefWidth="120.0" text="Nbr Places" />
+                    <TableColumn fx:id="colSponsor" prefWidth="120.0" text="Sponsor" />
+                </columns>
+            </TableView>
+
+        </VBox>
     </children>
 </AnchorPane>

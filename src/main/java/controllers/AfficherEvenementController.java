@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AfficherEvenementController implements Initializable {
@@ -77,7 +80,41 @@ public class AfficherEvenementController implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception (e.g., show an error message)
+            showAlert("Erreur", "Une erreur s'est produite lors du chargement des événements.", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    void deleteEvenement(ActionEvent event) {
+        // Get the selected event from the table
+        evenement selectedEvenement = tableEvenements.getSelectionModel().getSelectedItem();
+
+        if (selectedEvenement == null) {
+            showAlert("Aucune sélection", "Veuillez sélectionner un événement à supprimer.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        // Confirm deletion with the user
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation de suppression");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cet événement ?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                // Delete the event from the database
+                serviceEvenement.supprimer(selectedEvenement.getId());
+
+                // Remove the event from the table
+                tableEvenements.getItems().remove(selectedEvenement);
+
+                showAlert("Succès", "Événement supprimé avec succès.", Alert.AlertType.INFORMATION);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Une erreur s'est produite lors de la suppression de l'événement.", Alert.AlertType.ERROR);
+            }
         }
     }
 
@@ -90,5 +127,14 @@ public class AfficherEvenementController implements Initializable {
         } catch (IOException e) {
             System.err.println("Erreur lors du retour : " + e.getMessage());
         }
+    }
+
+    // Helper method to show alerts
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
