@@ -11,10 +11,10 @@ public class MyDB {
     private Connection connection;
     private static MyDB myDB;
 
-    public MyDB() {
+    private MyDB() {
         try {
             connection = DriverManager.getConnection(URL, USER, pwd);
-            System.out.println("Connection successfully established");
+            System.out.println("Connection etablie");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
