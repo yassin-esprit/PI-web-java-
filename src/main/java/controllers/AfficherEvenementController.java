@@ -136,5 +136,33 @@ public class AfficherEvenementController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+
+    }
+
+    @FXML
+    void modifyEvenement(ActionEvent event) {
+        // Get the selected event from the table
+        evenement selectedEvenement = tableEvenements.getSelectionModel().getSelectedItem();
+
+        if (selectedEvenement == null) {
+            showAlert("Aucune sélection", "Veuillez sélectionner un événement à modifier.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        try {
+            // Load the modify page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierevenement.fxml"));
+            Parent root = loader.load();
+
+            // Pass the selected event to the ModifierEvenementController
+            ModifierEvenementController controller = loader.getController();
+            controller.initData(selectedEvenement);
+
+            // Switch to the modify page
+            tableEvenements.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur s'est produite lors du chargement de la page de modification.", Alert.AlertType.ERROR);
+        }
     }
 }

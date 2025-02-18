@@ -20,6 +20,7 @@
 
                 <Button onAction="#retour" style="-fx-background-color: #36f439; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="ajouter" />
             <Button onAction="#deleteEvenement" style="-fx-background-color: #f43636; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="supprimer" />
+            <Button onAction="#modifyEvenement" style="-fx-background-color: #36f439; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px;" text="modifer" />
             </HBox>
 
             <TableView fx:id="tableEvenements" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-radius: 10px;">
