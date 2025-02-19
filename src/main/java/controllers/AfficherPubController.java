@@ -59,12 +59,12 @@ public class AfficherPubController {
         try {
             List<publicites> publicitesList = this.servicePublicites.recuperer();
             if (publicitesList.isEmpty()) {
-                this.showAlert("Aucune publicite", "Il n'y a aucune publicit\u00e9 disponible.");
+                this.showAlert("Aucune publicite", "Il n'y a aucune publicite disponible.");
             }
 
             this.setPublicites(publicitesList);
         } catch (SQLException var2) {
-            this.showAlert("Erreur de base de donn\u00e9es", "Une erreur s'est produite lors de la r\u00e9cup\u00e9ration des publicit\u00e9s.");
+            this.showAlert("Erreur de base de donnees", "Une erreur s'est produite lors de la recuperation des publicites.");
             var2.printStackTrace();
         }
 
@@ -74,7 +74,7 @@ public class AfficherPubController {
     void supprimer(ActionEvent event) {
         publicites selectedPub = (publicites)this.idtable.getSelectionModel().getSelectedItem();
         if (selectedPub != null) {
-            Alert confirmation = new Alert(AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicit\u00e9 ?", new ButtonType[]{ButtonType.YES, ButtonType.NO});
+            Alert confirmation = new Alert(AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicite ?", new ButtonType[]{ButtonType.YES, ButtonType.NO});
             confirmation.showAndWait().ifPresent((response) -> {
                 if (response == ButtonType.YES) {
                     try {
@@ -87,7 +87,7 @@ public class AfficherPubController {
 
             });
         } else {
-            this.showAlert("Aucune publicit\u00e9 s\u00e9lectionn\u00e9e", "Veuillez s\u00e9lectionner une publicit\u00e9 \u00e0 supprimer.");
+            this.showAlert("Aucune publicite slectionne", "Veuillez slectionner une publicite a supprimer.");
         }
 
     }
@@ -131,7 +131,7 @@ public class AfficherPubController {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité à modifier.");
+            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.");
         }
     }
 }
