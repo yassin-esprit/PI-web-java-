@@ -33,8 +33,8 @@ public class Main {
         publicites p = new publicites(1, "hola" , type_pub.video , "je suis la " , "tunis" , statut_pub.active );
         publicites p2 = new publicites(2, "lilas est la " , type_pub.image , "kim o " , "bardo" , statut_pub.inactif );
 
-        campagnes_publicitaires c2 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 3);
-        campagnes_publicitaires c3 = new campagnes_publicitaires("ELMA", 1500, "2025-02-01", "2025-02-20", statut_camp.en_cours, 4);
+      campagnes_publicitaires c2 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 62);
+        //campagnes_publicitaires c3 = new campagnes_publicitaires("ELMA", 1500, "2025-02-01", "2025-02-20", statut_camp.en_cours, 26);
 
         ServicePublicite sv = new ServicePublicite();
         ServiceCamp sc = new ServiceCamp();
@@ -57,9 +57,9 @@ public class Main {
         }
 
         try {
-            //sc.ajouter(c2);
+           // sc.ajouter(c2);
             //sc.ajouter(c3);
-            sc.modifier(3,"ELMA",8000,"2025-02-01", "2025-02-20", statut_camp.suspendue,4);
+           // sc.modifier(3,"ELMA",8000,"2025-02-01", "2025-02-20", statut_camp.suspendue,4);
 
           //  sc.supprimer(2);
            System.out.println(sc.recuperer());

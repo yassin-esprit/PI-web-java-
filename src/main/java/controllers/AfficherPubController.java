@@ -108,6 +108,31 @@ public class AfficherPubController {
         this.updatePublicitesList();
     }
 
+    @FXML
+    void gotoCampagnePub(ActionEvent event) {
+        publicites selectedPub = idtable.getSelectionModel().getSelectedItem();
+        if (selectedPub == null) {
+            System.out.println("Veuillez sélectionner une publicité !");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCamp.fxml"));
+            Parent root = loader.load();
+
+            AjouterCampController controller = loader.getController();
+            controller.initData(selectedPub);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ajouter une Campagne Publicitaire");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle(title);
@@ -134,4 +159,7 @@ public class AfficherPubController {
             showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.");
         }
     }
+
+
+
 }
