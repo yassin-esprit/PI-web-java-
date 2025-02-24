@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +18,34 @@ public class AfficherEquipementController {
 
     @FXML
     private ListView<Equipement> listViewEquipement;
+    public void initialize() {
+        // Définir une CellFactory pour personnaliser l'affichage
+        listViewEquipement.setCellFactory(param -> new ListCell<Equipement>() {
+            @Override
+            protected void updateItem(Equipement equipement, boolean empty) {
+                super.updateItem(equipement, empty);
+                if (empty || equipement == null) {
+                    setText(null);
+                    setGraphic(null); // Effacer le contenu si l'élément est vide
+                } else {
+                    // Afficher les informations de l'équipement dans un format personnalisé
+                    setText("Nom: " + equipement.getNom() + "\n" +
+                            "Description: " + equipement.getDescription() + "\n" +
+                            "Quantité disponible: " + equipement.getQuantite_disponible());
+                }
+            }
+        });
+
+        // Charger les équipements
+        try {
+            List<Equipement> equipementsList = serviceEquipement.recuperer();
+            equipements.setAll(equipementsList);
+            listViewEquipement.setItems(equipements);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Erreur lors de la récupération des équipements.");
+        }
+    }
 
     private ObservableList<Equipement> equipements = FXCollections.observableArrayList();
     private ServiceEquipement serviceEquipement = new ServiceEquipement();

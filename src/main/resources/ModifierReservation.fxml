@@ -15,13 +15,14 @@
         <!-- Titre -->
         <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Modifier la Réservation" />
 
-        <!-- Champ pour l'ID de l'équipement -->
-        <Label text="ID Equipement:" />
-        <TextField fx:id="txtIdEquipement" promptText="Entrez l'ID de l'équipement" />
+        <!-- Champ pour le Nom de l'équipement -->
+        <Label text="Nom Equipement:" />
+        <ComboBox fx:id="comboBoxEquipement" promptText="Sélectionnez le Nom de l'équipement" />
+
 
         <!-- Champ pour l'ID de l'événement -->
-        <Label text="ID Evenement:" />
-        <TextField fx:id="txtIdEvenement" promptText="Entrez l'ID de l'événement" />
+        <Label text="Titre Evenement:" />
+        <ComboBox fx:id="comboBoxEvenement" promptText="Entrez titre de l'événement" />
 
         <!-- Champ pour la date de réservation -->
         <Label text="Date de Réservation:" />

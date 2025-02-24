@@ -1,0 +1,29 @@
+/* Style de base pour la ListView */
+.list-view {
+    -fx-background-color: #f4f4f4; /* Couleur de fond */
+    -fx-border-color: #ccc; /* Bordure */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Style pour chaque cellule de la ListView */
+.list-cell {
+    -fx-background-color: #ffffff; /* Couleur de fond des cellules */
+    -fx-border-color: #ddd; /* Bordure des cellules */
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+/* Style pour les cellules sélectionnées */
+.list-cell:filled:selected {
+    -fx-background-color: #e48355; /* Couleur de fond pour la sélection */
+    -fx-text-fill: white; /* Couleur du texte pour la sélection */
+}
+
+/* Style pour les cellules au survol */
+.list-cell:filled:hover {
+    -fx-background-color: #f0f0f0; /* Couleur de fond au survol */
+}

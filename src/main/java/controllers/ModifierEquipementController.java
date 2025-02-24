@@ -26,9 +26,9 @@ public class ModifierEquipementController {
     private TextField quantiteTotaleField;
 
     @FXML
-    private ComboBox<String> statutChoiceBox; // Correction du type générique
+    private ComboBox<String> statutChoiceBox;
 
-    private Equipement equipement; // Déclaration de l'équipement à modifier
+    private Equipement equipement;
 
     @FXML
     public void initialize() {
@@ -37,11 +37,9 @@ public class ModifierEquipementController {
         statutChoiceBox.setItems(statusList);
     }
 
-    // Méthode pour pré-remplir les champs avec les valeurs actuelles
     public void initData(Equipement eq) {
         this.equipement = eq;
 
-        // Pré-remplir les champs avec les valeurs actuelles de l'équipement
         nomField.setText(eq.getNom());
         descriptionField.setText(eq.getDescription());
         quantiteTotaleField.setText(String.valueOf(eq.getQuantite_totale()));
@@ -53,14 +51,12 @@ public class ModifierEquipementController {
     void modifierEquipement(ActionEvent event) {
         try {
             if (equipement != null) {
-                // Vérifier si les champs sont remplis
                 if (nomField.getText().isEmpty() || descriptionField.getText().isEmpty() ||
                         quantiteTotaleField.getText().isEmpty() || quantiteDisponibleField.getText().isEmpty()) {
                     System.out.println("Veuillez remplir tous les champs.");
                     return;
                 }
 
-                // Vérifier si les quantités sont des entiers valides
                 int quantiteTotale = Integer.parseInt(quantiteTotaleField.getText());
                 int quantiteDisponible = Integer.parseInt(quantiteDisponibleField.getText());
 
@@ -74,7 +70,6 @@ public class ModifierEquipementController {
                 equipement.setQuantite_totale(quantiteTotale);
                 equipement.setQuantite_disponible(quantiteDisponible);
 
-                // Vérifier que la valeur dans la ComboBox est valide
                 String statutValue = statutChoiceBox.getValue();
                 if (statutValue != null && Status_Equipement.valueOf(statutValue) != null) {
                     equipement.setStatut(Status_Equipement.valueOf(statutValue));
@@ -83,7 +78,6 @@ public class ModifierEquipementController {
                     return;
                 }
 
-                // Appel au service pour modifier l'équipement
                 ServiceEquipement service = new ServiceEquipement();
                 service.modifier(
                         equipement.getId_eq(),

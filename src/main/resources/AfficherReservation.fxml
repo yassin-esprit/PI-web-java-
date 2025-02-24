@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
-
     <!-- HBox pour centrer le titre -->
     <HBox alignment="CENTER" spacing="10">
         <Label text="Liste des réservations" style="-fx-font-size: 18px; -fx-font-weight: bold;" textFill="#e48355"/>
@@ -17,8 +16,8 @@
     <!-- TableView pour afficher les réservations -->
     <TableView fx:id="reservationTable">
         <columns>
-            <TableColumn fx:id="colIdEquipment" text="ID Equipment" />
-            <TableColumn fx:id="colIdEvenement" text="ID Evenement" />
+            <TableColumn fx:id="colNomEquipement" text="Nom Equipement" />
+            <TableColumn fx:id="colTitreEvenement" text="Titre Evenement" />
             <TableColumn fx:id="colDateReservation" text="Date Reservation" />
             <TableColumn fx:id="colStatut" text="Statut" />
         </columns>

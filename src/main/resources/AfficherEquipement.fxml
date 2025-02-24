@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEquipementController">
+<AnchorPane prefHeight="442.0" prefWidth="600.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEquipementController">
 
     <!-- HBox pour centrer le titre -->
     <HBox alignment="CENTER" layoutX="0.0" layoutY="10.0" prefWidth="600.0">
-        <Label text="Liste des Equipement" style="-fx-font-size: 18px; -fx-font-weight: bold;" textFill="#e48355"/>
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Equipement" textFill="#e48355" />
     </HBox>
 
     <!-- ListView pour afficher la liste des équipements -->
-    <ListView fx:id="listViewEquipement" layoutX="21.0" layoutY="50.0" prefHeight="360.0" prefWidth="549.0" />
+    <ListView fx:id="listViewEquipement" layoutX="25.0" layoutY="40.0" prefHeight="360.0" prefWidth="549.0" />
 
     <!-- Boutons -->
-    <Button layoutX="54.0" layoutY="337.0" mnemonicParsing="false" onAction="#GoToModifier" text="Modifier" />
-    <Button layoutX="138.0" layoutY="337.0" mnemonicParsing="false" onAction="#Supprimer" text="Supprimer" />
-    <Button layoutX="231.0" layoutY="337.0" mnemonicParsing="false" onAction="#goToReservation" text="Reserver" />
+    <Button layoutX="35.0" layoutY="408.0" mnemonicParsing="false" onAction="#GoToModifier" text="Modifier" />
+    <Button layoutX="130.0" layoutY="408.0" mnemonicParsing="false" onAction="#Supprimer" text="Supprimer" />
+    <Button layoutX="226.0" layoutY="408.0" mnemonicParsing="false" onAction="#goToReservation" text="Reserver" />
 
 </AnchorPane>

@@ -16,8 +16,8 @@ public class Main {
         } else {
             System.out.println("Failed to connect to the database.");
         }
-        Reservation_Equipement R1 = new Reservation_Equipement( 1, 2, 1,"2025-02-01",  Status_reservation.CONFIRME);
-        Reservation_Equipement R2 = new Reservation_Equipement( 2, 2, 1, "2026-02-01",  Status_reservation.ANNULE);
+       // Reservation_Equipement R1 = new Reservation_Equipement( 1, 2, 1,"2025-02-01",  Status_reservation.CONFIRME);
+        //Reservation_Equipement R2 = new Reservation_Equipement( 2, 2, 1, "2026-02-01",  Status_reservation.ANNULE);
         Equipement e1 = new Equipement(1,"bafle","top",20,10,Status_Equipement.dispo);
         Equipement e2 = new Equipement(2,"lumiere","geante",10,5,Status_Equipement.dispo);
         ServiceReservation sr = new ServiceReservation();

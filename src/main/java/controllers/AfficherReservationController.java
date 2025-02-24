@@ -1,12 +1,10 @@
 package controllers;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import models.Reservation_Equipement;
 import services.ServiceReservation;
 import java.sql.SQLException;
@@ -23,10 +21,10 @@ public class AfficherReservationController {
     private TableView<Reservation_Equipement> reservationTable;
 
     @FXML
-    private TableColumn<Reservation_Equipement, Integer> colIdEquipment;
+    private TableColumn<Reservation_Equipement, String> colNomEquipement;
 
     @FXML
-    private TableColumn<Reservation_Equipement, Integer> colIdEvenement;
+    private TableColumn<Reservation_Equipement, String> colTitreEvenement;
 
     @FXML
     private TableColumn<Reservation_Equipement, String> colDateReservation;
@@ -46,22 +44,25 @@ public class AfficherReservationController {
 
     @FXML
     public void initialize() {
-        // Initialisation des colonnes
-        colIdEquipment.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId_equipement()).asObject());
-        colIdEvenement.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId_evenement()).asObject());
-        colDateReservation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDateReservation()));
-        colStatut.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus_reservation().name()));
+        colNomEquipement.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEquipement().getNom())
+        );
+        colTitreEvenement.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEvenement().getTitre())
+        );
+        colDateReservation.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDateReservation())
+        );
+        colStatut.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getStatus_reservation().name())
+        );
 
-        // Initialiser le service
         reservationService = new ServiceReservation();
-
-        // Afficher les réservations
         afficherReservations();
 
-        // Gestion de la sélection dans la table
         reservationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            selectedReservation = newValue;  // Réservation sélectionnée
-            updateButtonsState();  // Mettre à jour l'état des boutons
+            selectedReservation = newValue;
+            updateButtonsState();
         });
     }
 
@@ -71,7 +72,7 @@ public class AfficherReservationController {
             setReservations(reservations);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur lors de la récupération des réservations.");
+            showAlert("Erreur", "Erreur lors de la récupération des réservations.");
         }
     }
 
@@ -84,22 +85,13 @@ public class AfficherReservationController {
     private void handleModifierButton() {
         if (selectedReservation != null) {
             try {
-                // Charger la vue ModifierReservation.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReservation.fxml"));
                 Parent root = loader.load();
 
-                // Récupérer le contrôleur de la fenêtre ModifierReservation
                 ModifierReservationController controller = loader.getController();
-
-                // Passer la réservation sélectionnée au contrôleur de modification
                 controller.setReservation(selectedReservation);
+                controller.setOnModificationComplete(() -> afficherReservations());
 
-                // Passer la méthode de rafraîchissement à ModifierReservationController
-                controller.setOnModificationComplete(() -> {
-                    afficherReservations();  // Rafraîchir la table après modification
-                });
-
-                // Afficher la nouvelle fenêtre
                 Stage stage = new Stage();
                 stage.setTitle("Modifier Réservation");
                 stage.setScene(new Scene(root));
@@ -113,13 +105,11 @@ public class AfficherReservationController {
         }
     }
 
-
     @FXML
     private void handleSupprimerButton() {
         if (selectedReservation != null) {
             try {
                 reservationService.supprimer(selectedReservation.getId_reservation());
-                System.out.println("Réservation supprimée : " + selectedReservation.getId_reservation());
                 afficherReservations(); // Rafraîchir la TableView
             } catch (SQLException e) {
                 e.printStackTrace();

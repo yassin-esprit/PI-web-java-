@@ -43,13 +43,11 @@ public class AjouterEquipementController {
             String quantiteDisponibleStr = quantiteDisponibleTextField.getText().trim();
             String statutStr = statutChoiceBox.getValue();
 
-            // Validation des champs
             if (nom.isEmpty() || description.isEmpty() || quantiteTotaleStr.isEmpty() || quantiteDisponibleStr.isEmpty()) {
                 showAlert("Erreur", "Veuillez remplir tous les champs.");
                 return;
             }
 
-            // Vérification des valeurs numériques
             int quantiteTotale = 0;
             int quantiteDisponible = 0;
             try {
@@ -60,39 +58,31 @@ public class AjouterEquipementController {
                 return;
             }
 
-            // Validation de la logique des quantités
             if (quantiteDisponible > quantiteTotale) {
                 showAlert("Erreur", "La quantité disponible ne peut pas dépasser la quantité totale.");
                 return;
             }
 
-            // Conversion du statut en enum
             Status_Equipement statut = Status_Equipement.valueOf(statutStr);
 
-            // Création de l'équipement
             Equipement e = new Equipement(nom, description, quantiteDisponible, quantiteTotale, statut);
             ServiceEquipement ep = new ServiceEquipement();
-            ep.ajouter(e); // Ajouter l'équipement à la base de données
+            ep.ajouter(e);
 
             showAlert("Succès", "Équipement ajouté avec succès.");
 
-            // Récupérer tous les équipements après l'ajout
-            List<Equipement> equipements = ep.recuperer(); // Assurez-vous que `recuperer` retourne une liste d'équipements
 
-            // Passer la liste des équipements au contrôleur de la fenêtre d'affichage
+            List<Equipement> equipements = ep.recuperer();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipement.fxml"));
             Parent root = loader.load();
 
-            // Passer la liste des équipements au contrôleur de la fenêtre d'affichage
             AfficherEquipementController ac = loader.getController();
-            ac.setEquipements(equipements); // Assurez-vous que cette méthode existe dans `AfficherEquipementController`
+            ac.setEquipements(equipements);
 
-            // Changer la scène pour afficher la fenêtre d'affichage
             Stage stage = (Stage) nomTextField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-            // Réinitialiser les champs après l'ajout
             resetFields();
 
         } catch (SQLException e) {

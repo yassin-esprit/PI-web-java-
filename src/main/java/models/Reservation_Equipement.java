@@ -1,24 +1,26 @@
 package models;
-
+import models.Equipement;
 public class Reservation_Equipement {
     private int id_reservation;
-    private int id_equipement;
-    private int id_evenement;
+   // private int id_equipement;
+    private Equipement equipement;
+    private evenement evenement;
+   // private int id_evenement;
     private String dateReservation;
     private Status_reservation status_reservation;
     public Reservation_Equipement() {}
 
-    public Reservation_Equipement(int id_reservation, int id_equipement, int id_evenement, String dateReservation, Status_reservation status_reservation) {
+    public Reservation_Equipement(int id_reservation, Equipement equipement, evenement evenement, String dateReservation, Status_reservation status_reservation) {
         this.id_reservation = id_reservation;
-        this.id_equipement = id_equipement;
-        this.id_evenement = id_evenement;
         this.dateReservation = dateReservation;
+        this.equipement = equipement;
         this.status_reservation = status_reservation;
+        this.evenement = evenement;
     }
 
-    public Reservation_Equipement(int id_evenement, int id_equipement, String dateReservation, Status_reservation status_reservation) {
-        this.id_evenement = id_evenement;
-        this.id_equipement = id_equipement;
+    public Reservation_Equipement(evenement evenement, Equipement equipement, String dateReservation, Status_reservation status_reservation) {
+        this.evenement = evenement;
+        this.equipement = equipement;
         this.dateReservation = dateReservation;
         this.status_reservation = status_reservation;
     }
@@ -47,28 +49,30 @@ public class Reservation_Equipement {
         this.dateReservation = dateReservation;
     }
 
-    public int getId_evenement() {
-        return id_evenement;
+
+
+    public Equipement getEquipement() {
+        return equipement;
     }
 
-    public void setId_evenement(int id_evenement) {
-        this.id_evenement = id_evenement;
+    public void setEquipement(Equipement equipement) {
+        this.equipement = equipement;
     }
 
-    public int getId_equipement() {
-        return id_equipement;
+    public models.evenement getEvenement() {
+        return evenement;
     }
 
-    public void setId_equipement(int id_equipement) {
-        this.id_equipement = id_equipement;
+    public void setEvenement(models.evenement evenement) {
+        this.evenement = evenement;
     }
 
     @Override
     public String toString() {
         return "Reservation_Equipement{" +
                 "id_reservation=" + id_reservation +
-                ", id_equipement=" + id_equipement +
-                ", id_evenement=" + id_evenement +
+                ", equipement=" + equipement +
+                ", id_evenement=" + evenement +
                 ", dateReservation=" + dateReservation +
                 ", status_reservation=" + status_reservation +
                 '}';

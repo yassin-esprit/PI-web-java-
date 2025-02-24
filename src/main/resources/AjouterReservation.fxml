@@ -25,13 +25,13 @@
 
             <!-- Champ ID Événement (remplacé par un ComboBox) -->
             <HBox spacing="20"> <!-- Espacement entre les éléments -->
-                <Label text="ID Événement:" />
+                <Label text="Titre Événement:" />
                 <ComboBox fx:id="comboBoxEvenement" promptText="Sélectionnez un événement" />
             </HBox>
 
-            <!-- Champ ID Équipement -->
+            <!-- Champ Nom Équipement -->
             <HBox spacing="20"> <!-- Espacement entre les éléments -->
-                <Label text="ID Equipement:" />
+                <Label text="Nom Equipement:" />
                 <ComboBox fx:id="comboBoxEquipement" promptText="Sélectionnez un équipement" />
             </HBox>
 
