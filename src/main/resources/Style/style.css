@@ -1,61 +1,21 @@
-/* style.css */
-
-/* Style pour le fond de la scène */
-.root {
-    -fx-background-color: #f4f4f4; /* Couleur de fond */
-}
-
-/* Style pour les labels */
-.label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333; /* Couleur du texte */
-}
-
-/* Style pour les boutons */
-.button {
-    -fx-background-color: #e48355; /* Couleur de fond */
-    -fx-text-fill: white; /* Couleur du texte */
-    -fx-font-size: 14px;
-    -fx-padding: 8px 16px;
-    -fx-border-radius: 5px; /* Bordures arrondies */
-    -fx-cursor: hand; /* Curseur en forme de main */
-}
-
-/* Style pour les boutons au survol */
-.button:hover {
-    -fx-background-color: #d47345; /* Couleur de fond au survol */
-}
-
-/* Style pour les boutons enfoncés */
-.button:pressed {
-    -fx-background-color: #c36335; /* Couleur de fond enfoncé */
-}
-
-/* Style pour les boutons désactivés */
-.button:disabled {
-    -fx-background-color: #cccccc; /* Couleur de fond désactivé */
-    -fx-text-fill: #666666; /* Couleur du texte désactivé */
-}
-
 /* Style pour la ListView */
 .list-view {
-    -fx-background-color: white; /* Couleur de fond */
-    -fx-border-color: #cccccc; /* Couleur de la bordure */
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
     -fx-border-width: 1px;
 }
 
 /* Style pour les cellules de la ListView */
 .list-cell {
     -fx-padding: 10px;
-    -fx-border-color: #eeeeee; /* Couleur de la bordure entre les cellules */
+    -fx-border-color: #eeeeee;
     -fx-border-width: 0 0 1 0;
 }
 
 /* Style pour les cellules sélectionnées */
 .list-cell:filled:selected {
-    -fx-background-color: #e48355; /* Couleur de fond sélectionnée */
-    -fx-text-fill: white; /* Couleur du texte sélectionné */
+    -fx-background-color: #e48355;
+    -fx-text-fill: white;
 }
 
 /* Style pour le champ de recherche */
@@ -67,7 +27,72 @@
     -fx-padding: 5px;
 }
 
-/* Style pour le champ de recherche au focus */
-.text-field:focused {
-    -fx-border-color: #e48355; /* Couleur de la bordure au focus */
+/* Style général pour les boutons */
+.button {
+    -fx-background-color: #e48355; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px; /* Bordures arrondies */
+    -fx-cursor: hand; /* Curseur en forme de main */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Ombre légère */
+}
+
+/* Style pour les boutons au survol */
+.button:hover {
+    -fx-background-color: #d47345; /* Couleur de fond au survol */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 7, 0, 0, 3); /* Ombre plus prononcée */
+}
+
+/* Style pour les boutons enfoncés */
+.button:pressed {
+    -fx-background-color: #c36335; /* Couleur de fond enfoncé */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1); /* Ombre plus légère */
+}
+
+/* Style pour les boutons désactivés */
+.button:disabled {
+    -fx-background-color: #cccccc; /* Couleur de fond désactivé */
+    -fx-text-fill: #666666; /* Couleur du texte désactivé */
+    -fx-effect: none; /* Pas d'ombre */
+}
+
+/* Style spécifique pour le bouton "Supprimer" */
+.button.supprimer {
+    -fx-background-color: #ff4d4d; /* Rouge pour le bouton Supprimer */
+}
+
+.button.supprimer:hover {
+    -fx-background-color: #e60000; /* Rouge plus foncé au survol */
+}
+
+.button.supprimer:pressed {
+    -fx-background-color: #cc0000; /* Rouge encore plus foncé enfoncé */
+}
+
+/* Style spécifique pour le bouton "Reserver" */
+.button.reserver {
+    -fx-background-color: #4CAF50; /* Vert pour le bouton Reserver */
+}
+
+.button.reserver:hover {
+    -fx-background-color: #45a049; /* Vert plus foncé au survol */
+}
+
+.button.reserver:pressed {
+    -fx-background-color: #3d8b40; /* Vert encore plus foncé enfoncé */
+}
+
+/* Style spécifique pour le bouton "Trier" */
+.button.trier {
+    -fx-background-color: #2196F3; /* Bleu pour le bouton Trier */
+}
+
+.button.trier:hover {
+    -fx-background-color: #1e88e5; /* Bleu plus foncé au survol */
+}
+
+.button.trier:pressed {
+    -fx-background-color: #1976d2; /* Bleu encore plus foncé enfoncé */
 }

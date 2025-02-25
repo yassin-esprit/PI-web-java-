@@ -7,32 +7,39 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEquipementController">
-    <!-- Titre -->
-    <Label layoutX="220" layoutY="20" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Ajouter un équipement" textFill="#e4805b" underline="true" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="Style/Ajout.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEquipementController">
+    <!-- HBox pour aligner le logo et le titre -->
+    <HBox layoutX="20" layoutY="20" spacing="10" />
 
     <!-- Champ pour le nom -->
-    <Label layoutX="20" layoutY="70" text="Nom de l'équipement" />
-    <TextField fx:id="nomTextField" layoutX="160" layoutY="65" prefWidth="400" />
+    <Label layoutX="20.0" layoutY="117.0" text="Nom de l'équipement" />
+    <TextField fx:id="nomTextField" layoutX="164.0" layoutY="112.0" prefWidth="400" />
 
     <!-- Champ pour la description -->
-    <Label layoutX="20" layoutY="120" text="Description" />
-    <TextField fx:id="descriptionTextField" layoutX="160" layoutY="115" prefWidth="400" />
+    <Label layoutX="20.0" layoutY="164.0" text="Description" />
+    <TextField fx:id="descriptionTextField" layoutX="160.0" layoutY="159.0" prefWidth="400" />
 
     <!-- Champ pour la quantité totale -->
-    <Label layoutX="20" layoutY="170" text="Quantité totale" />
-    <TextField fx:id="quantiteTotaleTextField" layoutX="160" layoutY="165" prefWidth="400" />
+    <Label layoutX="20.0" layoutY="206.0" text="Quantité totale" />
+    <TextField fx:id="quantiteTotaleTextField" layoutX="160.0" layoutY="203.0" prefWidth="400" />
 
     <!-- Champ pour la quantité disponible -->
-    <Label layoutX="20" layoutY="220" text="Quantité disponible" />
-    <TextField fx:id="quantiteDisponibleTextField" layoutX="160" layoutY="215" prefWidth="400" />
+    <Label layoutX="20.0" layoutY="252.0" text="Quantité disponible" />
+    <TextField fx:id="quantiteDisponibleTextField" layoutX="160.0" layoutY="250.0" prefWidth="400" />
 
     <!-- ChoiceBox pour le statut -->
-    <Label layoutX="20" layoutY="270" text="Statut" />
-    <ChoiceBox fx:id="statutChoiceBox" layoutX="160" layoutY="265" prefWidth="400" />
+    <Label layoutX="20.0" layoutY="298.0" text="Statut" />
+    <ChoiceBox fx:id="statutChoiceBox" layoutX="160.0" layoutY="294.0" prefWidth="400" />
 
     <!-- Bouton pour ajouter -->
-    <Button layoutX="250" layoutY="320" onAction="#ajouterEquipement" text="Ajouter" />
+    <Button layoutX="250.0" layoutY="343.0" onAction="#ajouterEquipement" text="Ajouter" />
+
+     <!-- Titre -->
+     <Label layoutX="222.0" layoutY="20.0" styleClass="label-title" text="Ajouter un équipement" />
+     <!-- Logo -->
+     <ImageView fitHeight="55.0" fitWidth="154.0" layoutX="237.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@images/logo (2).png" />
+     </ImageView>
 </AnchorPane>

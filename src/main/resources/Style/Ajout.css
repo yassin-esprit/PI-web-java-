@@ -1,0 +1,77 @@
+/* style.css */
+
+/* Style pour le fond de la scène */
+.root {
+    -fx-background-color: #f4f4f4; /* Couleur de fond */
+}
+
+/* Style pour le titre */
+.label-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e4805b; /* Couleur du texte */
+    -fx-underline: true; /* Souligner le titre */
+}
+
+/* Style pour les labels des champs */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+/* Style pour les champs de texte */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Style pour les champs de texte au focus */
+.text-field:focused {
+    -fx-border-color: #e48355; /* Couleur de la bordure au focus */
+}
+
+/* Style pour le ChoiceBox */
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Style pour le bouton "Ajouter" */
+.button {
+    -fx-background-color: #e48355; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px; /* Bordures arrondies */
+    -fx-cursor: hand; /* Curseur en forme de main */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Ombre légère */
+}
+
+/* Style pour le bouton "Ajouter" au survol */
+.button:hover {
+    -fx-background-color: #d47345; /* Couleur de fond au survol */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 7, 0, 0, 3); /* Ombre plus prononcée */
+}
+
+/* Style pour le bouton "Ajouter" enfoncé */
+.button:pressed {
+    -fx-background-color: #c36335; /* Couleur de fond enfoncé */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1); /* Ombre plus légère */
+}
+
+/* Style pour le bouton "Ajouter" désactivé */
+.button:disabled {
+    -fx-background-color: #cccccc; /* Couleur de fond désactivé */
+    -fx-text-fill: #666666; /* Couleur du texte désactivé */
+    -fx-effect: none; /* Pas d'ombre */
+}
