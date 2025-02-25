@@ -1,29 +1,73 @@
-/* Style de base pour la ListView */
-.list-view {
+/* style.css */
+
+/* Style pour le fond de la scène */
+.root {
     -fx-background-color: #f4f4f4; /* Couleur de fond */
-    -fx-border-color: #ccc; /* Bordure */
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-padding: 10px;
 }
 
-/* Style pour chaque cellule de la ListView */
-.list-cell {
-    -fx-background-color: #ffffff; /* Couleur de fond des cellules */
-    -fx-border-color: #ddd; /* Bordure des cellules */
-    -fx-border-width: 0 0 1px 0;
-    -fx-padding: 10px;
+/* Style pour les labels */
+.label {
     -fx-font-size: 14px;
-    -fx-text-fill: #333; /* Couleur du texte */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+/* Style pour les boutons */
+.button {
+    -fx-background-color: #e48355; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px; /* Bordures arrondies */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+/* Style pour les boutons au survol */
+.button:hover {
+    -fx-background-color: #d47345; /* Couleur de fond au survol */
+}
+
+/* Style pour les boutons enfoncés */
+.button:pressed {
+    -fx-background-color: #c36335; /* Couleur de fond enfoncé */
+}
+
+/* Style pour les boutons désactivés */
+.button:disabled {
+    -fx-background-color: #cccccc; /* Couleur de fond désactivé */
+    -fx-text-fill: #666666; /* Couleur du texte désactivé */
+}
+
+/* Style pour la ListView */
+.list-view {
+    -fx-background-color: white; /* Couleur de fond */
+    -fx-border-color: #cccccc; /* Couleur de la bordure */
+    -fx-border-width: 1px;
+}
+
+/* Style pour les cellules de la ListView */
+.list-cell {
+    -fx-padding: 10px;
+    -fx-border-color: #eeeeee; /* Couleur de la bordure entre les cellules */
+    -fx-border-width: 0 0 1 0;
 }
 
 /* Style pour les cellules sélectionnées */
 .list-cell:filled:selected {
-    -fx-background-color: #e48355; /* Couleur de fond pour la sélection */
-    -fx-text-fill: white; /* Couleur du texte pour la sélection */
+    -fx-background-color: #e48355; /* Couleur de fond sélectionnée */
+    -fx-text-fill: white; /* Couleur du texte sélectionné */
 }
 
-/* Style pour les cellules au survol */
-.list-cell:filled:hover {
-    -fx-background-color: #f0f0f0; /* Couleur de fond au survol */
+/* Style pour le champ de recherche */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Style pour le champ de recherche au focus */
+.text-field:focused {
+    -fx-border-color: #e48355; /* Couleur de la bordure au focus */
 }

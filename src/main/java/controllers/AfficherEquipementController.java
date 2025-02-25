@@ -10,14 +10,22 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import models.Equipement;
 import services.ServiceEquipement;
-
 
 public class AfficherEquipementController {
 
     @FXML
+    private TextField searchField;
+
+    @FXML
     private ListView<Equipement> listViewEquipement;
+
+    private ObservableList<Equipement> equipements = FXCollections.observableArrayList();
+    private FilteredList<Equipement> filteredEquipements;
+    private ServiceEquipement serviceEquipement = new ServiceEquipement();
+
     public void initialize() {
         // Définir une CellFactory pour personnaliser l'affichage
         listViewEquipement.setCellFactory(param -> new ListCell<Equipement>() {
@@ -36,24 +44,25 @@ public class AfficherEquipementController {
             }
         });
 
-        // Charger les équipements
-        try {
-            List<Equipement> equipementsList = serviceEquipement.recuperer();
-            equipements.setAll(equipementsList);
-            listViewEquipement.setItems(equipements);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Erreur lors de la récupération des équipements.");
-        }
-    }
+        // Initialiser la FilteredList
+        filteredEquipements = new FilteredList<>(equipements, p -> true);
 
-    private ObservableList<Equipement> equipements = FXCollections.observableArrayList();
-    private ServiceEquipement serviceEquipement = new ServiceEquipement();
+        // Lier la FilteredList à la ListView
+        listViewEquipement.setItems(filteredEquipements);
+
+        // Charger les équipements
+        updateEquipementList();
+
+        // Recherche en temps réel
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            handleSearch(null); // Appeler handleSearch avec un événement null
+        });
+    }
 
     public void setEquipements(List<Equipement> equipementsList) {
         this.equipements.clear();
         this.equipements.addAll(equipementsList);
-        listViewEquipement.setItems(this.equipements);
+        filteredEquipements.setPredicate(null); // Réinitialiser le filtre
     }
 
     public void updateEquipementList() {
@@ -62,6 +71,7 @@ public class AfficherEquipementController {
             setEquipements(equipementsList);
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Erreur", "Erreur lors de la récupération des équipements.");
         }
     }
 
@@ -125,6 +135,19 @@ public class AfficherEquipementController {
         } else {
             showAlert("Aucun équipement sélectionné", "Veuillez sélectionner un équipement à réserver.");
         }
+    }
+
+    @FXML
+    void handleSearch(ActionEvent actionEvent) {
+        String searchText = searchField.getText().toLowerCase();
+
+        // Filtrer la liste en fonction du texte de recherche
+        filteredEquipements.setPredicate(equipement -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true; // Afficher tous les éléments si le champ de recherche est vide
+            }
+            return equipement.getNom().toLowerCase().contains(searchText); // Filtrer par nom
+        });
     }
 
     private void showAlert(String title, String content) {

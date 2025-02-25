@@ -1,0 +1,60 @@
+/* style.css */
+
+/* Style pour le titre */
+.label-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e48355;
+}
+
+/* Style pour la TableView */
+.table-view {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+/* Style pour les en-têtes de colonnes */
+.table-view .column-header {
+    -fx-background-color: #e48355;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Style pour les cellules de la TableView */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Style pour les cellules sélectionnées */
+.table-row-cell:selected {
+    -fx-background-color: #e48355;
+    -fx-text-fill: white;
+}
+
+/* Style pour les boutons */
+.button {
+    -fx-background-color: #e48355;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+}
+
+/* Style pour les boutons désactivés */
+.button:disabled {
+    -fx-background-color: #cccccc;
+    -fx-text-fill: #666666;
+}
+
+/* Style pour les boutons au survol */
+.button:hover {
+    -fx-background-color: #d47345;
+}
+
+/* Style pour les boutons enfoncés */
+.button:pressed {
+    -fx-background-color: #c36335;
+}
