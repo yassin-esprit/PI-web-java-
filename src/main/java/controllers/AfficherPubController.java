@@ -23,6 +23,10 @@ import models.publicites;
 import models.statut_pub;
 import models.type_pub;
 import services.ServicePublicite;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 public class AfficherPubController {
     @FXML
@@ -41,11 +45,19 @@ public class AfficherPubController {
     private Button idSupprimer;
     @FXML
     private Button idDisplay; // Add the Display button
+////////////////////////////////////////////////////////
+    @FXML
+    private BarChart<String, Number> barChart;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
+
     @FXML
     private TableView<publicites> idtable;
     private ObservableList<publicites> publicites = FXCollections.observableArrayList();
     private ServicePublicite servicePublicites = new ServicePublicite();
-
+    private ServicePublicite servicePublicite;
     public AfficherPubController() {
     }
 
@@ -159,6 +171,23 @@ public class AfficherPubController {
             showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.");
         }
     }
+    @FXML
+    void afficherStatistiques(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesPub.fxml"));
+            Parent root = loader.load();
+
+            // Créer la nouvelle scène pour les statistiques
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Statistiques des Publicités");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur s'est produite lors de l'ouverture de la fenêtre des statistiques.");
+        }
+    }
+
 
 
 

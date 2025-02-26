@@ -102,7 +102,7 @@ public class AjouterCampController {
     }
 
     private void afficherCampagnes() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCampagnes.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCamp.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) IDnom.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -125,4 +125,6 @@ public class AjouterCampController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

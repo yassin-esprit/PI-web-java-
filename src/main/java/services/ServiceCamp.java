@@ -4,6 +4,7 @@ import models.statut_camp;
 import tools.MyDB;
 import java.sql.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -84,32 +85,65 @@ public class ServiceCamp implements IServiceCamp<campagnes_publicitaires>{
         System.out.println("Campagne publicitaires modifiée");
     }
 
-    @Override
-    public List<campagnes_publicitaires> recuperer() throws SQLException {
-        String sql = "SELECT * FROM campagnes_publicitaires";
-        Statement ste = cnx.createStatement();
-        ResultSet rs = ste.executeQuery(sql);
+//    @Override
+//    public List<campagnes_publicitaires> recuperer() throws SQLException {
+//        String sql = "SELECT * FROM campagnes_publicitaires";
+//        Statement ste = cnx.createStatement();
+//        ResultSet rs = ste.executeQuery(sql);
+//
+//        List<campagnes_publicitaires> campagnesPublicitaires= new ArrayList<>();
+//        while (rs.next()) {
+//            campagnes_publicitaires R = new campagnes_publicitaires();
+//            R.setId_camp(rs.getInt("id_camp")); // Correctement l'ID de réservation
+//            R.setPublicite_id(rs.getInt("publicite_id"));
+//
+//            R.setDate_debut_camp(rs.getString("date_debut_camp"));
+//
+//            try {
+//                String statut = rs.getString("statut_camp");
+//                // Convertir la chaîne en majuscules avant d'appeler valueOf
+//                R.setStatut_camp(statut_camp.valueOf(statut.toUpperCase()));
+//            } catch (IllegalArgumentException e) {
+//                System.out.println("Erreur : Statut invalide pour la réservation (id=" + R.getId_camp() + ")");
+//                // Vous pouvez décider de gérer cela de manière différente, par exemple définir un statut par défaut
+//            }
+//
+//            campagnesPublicitaires.add(R);
+//        }
+//        return campagnesPublicitaires;
+//    }
+@Override
+public List<campagnes_publicitaires> recuperer() throws SQLException {
+    String sql = "SELECT * FROM campagnes_publicitaires";
+    Statement ste = cnx.createStatement();
+    ResultSet rs = ste.executeQuery(sql);
 
-        List<campagnes_publicitaires> campagnesPublicitaires= new ArrayList<>();
-        while (rs.next()) {
-            campagnes_publicitaires R = new campagnes_publicitaires();
-            R.setId_camp(rs.getInt("id_camp")); // Correctement l'ID de réservation
-            R.setPublicite_id(rs.getInt("publicite_id"));
+    List<campagnes_publicitaires> campagnesPublicitaires = new ArrayList<>();
+    while (rs.next()) {
+        campagnes_publicitaires campagne = new campagnes_publicitaires();
+        campagne.setId_camp(rs.getInt("id_camp"));
+        campagne.setPublicite_id(rs.getInt("publicite_id"));
+        campagne.setNom_camp(rs.getString("nom_camp"));
+        campagne.setBudget_camp(rs.getInt("budget_camp"));
+        campagne.setDate_debut_camp(rs.getString("date_debut_camp"));
+        campagne.setDate_fin_camp(rs.getString("date_fin_camp"));
 
-            R.setDate_debut_camp(rs.getString("date_debut_camp"));
-
-            try {
-                String statut = rs.getString("statut_camp");
-                // Convertir la chaîne en majuscules avant d'appeler valueOf
-                R.setStatut_camp(statut_camp.valueOf(statut.toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur : Statut invalide pour la réservation (id=" + R.getId_camp() + ")");
-                // Vous pouvez décider de gérer cela de manière différente, par exemple définir un statut par défaut
-            }
-
-            campagnesPublicitaires.add(R);
+        // Gestion du statut
+        String statut = rs.getString("statut_camp");
+        try {
+            // Convertir la chaîne en majuscules et la mapper à l'énumération
+            campagne.setStatut_camp(statut_camp.valueOf(statut));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erreur : Statut invalide pour la campagne (id=" + campagne.getId_camp() + ", statut=" + statut + ")");
+            // Ne pas définir de statut par défaut, laisser le statut null ou gérer autrement
+            campagne.setStatut_camp(null); // Ou ignorer cette campagne
         }
-        return campagnesPublicitaires;
+
+        campagnesPublicitaires.add(campagne);
     }
+    return campagnesPublicitaires;
+}
+
 
 }
+

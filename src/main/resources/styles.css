@@ -1,0 +1,6 @@
+/*.default-color0.chart-bar { -fx-bar-fill: #00FFFF; } !* Bleu *!*/
+.default-color4.chart-bar { -fx-bar-fill: #9b59b9; } /* Violet */
+
+.default-color1.chart-bar { -fx-bar-fill: #FFB190; } /* Vert */
+.default-color2.chart-bar { -fx-bar-fill: #206777; } /* Rouge */
+.default-color3.chart-bar { -fx-bar-fill: #FF6F00FF; } /* Jaune */

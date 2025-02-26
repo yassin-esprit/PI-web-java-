@@ -4,7 +4,10 @@ import models.publicites;
 import tools.MyDB;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import models.statut_pub;
 import models.type_pub;
 
@@ -104,6 +107,32 @@ public class ServicePublicite implements IServices<publicites> {
 
         return publicitesList;
     }
+    public List<publicites> recupererParStatut(statut_pub statut) throws SQLException {
+        String sql = "SELECT * FROM publicites WHERE statut_pub = ?";
+        List<publicites> publicitesList = new ArrayList<>();
+
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            // On passe le statut comme paramètre
+            ste.setString(1, statut.name()); // Convertir l'énumération en String
+            ResultSet rs = ste.executeQuery();
+
+            while (rs.next()) {
+                publicites p = new publicites();
+                p.setId_pub(rs.getInt("id_pub"));
+                p.setTitre_pub(rs.getString("titre_pub"));
+                p.setType_pub(type_pub.valueOf(rs.getString("type_pub")));  // Conversion de String vers type_pub
+                p.setContenu_pub(rs.getString("contenu_pub"));
+                p.setEmplacement_pub(rs.getString("emplacement_pub"));
+                p.setStatut_pub(statut_pub.valueOf(rs.getString("statut_pub")));  // Conversion de String vers statut_pub
+                publicitesList.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return publicitesList;
+    }
+
 
 }
 

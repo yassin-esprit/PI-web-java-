@@ -11,13 +11,13 @@
 
 <AnchorPane onDragDetected="#modifier" prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70); -fx-padding: 20;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherPubController">
     <children>
-        <Text layoutX="259.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La table des Publicites" textAlignment="CENTER" wrappingWidth="162.27813720703125">
+        <Text layoutX="212.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La table des Publicites" textAlignment="CENTER" wrappingWidth="324.7998962402344">
             <font>
-                <Font name="Bell MT Bold" size="18.0" />
+                <Font name="Bell MT Bold" size="25.0" />
             </font>
         </Text>
 
-        <TableView fx:id="idtable" layoutX="7.0" layoutY="86.0" prefHeight="267.0" prefWidth="666.0">
+        <TableView fx:id="idtable" layoutX="41.0" layoutY="83.0" prefHeight="267.0" prefWidth="696.0">
             <columns>
                 <TableColumn fx:id="ctitte" prefWidth="120.0" text="Titre" />
                 <TableColumn fx:id="ctype" prefWidth="106.4" text="Type " />
@@ -28,10 +28,10 @@
         </TableView>
 
         <!-- Bouton Supprimer -->
-        <Button fx:id="idSupprimer" layoutX="421.0" layoutY="382.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Supprimer" />
+        <Button fx:id="idSupprimer" layoutX="50.0" layoutY="411.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Supprimer" />
 
         <!-- Bouton Modifier -->
-        <Button fx:id="idModifier" layoutX="94.0" layoutY="382.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Modifier" />
+        <Button fx:id="idModifier" layoutX="50.0" layoutY="366.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Modifier" />
 
         <!-- Logo -->
         <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="500.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
@@ -39,6 +39,9 @@
                 <Image url="@images/logo.png" />
             </image>
         </ImageView>
-      <Button fx:id="idReserver" layoutX="270.0" layoutY="382.0" mnemonicParsing="false" onAction="#gotoCampagnePub" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Reserver" />
+      <Button fx:id="idReserver" layoutX="254.0" layoutY="387.0" mnemonicParsing="false" onAction="#gotoCampagnePub" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Ajouter Campagne" />
+        <Button fx:id="idStatistiques" layoutX="500.0" layoutY="388.0" mnemonicParsing="false" onAction="#afficherStatistiques" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Statistiques" />
+<!--<Button text="Afficher les Statistiques" onAction="#afficherStatistiques"/>-->
+
     </children>
 </AnchorPane>

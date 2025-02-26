@@ -3,60 +3,41 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.image.Image?>
 
-<AnchorPane prefHeight="450.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubController"
-            style="-fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70); -fx-padding: 20;">
+<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: #B3CAD3; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubController">
    <children>
       <!-- Titre principal -->
-      <Text layoutX="180.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="AJOUTER PUBLICITÉ" textAlignment="CENTER" wrappingWidth="320"
-            style="-fx-fill: orange; -fx-font-weight: bold; -fx-font-size: 22px;">
+      <Text layoutX="180.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0a3188; -fx-font-weight: bold; -fx-font-size: 22px;" text="AJOUTER PUBLICITÉ" textAlignment="CENTER" wrappingWidth="320">
          <font>
             <Font name="Arial" size="22.0" />
          </font>
       </Text>
 
       <!-- Champs de saisie -->
-      <TextField fx:id="idTitre" layoutX="188.0" layoutY="94.0" prefHeight="30.0" prefWidth="250.0"
-                 style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;
-                        -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;"/>
-      <ChoiceBox fx:id="idType" layoutX="188.0" layoutY="146.0" prefHeight="30.0" prefWidth="250.0"
-                 style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;
-                        -fx-background-color: #E5E5E5; -fx-font-size: 14px;"/>
-      <TextField fx:id="idContenu" layoutX="188.0" layoutY="198.0" prefHeight="60.0" prefWidth="250.0"
-                 style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;
-                        -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;"/>
-      <TextField fx:id="idEmplacement" layoutX="188.0" layoutY="278.0" prefHeight="30.0" prefWidth="250.0"
-                 style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;
-                        -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;"/>
-      <ChoiceBox fx:id="idStatut" layoutX="188.0" layoutY="330.0" prefHeight="30.0" prefWidth="250.0"
-                 style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;
-                        -fx-background-color: #E5E5E5; -fx-font-size: 14px;"/>
+      <TextField fx:id="idTitre" layoutX="215.0" layoutY="93.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: #FF6F00FF; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+      <ChoiceBox fx:id="idType" layoutX="215.0" layoutY="145.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: #FF6F00FF; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
+      <TextField fx:id="idContenu" layoutX="220.0" layoutY="193.0" prefHeight="60.0" prefWidth="250.0" style="-fx-border-color: #FF6F00FF; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+      <TextField fx:id="idEmplacement" layoutX="220.0" layoutY="277.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: #FF6F00FF; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+      <ChoiceBox fx:id="idStatut" layoutX="220.0" layoutY="328.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: #FF6F00FF; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
 
       <!-- Bouton Ajouter -->
-      <Button layoutX="230.0" layoutY="390.0" mnemonicParsing="false" onAction="#ajouter"
-              prefHeight="40.0" prefWidth="160.0" text="Ajouter "
-              style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold;
-                     -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20;
-                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);">
+      <Button layoutX="260.0" layoutY="388.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #FF6F00FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Ajouter">
       </Button>
 
       <!-- Étiquettes -->
-      <Text layoutX="50.0" layoutY="115.0" text="Titre Publicité" style="-fx-fill: white; -fx-font-size: 14px;"/>
-      <Text layoutX="50.0" layoutY="167.0" text="Type Publicité" style="-fx-fill: white; -fx-font-size: 14px;"/>
-      <Text layoutX="50.0" layoutY="219.0" text="Contenu Publicité" style="-fx-fill: white; -fx-font-size: 14px;"/>
-      <Text layoutX="50.0" layoutY="299.0" text="Emplacement Publicité" style="-fx-fill: white; -fx-font-size: 14px;"/>
-      <Text layoutX="50.0" layoutY="350.0" text="Statut Publicité" style="-fx-fill: white; -fx-font-size: 14px;"/>
+      <Text layoutX="50.0" layoutY="115.0" style="-fx-fill: #0a3188; -fx-font-size: 14px;" text="Titre Publicité" />
+      <Text layoutX="50.0" layoutY="167.0" style="-fx-fill: #0a3188; -fx-font-size: 14px;" text="Type Publicité" />
+      <Text layoutX="50.0" layoutY="219.0" style="-fx-fill: #0a3188; -fx-font-size: 14px;" text="Contenu Publicité" />
+      <Text layoutX="50.0" layoutY="299.0" style="-fx-fill: #0a3188; -fx-font-size: 14px;" text="Emplacement Publicité" />
+      <Text layoutX="50.0" layoutY="350.0" style="-fx-fill: #0a3188; -fx-font-size: 14px;" text="Statut Publicité" />
 
       <!-- Logo -->
-      <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="500.0" layoutY="20.0"
-                 pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="500.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/logo.png" />
          </image>
