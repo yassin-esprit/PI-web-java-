@@ -51,7 +51,7 @@ public class AfficherConferencierController implements Initializable {
         colIdConferencier.setCellValueFactory(new PropertyValueFactory<>("idConferencier"));
         // Change the column to show the titre of the evenement
         colIdEvenement.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(cellData.getValue().getTitreEvenement()); // Make sure this is correct
+            return new SimpleStringProperty(cellData.getValue().getNom()); // Make sure this is correct
         });
 
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
