@@ -1,0 +1,15 @@
+.table-row-cell:selected {
+    -fx-background-color: #007ACC; /* Highlighted selection */
+    -fx-text-fill: white;
+}
+.table-row-cell {
+    -fx-background-color: #E3F2FD; /* Default row color */
+}
+
+Button {
+    -fx-transition: 0.3s;
+}
+
+Button:hover {
+    -fx-opacity: 0.8;
+}
