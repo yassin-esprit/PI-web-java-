@@ -1,9 +1,7 @@
 package services;
 import java.time.LocalDate;
-import java.time.LocalDate;
 
 import models.evenement;
-import models.type_evenement;
 import tools.MyDB;
 
 import java.sql.*;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceEvenement
-        implements IServices<evenement> {
+        implements IServicese<evenement> {
     private Connection cnx;
 
     public ServiceEvenement() {

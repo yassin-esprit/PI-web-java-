@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IServices<T> {
+public interface IServicese<T> {
     void ajouter(T p) throws SQLException;
 
     void supprimer(int id) throws SQLException;
