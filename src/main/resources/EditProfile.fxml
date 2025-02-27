@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditProfile">
+   <children>
+      <TextField fx:id="fname" layoutX="79.0" layoutY="73.0" prefHeight="32.0" prefWidth="167.0" />
+      <TextField fx:id="phone" layoutX="79.0" layoutY="147.0" prefHeight="32.0" prefWidth="167.0" />
+      <TextField fx:id="lname" layoutX="356.0" layoutY="73.0" prefHeight="32.0" prefWidth="167.0" />
+      <TextField fx:id="email" layoutX="356.0" layoutY="147.0" prefHeight="32.0" prefWidth="167.0" />
+      <Text layoutX="79.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+         <font>
+            <Font name="FiraCode Nerd Font Reg" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="79.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone">
+         <font>
+            <Font name="FiraCode Nerd Font Reg" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="356.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font name="FiraCode Nerd Font Reg" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="356.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+         <font>
+            <Font name="FiraCode Nerd Font Reg" size="14.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="ProfileEdit" layoutX="214.0" layoutY="237.0" onMouseClicked="#editprofilebutton" prefHeight="44.0" prefWidth="173.0" style="-fx-background-color: #1fcf6b; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+         <children>
+            <Text fill="#464646" layoutX="60.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="115.0" layoutY="6.0">
+               <image>
+                  <Image url="@Images/paper-plane.png" />
+               </image>
+            </ImageView>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+      <AnchorPane fx:id="ProfileEdit1" layoutX="214.0" layoutY="293.0" onMouseClicked="#BackProfilebtn" prefHeight="44.0" prefWidth="173.0" style="-fx-background-color: #079af5; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+         <children>
+            <Text fill="#464646" layoutX="69.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+            </Text>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+   </children>
+</AnchorPane>

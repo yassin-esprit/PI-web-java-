@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane onMouseClicked="#gotosetting" prefHeight="731.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProfilPageController">
+   <children>
+      <AnchorPane layoutX="161.0" layoutY="-23.0" prefHeight="137.0" prefWidth="1177.0" style="-fx-background-color: #2e2d2d#2e2d2d;" />
+      <VBox prefHeight="731.0" prefWidth="220.0">
+         <children>
+            <AnchorPane prefHeight="738.0" prefWidth="220.0" style="-fx-background-color: #2e2d2d;">
+               <children>
+                  <Pane layoutY="558.0" onMouseClicked="#gototsetting" prefHeight="62.0" prefWidth="220.0" style="-fx-background-color: #96bbff;">
+                     <children>
+                        <Text fill="#2e2d2dd4" layoutX="94.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" wrappingWidth="84.638671875">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                           <image>
+                              <Image url="@Images/settings.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane layoutY="485.0" prefHeight="62.0" prefWidth="220.0" style="-fx-background-color: #96bbff;">
+                     <children>
+                        <Text fill="#2e2d2dd4" layoutX="94.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" wrappingWidth="84.638671875">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ImageView layoutX="14.0" layoutY="15.0">
+                           <image>
+                              <Image url="@Images/hm.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane layoutY="156.0" onMouseClicked="#gotoprofile" prefHeight="62.0" prefWidth="220.0" style="-fx-background-color: #96bbff;">
+                     <children>
+                        <Text fill="#2e2d2dd4" layoutX="67.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" wrappingWidth="109.638671875">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ImageView layoutX="14.0" layoutY="15.0">
+                           <image>
+                              <Image url="@Images/user.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane layoutY="632.0" onMouseClicked="#logout" prefHeight="62.0" prefWidth="220.0" style="-fx-background-color: #96bbff;">
+                     <children>
+                        <Text fill="#2e2d2dd4" layoutX="94.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" wrappingWidth="84.638671875">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ImageView layoutX="11.0" layoutY="16.0">
+                           <image>
+                              <Image url="@Images/enter.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <AnchorPane layoutX="377.0" layoutY="46.0" prefHeight="317.0" prefWidth="745.0" style="-fx-border-radius: 20px; -fx-background-color: #2e2d2d; -fx-background-radius: 40px;">
+         <children>
+            <Label fx:id="fname" layoutX="221.0" layoutY="70.0" text="First name" textFill="#fffefe" underline="true">
+               <font>
+                  <Font name="FiraCode Nerd Font Reg" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="425.0" layoutY="132.0" onMouseClicked="#adresspage" text="Adresse" textFill="#fffefe" underline="true">
+               <font>
+                  <Font name="FiraCode Nerd Font Reg" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="email" layoutX="221.0" layoutY="132.0" text="Email" textFill="#fffefe" underline="true">
+               <font>
+                  <Font name="FiraCode Nerd Font Reg" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lname" layoutX="425.0" layoutY="70.0" text="Last Name" textFill="#fffefe" underline="true">
+               <font>
+                  <Font name="FiraCode Nerd Font Reg" size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="598.0" layoutY="247.0" onMouseClicked="#editpage" prefHeight="44.0" prefWidth="98.0" style="-fx-border-radius: 20px; -fx-background-color: #96bbff; -fx-background-radius: 40px;">
+               <children>
+                  <Label fx:id="edit" layoutX="49.0" layoutY="1.0" prefHeight="42.0" prefWidth="61.0" text="Edit" textFill="#fffefe" underline="true">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView layoutX="14.0" layoutY="10.0">
+                     <image>
+                        <Image url="@Images/edit-button.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,11 +1,11 @@
-package tools;
+package Tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
-    public final String URL="jdbc:mysql://localhost:3306/Esprit3A24";
+    public final String URL="jdbc:mysql://localhost:3306/dbpi";
     public final String USER="root";
     public final String pwd ="";
     private Connection connection;
