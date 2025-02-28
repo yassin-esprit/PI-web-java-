@@ -62,7 +62,7 @@
       </VBox>
       <ImageView fitHeight="737.0" fitWidth="678.0">
          <image>
-            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />
+<!--            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />-->
          </image>
       </ImageView>
    </children>
