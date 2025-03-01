@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="731.0" prefWidth="1266.0" styleClass="background" stylesheets="background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.evenementDashController">
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4);" stylesheets="background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.evenementDashController">
 
     <children>
         <!-- Sidebar -->
@@ -31,6 +33,7 @@
 
                         <!-- Navigation -->
                         <VBox layoutX="5.0" layoutY="148.0" prefHeight="435.0" prefWidth="210.0" spacing="10">
+                            <!-- Home -->
                             <Pane prefHeight="62.0" prefWidth="210.0" styleClass="sidebar-item">
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Home" />
@@ -40,6 +43,7 @@
                                 </children>
                             </Pane>
 
+                            <!-- Settings -->
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Settings" />
@@ -49,16 +53,17 @@
                                 </children>
                             </Pane>
 
-                            <!-- New Items -->
+                            <!-- Evenement -->
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
-                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text"  text="Evenement" />
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Evenement" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
                                         <image><Image url="@Images/event.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
 
+                            <!-- Sponsor -->
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Sponsor" />
@@ -68,6 +73,7 @@
                                 </children>
                             </Pane>
 
+                            <!-- Publicite -->
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Publicite" />
@@ -77,6 +83,7 @@
                                 </children>
                             </Pane>
 
+                            <!-- Reservation -->
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Reservation" />
@@ -90,7 +97,7 @@
                         <!-- Logout -->
                         <Pane layoutY="632.0" prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                             <children>
-                                <Text fill="white" layoutX="94.0" layoutY="35.0" onMouseClicked="#logout" styleClass="sidebar-text" text="Logout" />
+                                <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Logout" />
                                 <ImageView layoutX="11.0" layoutY="16.0">
                                     <image><Image url="@Images/enter.png" /></image>
                                 </ImageView>
@@ -101,17 +108,25 @@
             </children>
         </VBox>
 
-        <!-- User Session Banner (Top Right) with Edit Button -->
-        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" styleClass="user-banner">
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
             <children>
-                <Label fx:id="name" layoutX="20.0" layoutY="10.0" prefHeight="18.0" prefWidth="70.0" styleClass="user-banner-label" text="First Name" textFill="white" />
-                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" styleClass="user-banner-label" text="Last Name" textFill="white" />
-                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" styleClass="user-banner-label" text="Email" textFill="white" />
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
 
                 <!-- Edit Button Inside User Banner -->
-                <AnchorPane layoutX="172.0" layoutY="54.0" prefHeight="30.0" prefWidth="80.0" styleClass="edit-button">
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
                     <children>
-                        <Label fx:id="edit" layoutX="32.0" layoutY="9.0" onMouseClicked="#editpage" styleClass="edit-button-text" text="Edit" textFill="white" />
+                        <Label fx:id="edit" layoutX="30.0" layoutY="5.0" onMouseClicked="#editpage" text="Edit" textFill="white">
+                            <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
+                        </Label>
                         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
                             <image><Image url="@Images/edit-button.png" /></image>
                         </ImageView>
@@ -120,22 +135,66 @@
             </children>
         </AnchorPane>
 
-        <!-- Search Bar -->
-        <TextField fx:id="searchField" layoutX="450.0" layoutY="120.0" prefWidth="400.0" promptText="Search ..." styleClass="search-bar" />
+        <!-- Main Event Management Section -->
+        <VBox layoutX="250.0" layoutY="100.0" spacing="20">
 
-        <!-- Events Table (Centered) -->
-        <TableView fx:id="tableEvenements" layoutX="250.0" layoutY="180.0" prefHeight="480.0" prefWidth="900.0" styleClass="table-view">
-            <columns>
-                <TableColumn fx:id="colId" prefWidth="100.0" text="ID" />
-                <TableColumn fx:id="colTitre" prefWidth="150.0" text="Titre" />
-                <TableColumn fx:id="colType" prefWidth="150.0" text="Type" />
-                <TableColumn fx:id="colDescription" prefWidth="200.0" text="Description" />
-                <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
-                <TableColumn fx:id="colLieu" prefWidth="150.0" text="Lieu" />
-                <TableColumn fx:id="colNbrPlaces" prefWidth="100.0" text="Places" />
-                <TableColumn fx:id="colSponsor" prefWidth="100.0" text="Sponsor" />
-            </columns>
-        </TableView>
+            <!-- Title -->
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Gestion des Événements" />
 
+            <!-- Action Buttons -->
+            <HBox spacing="20">
+                <Button onAction="#retour" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Ajouter">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/add1.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#deleteEvenement" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Supprimer">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/delete.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#modifyEvenement" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Modifier">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/edit.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#showStatistics" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Statistiques">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/stat.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <!-- Table of Events -->
+            <TableView fx:id="tableEvenements" layoutX="50" layoutY="150" prefHeight="480" prefWidth="900.0" style="
+                -fx-background-color: rgba(255, 255, 255, 0.8);
+                -fx-border-radius: 10px;
+                -fx-background-radius: 10px;
+                -fx-padding: 10px;
+                -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+                -fx-selection-bar: #1abc9c;
+                -fx-selection-bar-non-focused: #1abc9c;
+                -fx-selection-bar-text: white;
+            ">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="100.0" text="ID" />
+                    <TableColumn fx:id="colTitre" prefWidth="150.0" text="Titre" />
+                    <TableColumn fx:id="colType" prefWidth="150.0" text="Type" />
+                    <TableColumn fx:id="colDescription" prefWidth="200.0" text="Description" />
+                    <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
+                    <TableColumn fx:id="colLieu" prefWidth="150.0" text="Lieu" />
+                    <TableColumn fx:id="colNbrPlaces" prefWidth="100.0" text="Places" />
+                    <TableColumn fx:id="colSponsor" prefWidth="100.0" text="Sponsor" />
+                </columns>
+            </TableView>
+        </VBox>
     </children>
 </AnchorPane>

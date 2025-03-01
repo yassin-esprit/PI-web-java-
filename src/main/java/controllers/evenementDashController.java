@@ -7,12 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import models.evenement;
 import services.ServiceEvenement;
 import tools.UserSession;
@@ -191,6 +193,23 @@ public class evenementDashController implements Initializable {
     void editpage(MouseEvent event) throws IOException {
         SceneController.loadProfileEditScene();
 
+    }
+
+    @FXML
+    public void showStatistics() {
+        try {
+            // Load the statistics FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statistics.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and stage for the statistics page
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Statistiques des Événements");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -81,7 +81,7 @@ public class ModifierEvenementController {
             showAlert("Succès", "Événement modifié avec succès.", Alert.AlertType.INFORMATION);
 
             // Redirect to the AfficherEvenement view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevenement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementdash.fxml"));
             Parent root = loader.load();
             txtTitre.getScene().setRoot(root);
         } catch (SQLException | IOException e) {
@@ -94,7 +94,7 @@ public class ModifierEvenementController {
     void cancel() {
         try {
             // Redirect to the AfficherEvenement view without saving changes
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevenement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementdash.fxml"));
             Parent root = loader.load();
             txtTitre.getScene().setRoot(root);
         } catch (IOException e) {

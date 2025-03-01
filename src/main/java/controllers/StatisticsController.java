@@ -82,7 +82,7 @@ public class StatisticsController {
     @FXML
     void retour() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevenement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenementdash.fxml"));
             Parent root = loader.load();
             pieChart.getScene().setRoot(root);
         } catch (IOException e) {

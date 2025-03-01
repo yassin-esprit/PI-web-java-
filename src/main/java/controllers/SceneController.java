@@ -38,7 +38,7 @@
 
         // Method to load the Profile Page
         public static void loadProfilePageScene() throws IOException {
-            loadScene("/Profile.fxml", "Profile Page");
+            loadScene("/afficherevenement.fxml", "Profile Page");
         }
 
         // Method to load the Change Password scene
