@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import models.evenement;
 import models.type_evenement;
 import tools.MyDB;
+import utils.TwilioSMS;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,31 +33,88 @@ public class ServiceEvenement
         System.out.println("Evenement ajouté");
     }
 
-    @Override
-    public void supprimer(int id) throws SQLException {
-        String sql = "delete from evenement where id=?";
-        PreparedStatement ste = cnx.prepareStatement(sql);
-        ste.setInt(1, id);
-        ste.executeUpdate();
-        System.out.println("Evenement supprimé");
-    }
 
-    @Override
-    public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
-                         int sponsor) throws SQLException {
-        String sql = "update evenement set titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? where id=?";
-        PreparedStatement ste = cnx.prepareStatement(sql);
-        ste.setString(1, titre);
-        ste.setString(2, type);
-        ste.setString(3, description);
-        ste.setDate(4, new java.sql.Date(date.getTime()));
-        ste.setString(5, lieu);
-        ste.setInt(6, nbrplaces);
-        ste.setInt(7, sponsor);
-        ste.setInt(8, id);
-        ste.executeUpdate();
-        System.out.println("Evenement modifié");
+    public void supprimer(int id) throws SQLException {
+        // Fetch event details before deleting
+        evenement event = getEventById(id);
+        if (event == null) {
+            throw new SQLException("Événement non trouvé.");
+        }
+
+        String sql = "DELETE FROM evenement WHERE id=?";
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            ste.setInt(1, id);
+            ste.executeUpdate();
+            System.out.println("Evenement supprimé");
+
+            // Notify participants
+            notifyParticipants(id, "L'événement '" + event.getTitre() + "' a été annulé.");
+
+        }
     }
+//    @Override
+//    public void supprimer(int id) throws SQLException {
+//        String sql = "delete from evenement where id=?";
+//        PreparedStatement ste = cnx.prepareStatement(sql);
+//        ste.setInt(1, id);
+//        ste.executeUpdate();
+//        System.out.println("Evenement supprimé");
+//    }
+private void notifyParticipants(int eventId, String message) throws SQLException {
+    String sql = "SELECT p.telephone FROM participants p " +
+            "JOIN participation pt ON p.id = pt.user_id " +
+            "WHERE pt.evenement_id = ?";
+    try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+        ste.setInt(1, eventId);
+        ResultSet rs = ste.executeQuery();
+
+        while (rs.next()) {
+            String phoneNumber = rs.getString("telephone");
+            if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                System.out.println("Sending SMS to: " + phoneNumber);
+                TwilioSMS.sendSMS(phoneNumber, message);
+            } else {
+                System.out.println("No phone number found for participant.");
+            }
+        }
+    }
+}
+
+
+    public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces, int sponsor) throws SQLException {
+        String sql = "UPDATE evenement SET titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? WHERE id=?";
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            ste.setString(1, titre);
+            ste.setString(2, type);
+            ste.setString(3, description);
+            ste.setDate(4, new java.sql.Date(date.getTime()));
+            ste.setString(5, lieu);
+            ste.setInt(6, nbrplaces);
+            ste.setInt(7, sponsor);
+            ste.setInt(8, id);
+            ste.executeUpdate();
+            System.out.println("Evenement modifié");
+
+            // Notify participants
+            notifyParticipants(id, "L'événement '" + titre + "' a été mis à jour. Nouvelle date: " + date);
+        }
+    }
+//    @Override
+//    public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
+//                         int sponsor) throws SQLException {
+//        String sql = "update evenement set titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? where id=?";
+//        PreparedStatement ste = cnx.prepareStatement(sql);
+//        ste.setString(1, titre);
+//        ste.setString(2, type);
+//        ste.setString(3, description);
+//        ste.setDate(4, new java.sql.Date(date.getTime()));
+//        ste.setString(5, lieu);
+//        ste.setInt(6, nbrplaces);
+//        ste.setInt(7, sponsor);
+//        ste.setInt(8, id);
+//        ste.executeUpdate();
+//        System.out.println("Evenement modifié");
+//    }
 
     @Override
     public List<evenement> recuperer() throws SQLException {
@@ -166,10 +224,20 @@ public class ServiceEvenement
             ste.setInt(1, eventId);
             ResultSet rs = ste.executeQuery();
             if (rs.next()) {
+                String typeStr = rs.getString("type");
+                type_evenement type;
+                try {
+                    type = type_evenement.valueOf(typeStr); // Convert string to enum
+                } catch (IllegalArgumentException e) {
+                    // Handle unknown enum values
+                    System.err.println("Unknown type: " + typeStr);
+                    type = type_evenement.conference; // Default value or handle as needed
+                }
+
                 return new evenement(
                         rs.getInt("id"),
                         rs.getString("titre"),
-                        models.type_evenement.valueOf(rs.getString("type")),
+                        type, // Use the resolved enum value
                         rs.getString("description"),
                         rs.getDate("date").toLocalDate(),
                         rs.getString("lieu"),
@@ -178,7 +246,30 @@ public class ServiceEvenement
                 );
             }
         }
-        return null;
+        return null; // Return null if no event is found
     }
+
+
+
+//    public evenement getEventById(int eventId) throws SQLException {
+//        String sql = "SELECT * FROM evenement WHERE id = ?";
+//        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+//            ste.setInt(1, eventId);
+//            ResultSet rs = ste.executeQuery();
+//            if (rs.next()) {
+//                return new evenement(
+//                        rs.getInt("id"),
+//                        rs.getString("titre"),
+//                        models.type_evenement.valueOf(rs.getString("type")),
+//                        rs.getString("description"),
+//                        rs.getDate("date").toLocalDate(),
+//                        rs.getString("lieu"),
+//                        rs.getInt("nbrplaces"),
+//                        rs.getInt("sponsor")
+//                );
+//            }
+//        }
+//        return null;
+//    }
 
 }

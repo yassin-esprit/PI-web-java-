@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import models.evenement;
 import services.ServiceEvenement;
@@ -24,6 +25,7 @@ public class MesParticipationsController {
     @FXML
     private void initialize() {
         loadParticipatingEvents();
+        setupListView();
     }
 
     private void loadParticipatingEvents() {
@@ -48,6 +50,37 @@ public class MesParticipationsController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupListView() {
+        // Set a custom cell factory to style and organize the ListView items
+        listViewMesParticipations.setCellFactory(listView -> new ListCell<evenement>() {
+            @Override
+            protected void updateItem(evenement event, boolean empty) {
+                super.updateItem(event, empty);
+
+                if (empty || event == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Customize the display of each event
+                    setStyle("-fx-padding: 15px; "
+                            + "-fx-background-color: #f9f9f9; "
+                            + "-fx-border-color: #ddd; "
+                            + "-fx-border-radius: 10px; "
+                            + "-fx-font-size: 14px; "
+                            + "-fx-font-weight: bold;");
+
+                    setText("\uD83D\uDCC5 Date: " + event.getDate() + "\n"
+                            + "\uD83C\uDF1F Titre: " + event.getTitre() + "\n"
+                            + "📌 Type: " + event.getType() + "\n"
+                            + "📖 Description: " + event.getDescription() + "\n"
+                            + "📍 Lieu: " + event.getLieu() + "\n"
+                            + "👥 Places: " + event.getNbrplaces() + "\n"
+                            + "🤝 Sponsor: " + event.getSponsor());
+                }
+            }
+        });
     }
 
     @FXML

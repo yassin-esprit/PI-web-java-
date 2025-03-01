@@ -87,6 +87,7 @@ public class ModifierEvenementController {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Une erreur s'est produite lors de la modification de l'événement.", Alert.AlertType.ERROR);
+
         }
     }
 
