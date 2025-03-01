@@ -1,0 +1,184 @@
+package services;
+import java.time.LocalDate;
+
+import models.evenement;
+import models.type_evenement;
+import tools.MyDB;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ServiceEvenement
+        implements IServicese<evenement> {
+    private Connection cnx;
+
+    public ServiceEvenement() {
+        cnx = MyDB.getInstance().getConnection();
+    }
+
+    @Override
+    public void ajouter(evenement e) throws SQLException {
+        String sql = "insert into evenement (titre, type, description, date, lieu, nbrplaces, sponsor) values (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ste.setString(1, e.getTitre());
+        ste.setString(2, e.getType().name()); // Convert enum to String
+        ste.setString(3, e.getDescription());
+        ste.setDate(4, Date.valueOf(e.getDate()));
+        ste.setString(5, e.getLieu());
+        ste.setInt(6, e.getNbrplaces());
+        ste.setInt(7, e.getSponsor());
+        ste.executeUpdate();
+        System.out.println("Evenement ajouté");
+    }
+
+    @Override
+    public void supprimer(int id) throws SQLException {
+        String sql = "delete from evenement where id=?";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ste.setInt(1, id);
+        ste.executeUpdate();
+        System.out.println("Evenement supprimé");
+    }
+
+    @Override
+    public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
+                         int sponsor) throws SQLException {
+        String sql = "update evenement set titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? where id=?";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ste.setString(1, titre);
+        ste.setString(2, type);
+        ste.setString(3, description);
+        ste.setDate(4, new java.sql.Date(date.getTime()));
+        ste.setString(5, lieu);
+        ste.setInt(6, nbrplaces);
+        ste.setInt(7, sponsor);
+        ste.setInt(8, id);
+        ste.executeUpdate();
+        System.out.println("Evenement modifié");
+    }
+
+    @Override
+    public List<evenement> recuperer() throws SQLException {
+        String sql = "select * from evenement";
+        Statement ste = cnx.createStatement();
+        ResultSet rs = ste.executeQuery(sql);
+        List<evenement> evenements = new ArrayList<>();
+        while (rs.next()) {
+            String typeStr = rs.getString("type");
+            type_evenement type;
+            try {
+                type = models.type_evenement.valueOf(typeStr);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Unknown type: " + typeStr);
+                // Handle the error, e.g., set a default value or throw a custom exception
+                type = type_evenement.conference; // Default value
+            }
+            evenement e = new evenement(
+                    rs.getInt("id"),
+                    rs.getString("titre"),
+                    type,
+                    rs.getString("description"),
+                    rs.getDate("date").toLocalDate(),
+                    rs.getString("lieu"),
+                    rs.getInt("nbrplaces"),
+                    rs.getInt("sponsor"));
+            evenements.add(e);
+        }
+        return evenements;
+    }
+//    @Override
+//    public List<evenement> recuperer() throws SQLException {
+//        String sql = "select * from evenement";
+//        Statement ste = cnx.createStatement();
+//        ResultSet rs = ste.executeQuery(sql);
+//        List<evenement> evenements = new ArrayList<>();
+//        while (rs.next()) {
+//            evenement e = new evenement(
+//                    rs.getInt("id"),
+//                    rs.getString("titre"),
+//                    type_evenement.valueOf(rs.getString("type")),
+//                    rs.getString("description"),
+//                    rs.getDate("date").toLocalDate(),
+//                    rs.getString("lieu"),
+//                    rs.getInt("nbrplaces"),
+//                    rs.getInt("sponsor"));
+//            evenements.add(e);
+//        }
+//        return evenements;
+//    }
+
+
+//    public List<evenement> getAllEvenements() {
+//        List<evenement> list = new ArrayList<>();
+//        String query = "SELECT * FROM evenement";
+//
+//        try (Statement stmt = cnx.createStatement();
+//             ResultSet rs = stmt.executeQuery(query)) {
+//
+//            while (rs.next()) {
+//                evenement e = new evenement(
+//                        rs.getInt("id"),
+//                        rs.getString("titre"),
+//                        type_evenement.valueOf(rs.getString("type")),
+//                        rs.getString("description"),
+//                        rs.getDate("date").toLocalDate(),
+//                        rs.getString("lieu"),
+//                        rs.getInt("nbrPlaces"),
+//                        rs.getInt("sponsor")
+//                );
+//                list.add(e);
+//            }
+//            System.out.println("✅ Récupération des événements réussie !");
+//        } catch (SQLException e) {
+//            System.err.println("❌ Erreur lors de la récupération : " + e.getMessage());
+//        }
+//        return list;
+//    }
+
+    public List<evenement> getAll() throws SQLException {
+        List<evenement> evenements = new ArrayList<>();
+        String query = "SELECT * FROM evenement";
+
+        try (
+                Statement stmt = cnx.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                evenement e = new evenement(
+                        rs.getString("titre"),
+                        models.type_evenement.valueOf(rs.getString("type")),
+                        rs.getString("description"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getString("lieu"),
+                        rs.getInt("nbr_places"),
+                        rs.getInt("sponsor")
+                );
+                evenements.add(e);
+            }
+        }
+        return evenements;
+    }
+
+    public evenement getEventById(int eventId) throws SQLException {
+        String sql = "SELECT * FROM evenement WHERE id = ?";
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            ste.setInt(1, eventId);
+            ResultSet rs = ste.executeQuery();
+            if (rs.next()) {
+                return new evenement(
+                        rs.getInt("id"),
+                        rs.getString("titre"),
+                        models.type_evenement.valueOf(rs.getString("type")),
+                        rs.getString("description"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getString("lieu"),
+                        rs.getInt("nbrplaces"),
+                        rs.getInt("sponsor")
+                );
+            }
+        }
+        return null;
+    }
+
+}

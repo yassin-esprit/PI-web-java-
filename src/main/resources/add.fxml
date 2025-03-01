@@ -13,7 +13,7 @@
 <?import javafx.collections.FXCollections?>
 
 <?import java.lang.String?>
-<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #36d8f4);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddUser">
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #36d8f4);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddUser">
     <children>
         <!-- Title with modern, elegant font -->
         <Text fill="white" layoutX="151.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new account">

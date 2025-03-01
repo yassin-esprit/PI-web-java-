@@ -1,7 +1,7 @@
-package Controller;
+package controllers;
 
-import Models.User;
-import Tools.UserSession;
+import models.User;
+import tools.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;

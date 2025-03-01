@@ -1,8 +1,9 @@
-package Controller;
+package controllers;
 
-import Models.User;
-import Tools.MyDB;
-import Tools.UserSession;
+import models.User;
+import models.User.Role;
+import tools.MyDB;
+import tools.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import Models.User.Role;  // Import the Role enum
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -252,7 +252,9 @@ public class AdminController {
     }
 
     @FXML
-    void editpage(MouseEvent event) {
+    void editpage(MouseEvent event) throws IOException {
+        SceneController.loadProfileEditScene();
+
     }
 
     @FXML
@@ -265,5 +267,8 @@ public class AdminController {
         UserSession session = UserSession.getInstance();
         session.cleanUserSession();
         SceneController.loadLoginScene();
+    }
+    public void navEvenementlist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistev();
     }
 }

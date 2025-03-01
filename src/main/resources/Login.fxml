@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="731.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
       <VBox layoutX="683.0" prefHeight="731.0" prefWidth="584.0">
          <children>
@@ -62,7 +62,7 @@
       </VBox>
       <ImageView fitHeight="737.0" fitWidth="678.0">
          <image>
-            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />
+<!--            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />-->
          </image>
       </ImageView>
    </children>

@@ -1,8 +1,8 @@
-package Controller;
+package controllers;
 
-import Models.User;
-import Tools.MyDB;
-import Tools.UserSession;
+import models.User;
+import tools.MyDB;
+import tools.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class EditProfile {
     Connection cnx = MyDB.getInstance().getConnection();
@@ -133,6 +132,6 @@ public class EditProfile {
 
     @FXML
     void BackProfilebtn(MouseEvent event) throws IOException {
-        SceneController.loadProfilePageScene();
+        SceneController.loadAdminDashScene();
     }
 }

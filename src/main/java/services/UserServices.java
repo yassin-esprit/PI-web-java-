@@ -61,10 +61,10 @@
 //}
 
 
-package Services;
+package services;
 
-import Models.User;
-import Tools.MyDB;
+import models.User;
+import tools.MyDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

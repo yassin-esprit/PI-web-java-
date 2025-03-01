@@ -1,8 +1,8 @@
-package Controller;
+package controllers;
 
-import Models.User;
-import Tools.MyDB;
-import Tools.UserSession;
+import models.User;
+import tools.MyDB;
+import tools.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

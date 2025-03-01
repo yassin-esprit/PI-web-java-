@@ -1,4 +1,4 @@
-package Controller;
+package controllers;
 
 public class Passwordverification {
 }

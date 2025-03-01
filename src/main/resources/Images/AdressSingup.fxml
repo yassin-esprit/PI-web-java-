@@ -50,7 +50,7 @@
         </PasswordField>
 
         <!-- Sign Up Button -->
-        <Button fx:id="singupbt" alignment="CENTER" layoutX="284.0" layoutY="441.0" mnemonicParsing="false" onAction="#addadressSingup" prefHeight="35.0" prefWidth="236.0" style="-fx-background-color: #07b263;" text="Submit Address" textFill="#ffffffc9">
+        <Button fx:id="singupbt" alignment="CENTER" layoutX="284.0" layoutY="441.0" mnemonicParsing="false" onAction="#addadress" prefHeight="35.0" prefWidth="236.0" style="-fx-background-color: #07b263;" text="Submit Address" textFill="#ffffffc9">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -58,7 +58,7 @@
                 <Font name="FiraCode Nerd Font Bold" size="14.0" />
             </font>
         </Button>
-        <Button layoutX="284.0" layoutY="512.0" mnemonicParsing="false" onAction="#skipsingup" prefHeight="38.0" prefWidth="236.0" style="-fx-background-color: #079af5;" text="Skip For Now" textFill="#ffffffc2">
+        <Button layoutX="284.0" layoutY="512.0" mnemonicParsing="false" onAction="#skip" prefHeight="38.0" prefWidth="236.0" style="-fx-background-color: #079af5;" text="Skip For Now" textFill="#ffffffc2">
             <font>
                 <Font name="FiraCode Nerd Font Bold" size="14.0" />
             </font>

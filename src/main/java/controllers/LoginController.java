@@ -1,14 +1,18 @@
-package Controller;
+package controllers;
 
-import Models.User;
-import Tools.MyDB;
-import Tools.UserSession;
+import models.User;
+import tools.MyDB;
+import tools.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
 

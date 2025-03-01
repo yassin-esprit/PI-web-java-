@@ -1,6 +1,6 @@
-package Tools;
+package tools;
 
-import Models.User;
+import models.User;
 import java.sql.Timestamp;
 
 public final class UserSession {
