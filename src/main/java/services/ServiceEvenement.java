@@ -160,5 +160,25 @@ public class ServiceEvenement
         return evenements;
     }
 
+    public evenement getEventById(int eventId) throws SQLException {
+        String sql = "SELECT * FROM evenement WHERE id = ?";
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            ste.setInt(1, eventId);
+            ResultSet rs = ste.executeQuery();
+            if (rs.next()) {
+                return new evenement(
+                        rs.getInt("id"),
+                        rs.getString("titre"),
+                        models.type_evenement.valueOf(rs.getString("type")),
+                        rs.getString("description"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getString("lieu"),
+                        rs.getInt("nbrplaces"),
+                        rs.getInt("sponsor")
+                );
+            }
+        }
+        return null;
+    }
 
 }

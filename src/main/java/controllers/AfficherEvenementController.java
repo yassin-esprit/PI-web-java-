@@ -13,8 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Participation;
+import models.User;
 import models.evenement;
 import services.ServiceEvenement;
+import services.ServiceParticipation;
+import tools.UserSession;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,11 +32,76 @@ public class AfficherEvenementController implements Initializable {
     @FXML
     private ListView<evenement> listViewEvenements;
 
+
+    @FXML
+    private Label mail;
+
+    @FXML
+    private Label name;
+
+    @FXML
+    private Label lastname;
+
+
+    @FXML
+    private Button btnMesParticipations;
+
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
+    private ServiceParticipation serviceParticipation = new ServiceParticipation();
+
+
+
+    @FXML
+    private void redirectToMesParticipations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mesParticipations.fxml"));
+            Parent root = loader.load();
+            btnMesParticipations.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger la page des participations : " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    @FXML
+    private void handleParticipate() {
+        evenement selectedEvent = listViewEvenements.getSelectionModel().getSelectedItem();
+        if (selectedEvent == null) {
+            showAlert("Erreur", "Veuillez sélectionner un événement pour participer.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Get the current user from the session
+        UserSession userSession = UserSession.getInstance();
+        if (userSession.getUser() == null) {
+            showAlert("Erreur", "Aucun utilisateur connecté.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        int userId = userSession.getUser().getUserId(); // Get the current user's ID
+        int eventId = selectedEvent.getId();
+
+        Participation participation = new Participation(eventId, userId);
+
+        try {
+            serviceParticipation.ajouterParticipation(participation);
+            showAlert("Succès", "Vous avez participé à l'événement avec succès !", Alert.AlertType.INFORMATION);
+        } catch (SQLException e) {
+            showAlert("Erreur", "Une erreur s'est produite : " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadEvenements();
+        UserSession session = UserSession.getInstance();
+        User currentUser = session.getUser();
+
+        name.setText(currentUser.getFirstName());
+        lastname.setText(currentUser.getLastName());
+        mail.setText(currentUser.getEmail());
+
     }
 
     private void loadEvenements() {
