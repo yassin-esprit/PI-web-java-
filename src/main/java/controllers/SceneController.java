@@ -65,6 +65,9 @@
         public static void loadAddressSignupScene() throws IOException {
             loadScene("/AdressSingup.fxml", "Address Signup");
         }
+        public static void loadlistev() throws IOException {
+            loadScene("/evenementdash.fxml", "list Evenements");
+        }
 
         // Method to load the Forgot Password scene
         public static void loadForgotPasswordScene() throws IOException {

@@ -7,11 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import models.evenement;
 import services.ServiceEvenement;
 
@@ -25,58 +26,42 @@ import java.util.ResourceBundle;
 public class AfficherEvenementController implements Initializable {
 
     @FXML
-    private TableView<evenement> tableEvenements;
-
-    @FXML
-    private TableColumn<evenement, Integer> colId;
-
-    @FXML
-    private TableColumn<evenement, String> colTitre;
-
-    @FXML
-    private TableColumn<evenement, String> colType;
-
-    @FXML
-    private TableColumn<evenement, String> colDescription;
-
-    @FXML
-    private TableColumn<evenement, String> colDate;
-
-    @FXML
-    private TableColumn<evenement, String> colLieu;
-
-    @FXML
-    private TableColumn<evenement, Integer> colNbrPlaces;
-
-    @FXML
-    private TableColumn<evenement, Integer> colSponsor;
+    private ListView<evenement> listViewEvenements;
 
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize the table columns
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        colLieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
-        colNbrPlaces.setCellValueFactory(new PropertyValueFactory<>("nbrplaces"));
-        colSponsor.setCellValueFactory(new PropertyValueFactory<>("sponsor"));
+        loadEvenements();
     }
 
-    @FXML
-    void loadEvenements(ActionEvent event) {
+    private void loadEvenements() {
         try {
-            // Retrieve the list of events from the database
             List<evenement> evenements = serviceEvenement.recuperer();
-
-            // Convert the list to an ObservableList
             ObservableList<evenement> observableList = FXCollections.observableArrayList(evenements);
+            listViewEvenements.setItems(observableList);
 
-            // Set the items in the table
-            tableEvenements.setItems(observableList);
+            listViewEvenements.setCellFactory(listView -> new ListCell<evenement>() {
+                @Override
+                protected void updateItem(evenement event, boolean empty) {
+                    super.updateItem(event, empty);
+                    if (empty || event == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setStyle("-fx-padding: 15px; -fx-background-color: #f9f9f9; "
+                                + "-fx-border-color: #ddd; -fx-border-radius: 10px; "
+                                + "-fx-font-size: 14px; -fx-font-weight: bold;");
+                        setText("\uD83D\uDCC5 " + event.getDate() + "\n"
+                                + "\uD83C\uDF1F Titre: " + event.getTitre() + "\n"
+                                + "📌 Type: " + event.getType() + "\n"
+                                + "📖 Description: " + event.getDescription() + "\n"
+                                + "📍 Lieu: " + event.getLieu() + "\n"
+                                + "👥 Places: " + event.getNbrplaces() + "\n"
+                                + "🤝 Sponsor: " + event.getSponsor());
+                    }
+                }
+            });
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,15 +71,13 @@ public class AfficherEvenementController implements Initializable {
 
     @FXML
     void deleteEvenement(ActionEvent event) {
-        // Get the selected event from the table
-        evenement selectedEvenement = tableEvenements.getSelectionModel().getSelectedItem();
+        evenement selectedEvenement = listViewEvenements.getSelectionModel().getSelectedItem();
 
         if (selectedEvenement == null) {
             showAlert("Aucune sélection", "Veuillez sélectionner un événement à supprimer.", Alert.AlertType.WARNING);
             return;
         }
 
-        // Confirm deletion with the user
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmation de suppression");
         confirmationAlert.setHeaderText(null);
@@ -103,14 +86,9 @@ public class AfficherEvenementController implements Initializable {
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Delete the event from the database
                 serviceEvenement.supprimer(selectedEvenement.getId());
-
-                // Remove the event from the table
-                tableEvenements.getItems().remove(selectedEvenement);
-
+                listViewEvenements.getItems().remove(selectedEvenement);
                 showAlert("Succès", "Événement supprimé avec succès.", Alert.AlertType.INFORMATION);
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Erreur", "Une erreur s'est produite lors de la suppression de l'événement.", Alert.AlertType.ERROR);
@@ -119,30 +97,8 @@ public class AfficherEvenementController implements Initializable {
     }
 
     @FXML
-    void retour(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterevenement.fxml"));
-            Parent root = loader.load();
-            tableEvenements.getScene().setRoot(root);
-        } catch (IOException e) {
-            System.err.println("Erreur lors du retour : " + e.getMessage());
-        }
-    }
-
-    // Helper method to show alerts
-    private void showAlert(String title, String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-
-    }
-
-    @FXML
     void modifyEvenement(ActionEvent event) {
-        // Get the selected event from the table
-        evenement selectedEvenement = tableEvenements.getSelectionModel().getSelectedItem();
+        evenement selectedEvenement = listViewEvenements.getSelectionModel().getSelectedItem();
 
         if (selectedEvenement == null) {
             showAlert("Aucune sélection", "Veuillez sélectionner un événement à modifier.", Alert.AlertType.WARNING);
@@ -150,19 +106,68 @@ public class AfficherEvenementController implements Initializable {
         }
 
         try {
-            // Load the modify page
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierevenement.fxml"));
             Parent root = loader.load();
-
-            // Pass the selected event to the ModifierEvenementController
             ModifierEvenementController controller = loader.getController();
             controller.initData(selectedEvenement);
-
-            // Switch to the modify page
-            tableEvenements.getScene().setRoot(root);
+            listViewEvenements.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Une erreur s'est produite lors du chargement de la page de modification.", Alert.AlertType.ERROR);
         }
     }
+
+    @FXML
+    void retour(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterevenement.fxml"));
+            Parent root = loader.load();
+            listViewEvenements.getScene().setRoot(root);
+        } catch (IOException e) {
+            System.err.println("Erreur lors du retour : " + e.getMessage());
+        }
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void editpage(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadProfileEditScene();
+
+    }
+
+    @FXML
+    public void showStatistics() {
+        try {
+            // Load the statistics FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statistics.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and stage for the statistics page
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Statistiques des Événements");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    @FXML
+//    private void viewDetails() {
+//        // Example: Show an alert with event details
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setTitle("Event Details");
+//        alert.setHeaderText("Details for the Event");
+//
+//        // Here, you can dynamically set the content of the alert based on the selected event
+//        alert.setContentText("Event Title: Example Event\nEvent Type: Conference\nDate: March 5, 2025\nLocation: New York");
+//
+//        alert.showAndWait();
+//    }
 }

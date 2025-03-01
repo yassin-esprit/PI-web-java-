@@ -89,4 +89,17 @@ public class AjouterEvenementController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }}
+    }
+    @FXML
+    void cancel() {
+        try {
+            // Redirect to the AfficherEvenement view without saving changes
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevenement.fxml"));
+            Parent root = loader.load();
+            txtTitre.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}

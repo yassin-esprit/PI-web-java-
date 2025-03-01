@@ -268,4 +268,7 @@ public class AdminController {
         session.cleanUserSession();
         SceneController.loadLoginScene();
     }
+    public void navEvenementlist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistev();
+    }
 }

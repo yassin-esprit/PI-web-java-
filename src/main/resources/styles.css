@@ -13,3 +13,22 @@ Button {
 Button:hover {
     -fx-opacity: 0.8;
 }
+
+.list-cell {
+    -fx-padding: 15px;
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+
+.list-cell:hover {
+    -fx-background-color: #142c3a; /* Slightly darker on hover */
+    -fx-cursor: hand;
+}
+
+

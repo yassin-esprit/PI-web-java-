@@ -1,0 +1,71 @@
+/* General styles */
+.background {
+    -fx-background-color: linear-gradient(to bottom right, #2c3e50, #36d8f4);
+}
+
+.sidebar {
+    -fx-background-color: #2e2d2d;
+}
+
+.sidebar-container {
+    -fx-background-color: #2e2d2d;
+}
+
+.sidebar-item {
+    -fx-background-color: #1abc9c;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.sidebar-text {
+    -fx-font-family: "FiraCode Nerd Font Bold";
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.user-banner {
+    -fx-background-color: #1abc9c;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+}
+
+.user-banner-label {
+    -fx-font-family: "FiraCode Nerd Font Reg";
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.edit-button {
+    -fx-background-color: #16a085;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.edit-button-text {
+    -fx-font-family: "FiraCode Nerd Font Bold";
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+.search-bar {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+}
+
+.table-view {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1abc9c;
+    -fx-text-fill: white;
+}
+
+.table-view .cell {
+    -fx-padding: 10px;
+}
+
+.sidebar-item:hover {
+    -fx-background-color: #16a085;
+}
