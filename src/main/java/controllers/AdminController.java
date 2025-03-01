@@ -252,7 +252,9 @@ public class AdminController {
     }
 
     @FXML
-    void editpage(MouseEvent event) {
+    void editpage(MouseEvent event) throws IOException {
+        SceneController.loadProfileEditScene();
+
     }
 
     @FXML

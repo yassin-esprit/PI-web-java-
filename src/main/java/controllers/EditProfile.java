@@ -132,6 +132,6 @@ public class EditProfile {
 
     @FXML
     void BackProfilebtn(MouseEvent event) throws IOException {
-        SceneController.loadProfilePageScene();
+        SceneController.loadAdminDashScene();
     }
 }

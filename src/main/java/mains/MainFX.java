@@ -33,7 +33,7 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) {
         SceneController.setPrimaryStage(primaryStage); // Set the primary stage
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/add.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherevenement.fxml"));
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);

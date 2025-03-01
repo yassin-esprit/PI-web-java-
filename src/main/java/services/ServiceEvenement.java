@@ -2,6 +2,7 @@ package services;
 import java.time.LocalDate;
 
 import models.evenement;
+import models.type_evenement;
 import tools.MyDB;
 
 import java.sql.*;
@@ -42,7 +43,7 @@ public class ServiceEvenement
 
     @Override
     public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
-            int sponsor) throws SQLException {
+                         int sponsor) throws SQLException {
         String sql = "update evenement set titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? where id=?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setString(1, titre);
@@ -64,10 +65,19 @@ public class ServiceEvenement
         ResultSet rs = ste.executeQuery(sql);
         List<evenement> evenements = new ArrayList<>();
         while (rs.next()) {
+            String typeStr = rs.getString("type");
+            type_evenement type;
+            try {
+                type = models.type_evenement.valueOf(typeStr);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Unknown type: " + typeStr);
+                // Handle the error, e.g., set a default value or throw a custom exception
+                type = type_evenement.conference; // Default value
+            }
             evenement e = new evenement(
                     rs.getInt("id"),
                     rs.getString("titre"),
-                    models.type_evenement.valueOf(rs.getString("type")),
+                    type,
                     rs.getString("description"),
                     rs.getDate("date").toLocalDate(),
                     rs.getString("lieu"),
@@ -77,6 +87,26 @@ public class ServiceEvenement
         }
         return evenements;
     }
+//    @Override
+//    public List<evenement> recuperer() throws SQLException {
+//        String sql = "select * from evenement";
+//        Statement ste = cnx.createStatement();
+//        ResultSet rs = ste.executeQuery(sql);
+//        List<evenement> evenements = new ArrayList<>();
+//        while (rs.next()) {
+//            evenement e = new evenement(
+//                    rs.getInt("id"),
+//                    rs.getString("titre"),
+//                    type_evenement.valueOf(rs.getString("type")),
+//                    rs.getString("description"),
+//                    rs.getDate("date").toLocalDate(),
+//                    rs.getString("lieu"),
+//                    rs.getInt("nbrplaces"),
+//                    rs.getInt("sponsor"));
+//            evenements.add(e);
+//        }
+//        return evenements;
+//    }
 
 
 //    public List<evenement> getAllEvenements() {
@@ -111,8 +141,8 @@ public class ServiceEvenement
         String query = "SELECT * FROM evenement";
 
         try (
-             Statement stmt = cnx.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+                Statement stmt = cnx.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 evenement e = new evenement(
