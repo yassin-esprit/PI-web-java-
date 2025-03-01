@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.campagnes_publicitaires;
+import models.publicites;
 import services.ServiceCamp;
 
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class AfficherCampController {
     @FXML
     private TableColumn<?, ?> colStatut;
 
+//    @FXML
+//    private TableColumn<?, ?> colPublicite; // Nouvelle colonne pour la publicité
+
     @FXML
     private TableView<campagnes_publicitaires> tableCampagnes;
 
@@ -50,6 +54,7 @@ public class AfficherCampController {
         colDateDebut.setCellValueFactory(new PropertyValueFactory<>("date_debut_camp"));
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("date_fin_camp"));
         colStatut.setCellValueFactory(new PropertyValueFactory<>("statut_camp"));
+        //colPublicite.setCellValueFactory(new PropertyValueFactory<>("publicite")); // Afficher la publicité
 
         // Charger les données
         chargerCampagnes();
@@ -149,6 +154,7 @@ public class AfficherCampController {
             showAlert("Aucune campagne sélectionnée", "Veuillez sélectionner une campagne à modifier.");
         }
     }
+
     @FXML
     void afficherStatistiques(ActionEvent event) {
         try {
@@ -167,6 +173,4 @@ public class AfficherCampController {
             e.printStackTrace();
         }
     }
-
-
 }

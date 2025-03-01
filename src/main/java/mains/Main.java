@@ -28,12 +28,12 @@ public class Main {
         } else {
             System.out.println("Failed to connect to the database.");
         }
-        campagnes_publicitaires c1 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 1);
+        //campagnes_publicitaires c1 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 1);
 
-        publicites p = new publicites(1, "hola" , type_pub.video , "je suis la " , "tunis" , statut_pub.active );
-        publicites p2 = new publicites(2, "lilas est la " , type_pub.image , "kim o " , "bardo" , statut_pub.inactif );
+       // publicites p = new publicites(1, "hola" , type_pub.video , "je suis la " , "tunis" , statut_pub.active );
+       // publicites p2 = new publicites(2, "lilas est la " , type_pub.image , "kim o " , "bardo" , statut_pub.inactif );
 
-      campagnes_publicitaires c2 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 62);
+      //campagnes_publicitaires c2 = new campagnes_publicitaires("brsuno", 2000, "2026-02-01", "2026-02-15", statut_camp.suspendue, 62);
         //campagnes_publicitaires c3 = new campagnes_publicitaires("ELMA", 1500, "2025-02-01", "2025-02-20", statut_camp.en_cours, 26);
 
         ServicePublicite sv = new ServicePublicite();

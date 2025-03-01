@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.campagnes_publicitaires;
+import models.publicites;
 import models.statut_camp;
 import services.ServiceCamp;
 
@@ -22,7 +23,7 @@ public class ModifierCampController {
     @FXML private DatePicker dateDebutField;
     @FXML private DatePicker dateFinField;
     @FXML private ChoiceBox<statut_camp> statutField;
-   // @FXML private ComboBox<Integer> pubField;
+    @FXML private ComboBox<publicites> pubField;
 
     private campagnes_publicitaires campagneToModify;
     private final ServiceCamp serviceCampagne = new ServiceCamp();
@@ -53,8 +54,7 @@ public class ModifierCampController {
             e.printStackTrace();
         }
     }
-    // Méthode pour modifier la campagne
-    @FXML
+     @FXML
     public void modifierCampagne() {
         if (campagneToModify != null) {
             try {
@@ -64,11 +64,20 @@ public class ModifierCampController {
                 campagneToModify.setDate_debut_camp(dateDebutField.getValue().toString());
                 campagneToModify.setDate_fin_camp(dateFinField.getValue().toString());
                 campagneToModify.setStatut_camp(statutField.getValue());
-                //campagneToModify.setPublicite_id(pubField.getValue());
+                //campagneToModify.setPublicite(pubField.getValue()); // Mise à jour avec l'objet Publicite
 
                 // Appel du service pour sauvegarder les modifications dans la base de données
-              serviceCampagne.modifier(campagneToModify.getId_camp(),campagneToModify.getNom_camp(),campagneToModify.getBudget_camp(),campagneToModify.getDate_debut_camp(),campagneToModify.getDate_fin_camp(),campagneToModify.getStatut_camp(),campagneToModify.getPublicite_id());
-                redirectToAfficherCam();
+                serviceCampagne.modifier(
+                    campagneToModify.getId_camp(),
+                    campagneToModify.getNom_camp(),
+                    campagneToModify.getBudget_camp(),
+                    campagneToModify.getDate_debut_camp(),
+                    campagneToModify.getDate_fin_camp(),
+                    campagneToModify.getStatut_camp(),
+                    campagneToModify.getPublicite() // Passage de l'objet Publicite
+                );
+
+              //  redirectToAfficherCam();
 
                 // Fermer la fenêtre de modification après avoir sauvegardé
                 Stage stage = (Stage) nomField.getScene().getWindow();

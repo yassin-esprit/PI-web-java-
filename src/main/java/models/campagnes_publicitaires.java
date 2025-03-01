@@ -8,33 +8,33 @@ public class campagnes_publicitaires {
     private String date_debut_camp;
     private String date_fin_camp;
     private statut_camp statut_camp;
-    private int publicite_id;
+    private publicites publicite;  // Référence à l'objet publicites
 
-
+    // Constructeur par défaut
     public campagnes_publicitaires() {}
 
-
-
-
-    public campagnes_publicitaires(String nom_camp, int budget_camp, String date_debut_camp, String date_fin_camp, models.statut_camp statut_camp, int publicite_id) {
+    // Constructeur sans id_camp
+    public campagnes_publicitaires(String nom_camp, int budget_camp, String date_debut_camp, String date_fin_camp, statut_camp statut_camp, publicites publicite) {
         this.nom_camp = nom_camp;
         this.budget_camp = budget_camp;
         this.date_debut_camp = date_debut_camp;
         this.date_fin_camp = date_fin_camp;
         this.statut_camp = statut_camp;
-        this.publicite_id = publicite_id;
+        this.publicite = publicite;
     }
 
-    public campagnes_publicitaires(int id_camp, String nom_camp, int budget_camp, String date_debut_camp, String date_fin_camp, models.statut_camp statut_camp, int publicite_id) {
+    // Constructeur avec id_camp
+    public campagnes_publicitaires(int id_camp, String nom_camp, int budget_camp, String date_debut_camp, String date_fin_camp, statut_camp statut_camp, publicites publicite) {
         this.id_camp = id_camp;
         this.nom_camp = nom_camp;
         this.budget_camp = budget_camp;
         this.date_debut_camp = date_debut_camp;
         this.date_fin_camp = date_fin_camp;
         this.statut_camp = statut_camp;
-        this.publicite_id = publicite_id;
+        this.publicite = publicite;
     }
 
+    // Getters et Setters
     public int getId_camp() {
         return id_camp;
     }
@@ -75,22 +75,23 @@ public class campagnes_publicitaires {
         this.date_fin_camp = date_fin_camp;
     }
 
-    public models.statut_camp getStatut_camp() {
+    public statut_camp getStatut_camp() {
         return statut_camp;
     }
 
-    public void setStatut_camp(models.statut_camp statut_camp) {
+    public void setStatut_camp(statut_camp statut_camp) {
         this.statut_camp = statut_camp;
     }
 
-    public int getPublicite_id() {
-        return publicite_id;
+    public publicites getPublicite() {
+        return publicite;
     }
 
-    public void setPublicite_id(int publicite_id) {
-        this.publicite_id = publicite_id;
+    public void setPublicite(publicites publicite) {
+        this.publicite = publicite;
     }
 
+    // Méthode toString
     @Override
     public String toString() {
         return "campagnes_publicitaires{" +
@@ -100,7 +101,7 @@ public class campagnes_publicitaires {
                 ", date_debut_camp='" + date_debut_camp + '\'' +
                 ", date_fin_camp='" + date_fin_camp + '\'' +
                 ", statut_camp=" + statut_camp +
-                ", publicite_id=" + publicite_id +
+                ", publicite=" + publicite +
                 '}';
     }
 }

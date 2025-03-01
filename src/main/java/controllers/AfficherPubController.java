@@ -17,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.publicites;
 import models.statut_pub;
@@ -26,7 +25,6 @@ import services.ServicePublicite;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 
 public class AfficherPubController {
     @FXML
@@ -44,8 +42,8 @@ public class AfficherPubController {
     @FXML
     private Button idSupprimer;
     @FXML
-    private Button idDisplay; // Add the Display button
-////////////////////////////////////////////////////////
+    private Button idDisplay;
+
     @FXML
     private BarChart<String, Number> barChart;
     @FXML
@@ -57,7 +55,7 @@ public class AfficherPubController {
     private TableView<publicites> idtable;
     private ObservableList<publicites> publicites = FXCollections.observableArrayList();
     private ServicePublicite servicePublicites = new ServicePublicite();
-    private ServicePublicite servicePublicite;
+
     public AfficherPubController() {
     }
 
@@ -71,23 +69,22 @@ public class AfficherPubController {
         try {
             List<publicites> publicitesList = this.servicePublicites.recuperer();
             if (publicitesList.isEmpty()) {
-                this.showAlert("Aucune publicite", "Il n'y a aucune publicite disponible.");
+                this.showAlert("Aucune publicite", "Il n'y a aucune publicite disponible.", AlertType.INFORMATION);
             }
 
             this.setPublicites(publicitesList);
         } catch (SQLException var2) {
-            this.showAlert("Erreur de base de donnees", "Une erreur s'est produite lors de la recuperation des publicites.");
+            this.showAlert("Erreur de base de donnees", "Une erreur s'est produite lors de la recuperation des publicites.", AlertType.ERROR);
             var2.printStackTrace();
         }
-
     }
 
     @FXML
     void supprimer(ActionEvent event) {
-        publicites selectedPub = (publicites)this.idtable.getSelectionModel().getSelectedItem();
+        publicites selectedPub = this.idtable.getSelectionModel().getSelectedItem();
         if (selectedPub != null) {
-            Alert confirmation = new Alert(AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicite ?", new ButtonType[]{ButtonType.YES, ButtonType.NO});
-            confirmation.showAndWait().ifPresent((response) -> {
+            Alert confirmation = new Alert(AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicite ?", ButtonType.YES, ButtonType.NO);
+            confirmation.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.YES) {
                     try {
                         this.servicePublicites.supprimer(selectedPub.getId_pub());
@@ -96,35 +93,42 @@ public class AfficherPubController {
                         var4.printStackTrace();
                     }
                 }
-
             });
         } else {
-            this.showAlert("Aucune publicite slectionne", "Veuillez slectionner une publicite a supprimer.");
+            this.showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a supprimer.", AlertType.WARNING);
         }
-
     }
+
     @FXML
     public void initialize() {
-        // Bind the columns to the publicites model properties
         ctitte.setCellValueFactory(new PropertyValueFactory<>("titre_pub"));
         ctype.setCellValueFactory(new PropertyValueFactory<>("type_pub"));
         ccontenu.setCellValueFactory(new PropertyValueFactory<>("contenu_pub"));
         cemplacement.setCellValueFactory(new PropertyValueFactory<>("emplacement_pub"));
         cstatut.setCellValueFactory(new PropertyValueFactory<>("statut_pub"));
 
-        // Load the data into the table
         updatePublicitesList();
     }
+
     @FXML
     void displayPublicites(ActionEvent event) {
         this.updatePublicitesList();
+    }
+
+    public void initData(publicites pub) {
+        if (pub != null) {
+            // Assuming you want to select the pub in the table
+            idtable.getSelectionModel().select(pub);
+        } else {
+            showAlert("Erreur", "La publicite selectionnee est invalide.", AlertType.ERROR);
+        }
     }
 
     @FXML
     void gotoCampagnePub(ActionEvent event) {
         publicites selectedPub = idtable.getSelectionModel().getSelectedItem();
         if (selectedPub == null) {
-            System.out.println("Veuillez sélectionner une publicité !");
+            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite.", AlertType.WARNING);
             return;
         }
 
@@ -133,7 +137,7 @@ public class AfficherPubController {
             Parent root = loader.load();
 
             AjouterCampController controller = loader.getController();
-            controller.initData(selectedPub);
+          //  controller.initData(selectedPub);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -144,9 +148,8 @@ public class AfficherPubController {
         }
     }
 
-
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.WARNING);
+    private void showAlert(String title, String content, AlertType alertType) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.show();
@@ -160,7 +163,7 @@ public class AfficherPubController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierpub.fxml"));
                 Parent root = loader.load();
                 ModifierPubController controller = loader.getController();
-                controller.initData(selectedPub); // Pass the selected publicite to the modifier controller
+                controller.initData(selectedPub);
                 Stage stage = (Stage) idtable.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -168,27 +171,23 @@ public class AfficherPubController {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.");
+            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.", AlertType.WARNING);
         }
     }
+
     @FXML
     void afficherStatistiques(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesPub.fxml"));
             Parent root = loader.load();
 
-            // Créer la nouvelle scène pour les statistiques
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Statistiques des Publicités");
+            stage.setTitle("Statistiques des Publicites");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Erreur", "Une erreur s'est produite lors de l'ouverture de la fenêtre des statistiques.");
+            showAlert("Erreur", "Une erreur s'est produite lors de l'ouverture de la fenetre des statistiques.", AlertType.ERROR);
         }
     }
-
-
-
-
 }

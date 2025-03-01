@@ -15,6 +15,7 @@ import services.ServiceCamp;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AjouterCampController {
 
@@ -34,7 +35,7 @@ public class AjouterCampController {
     private ChoiceBox<statut_camp> IDstatut;
 
     @FXML
-    private ComboBox<Integer> IDpub;
+    private ComboBox<publicites> IDpub; // ComboBox pour sélectionner une publicité
 
     @FXML
     private Button btnAjouter;
@@ -46,16 +47,25 @@ public class AjouterCampController {
         // Initialisation des statuts
         IDstatut.getItems().addAll(statut_camp.values());
         IDstatut.setValue(statut_camp.en_cours); // Valeur par défaut
+
+        // Charger les publicités disponibles
+        chargerPublicites();
     }
 
-    public void initData(publicites pub) {
-        if (pub != null) {
-            IDpub.getItems().add(pub.getId_pub());
-            IDpub.setValue(pub.getId_pub());
-        } else {
-            showAlert("Erreur", "La publicité sélectionnée est invalide.", Alert.AlertType.ERROR);
+    private void chargerPublicites() {
+        try {
+            // Récupérer la liste des publicités depuis la base de données
+            List<publicites> publicitesList = serviceCamp.recupererPublicites(); // À implémenter dans ServiceCamp
+            IDpub.getItems().addAll(publicitesList);
+
+            // Sélectionner par défaut le premier élément s'il existe
+            if (!publicitesList.isEmpty()) {
+                IDpub.getSelectionModel().selectFirst();
+            }      } catch (SQLException e) {
+            showAlert("Erreur", "Impossible de charger les publicités : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     @FXML
     void ajouter(ActionEvent event) {
@@ -66,10 +76,11 @@ public class AjouterCampController {
             LocalDate dateDebut = IDdebut.getValue();
             LocalDate dateFin = IDfin.getValue();
             statut_camp statut = IDstatut.getValue();
-            Integer pubId = IDpub.getValue();
+            //publicites pub = IDpub.getValue(); // Récupérer l'objet publicites sélectionné
+            publicites pub = IDpub.getSelectionModel().getSelectedItem(); // Récupération de la publicité sélectionnée
 
             // Vérification des champs
-            if (nomCamp.isEmpty() || budgetStr.isEmpty() || dateDebut == null || dateFin == null || statut == null || pubId == null) {
+            if (nomCamp.isEmpty() || budgetStr.isEmpty() || dateDebut == null || dateFin == null || statut == null || pub == null) {
                 showAlert("Erreur", "Veuillez remplir tous les champs.", Alert.AlertType.ERROR);
                 return;
             }
@@ -89,7 +100,7 @@ public class AjouterCampController {
             }
 
             // Création de la campagne
-            campagnes_publicitaires campagne = new campagnes_publicitaires(nomCamp, budget, dateDebut.toString(), dateFin.toString(), statut, pubId);
+            campagnes_publicitaires campagne = new campagnes_publicitaires(nomCamp, budget, dateDebut.toString(), dateFin.toString(), statut, pub);
             serviceCamp.ajouter(campagne);
 
             showAlert("Succès", "Campagne ajoutée avec succès.", Alert.AlertType.INFORMATION);
@@ -125,6 +136,4 @@ public class AjouterCampController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }
