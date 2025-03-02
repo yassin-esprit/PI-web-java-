@@ -94,6 +94,13 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button onAction="#checkWeather" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Check Weather">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+<!--                            <image><Image url="@Images/weather.png" /></image>-->
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
 
             <!-- Horizontal Layout for ListView and Rating Section -->

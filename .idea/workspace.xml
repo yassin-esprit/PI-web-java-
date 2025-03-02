@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d675dbc-51bd-4142-9044-aae4e85c06dc" name="Changes" comment="rating">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EventDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Rating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/ServiceRating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/search.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/sort.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/WeatherDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/WeatherService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/weatherDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AfficherEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AfficherEvenementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EventDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EventDetailsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/afficherevenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/afficherevenement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -55,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.Pidev3A24 [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
     "Maven.Pidev3A24 [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "gestion-evenement",
@@ -88,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740911741533</updated>
-      <workItem from="1740911742615" duration="7953000" />
+      <workItem from="1740911742615" duration="14219000" />
     </task>
     <task id="LOCAL-00001" summary="stat update2">
       <option name="closed" value="true" />
@@ -122,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740923153923</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="rating">
+      <option name="closed" value="true" />
+      <created>1740924865674</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740924865674</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

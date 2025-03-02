@@ -55,4 +55,7 @@ public class EventDetailsController {
         alert.showAndWait();
     }
 
+
+
+
 }

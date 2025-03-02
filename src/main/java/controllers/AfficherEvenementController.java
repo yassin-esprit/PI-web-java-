@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,11 +23,13 @@ import models.evenement;
 import services.ServiceEvenement;
 import services.ServiceParticipation;
 import services.ServiceRating;
+import services.WeatherService;
 import tools.UserSession;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,12 +37,10 @@ import java.util.stream.Collectors;
 
 public class AfficherEvenementController implements Initializable {
 
-
     @FXML private RadioButton rating1, rating2, rating3, rating4, rating5;
     @FXML private TextArea reviewText;
     @FXML private ToggleGroup ratingGroup = new ToggleGroup();
     @FXML private VBox ratingSection; // Add this field with fx:id="ratingSection" on the VBox
-
 
     @FXML
     private ListView<evenement> listViewEvenements;
@@ -48,21 +50,17 @@ public class AfficherEvenementController implements Initializable {
     private TextField searchField;
     @FXML
     private Label mail;
-
     @FXML
     private Label name;
-
     @FXML
     private Label lastname;
-
-
     @FXML
     private Button btnMesParticipations;
 
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
     private ServiceParticipation serviceParticipation = new ServiceParticipation();
     private ServiceRating serviceRating = new ServiceRating();
-
+    private WeatherService weatherService = new WeatherService();
 
     @FXML
     public void logout(MouseEvent event) throws IOException {
@@ -70,7 +68,6 @@ public class AfficherEvenementController implements Initializable {
         session.cleanUserSession(); // Clear the user session
         SceneController.loadLoginScene(); // Redirect to login scene
     }
-
 
     @FXML
     private void redirectToMesParticipations() {
@@ -83,7 +80,6 @@ public class AfficherEvenementController implements Initializable {
             showAlert("Erreur", "Impossible de charger la page des participations : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
 
     @FXML
     private void handleParticipate() {
@@ -112,8 +108,6 @@ public class AfficherEvenementController implements Initializable {
             showAlert("Erreur", "Une erreur s'est produite : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -158,7 +152,6 @@ public class AfficherEvenementController implements Initializable {
                 }
             }
         });
-
     }
 
     @FXML
@@ -196,7 +189,6 @@ public class AfficherEvenementController implements Initializable {
         }
     }
 
-
     private void loadRatingsForEvent(int eventId) {
         ratingsContainer.getChildren().clear();
         try {
@@ -219,40 +211,6 @@ public class AfficherEvenementController implements Initializable {
             showAlert("Erreur", "Erreur lors du chargement des avis: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-//    private void loadEvenements() {
-//        try {
-//            List<evenement> evenements = serviceEvenement.recuperer();
-//            ObservableList<evenement> observableList = FXCollections.observableArrayList(evenements);
-//            listViewEvenements.setItems(observableList);
-//
-//            listViewEvenements.setCellFactory(listView -> new ListCell<evenement>() {
-//                @Override
-//                protected void updateItem(evenement event, boolean empty) {
-//                    super.updateItem(event, empty);
-//                    if (empty || event == null) {
-//                        setText(null);
-//                        setGraphic(null);
-//                    } else {
-//                        setStyle("-fx-padding: 15px; -fx-background-color: #f9f9f9; "
-//                                + "-fx-border-color: #ddd; -fx-border-radius: 10px; "
-//                                + "-fx-font-size: 14px; -fx-font-weight: bold;");
-//                        setText("\uD83D\uDCC5 " + event.getDate() + "\n"
-//                                + "\uD83C\uDF1F Titre: " + event.getTitre() + "\n"
-//                                + "📌 Type: " + event.getType() + "\n"
-//                                + "📖 Description: " + event.getDescription() + "\n"
-//                                + "📍 Lieu: " + event.getLieu() + "\n"
-//                                + "👥 Places: " + event.getNbrplaces() + "\n"
-//                                + "🤝 Sponsor: " + event.getSponsor());
-//                    }
-//                }
-//            });
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            showAlert("Erreur", "Une erreur s'est produite lors du chargement des événements.", Alert.AlertType.ERROR);
-//        }
-//    }
 
     private void loadEvenements() {
         try {
@@ -283,7 +241,6 @@ public class AfficherEvenementController implements Initializable {
             showAlert("Erreur", "Erreur lors du chargement des événements: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
 
     @FXML
     void deleteEvenement(ActionEvent event) {
@@ -354,7 +311,6 @@ public class AfficherEvenementController implements Initializable {
 
     public void editpage(MouseEvent mouseEvent) throws IOException {
         SceneController.loadProfileEditScene();
-
     }
 
     @FXML
@@ -373,19 +329,6 @@ public class AfficherEvenementController implements Initializable {
             e.printStackTrace();
         }
     }
-
-//    @FXML
-//    private void viewDetails() {
-//        // Example: Show an alert with event details
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Event Details");
-//        alert.setHeaderText("Details for the Event");
-//
-//        // Here, you can dynamically set the content of the alert based on the selected event
-//        alert.setContentText("Event Title: Example Event\nEvent Type: Conference\nDate: March 5, 2025\nLocation: New York");
-//
-//        alert.showAndWait();
-//    }
 
     @FXML
     private void handleSort(ActionEvent event) {
@@ -412,7 +355,6 @@ public class AfficherEvenementController implements Initializable {
         });
     }
 
-
     @FXML
     private void handleSearch(ActionEvent event) {
         String searchText = searchField.getText().toLowerCase();
@@ -432,24 +374,68 @@ public class AfficherEvenementController implements Initializable {
         }
     }
 
+    @FXML
+    private void checkWeather() {
+        evenement selectedEvent = listViewEvenements.getSelectionModel().getSelectedItem();
+        if (selectedEvent == null) {
+            showAlert("Erreur", "Veuillez sélectionner un événement pour vérifier la météo.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        String city = selectedEvent.getLieu(); // Get the event location (city)
+        LocalDate eventDate = selectedEvent.getDate(); // Get the event date
+
+        System.out.println("Fetching weather for: " + city + " on " + eventDate); // Debugging
+
+        try {
+            String weatherData = weatherService.getWeatherForDate(city, eventDate);
+            System.out.println("Weather data received: " + weatherData); // Debugging
+
+            // Parse the weather data
+            JsonObject json = JsonParser.parseString(weatherData).getAsJsonObject();
+            JsonObject main = json.getAsJsonObject("main");
+            JsonObject weather = json.getAsJsonArray("weather").get(0).getAsJsonObject();
+            JsonObject wind = json.getAsJsonObject("wind");
+
+            // Extract relevant data
+            double temperature = main.get("temp").getAsDouble();
+            String condition = weather.get("description").getAsString();
+            int humidity = main.get("humidity").getAsInt();
+            double windSpeed = wind.get("speed").getAsDouble();
+            String iconCode = weather.get("icon").getAsString();
+            String iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+
+            // Open the weather dialog
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/weatherDialog.fxml"));
+            Parent root = loader.load();
+
+            WeatherDialogController controller = loader.getController();
+            controller.setWeatherData(
+                    city,
+                    eventDate.toString(),
+                    String.format("%.1f", temperature),
+                    condition,
+                    String.valueOf(humidity),
+                    String.format("%.1f", windSpeed),
+                    iconUrl
+            );
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Weather Information");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Erreur lors de la récupération des données météo: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
 
-//    private void loadRatings() {
-//        ratingsContainer.getChildren().clear();
-//        try {
-//            List<Rating> ratings = serviceRating.getRatingsForEvent();
-//            for (Rating rating : ratings) {
-//                Label reviewLabel = new Label(
-//                        "Rating: " + rating.getRating() + "/5\n" +
-//                                "Review: " + rating.getReview() + "\n" +
-//                                "By User: " + rating.getUserId() + "\n" +
-//                                "On: " + rating.getCreatedAt()
-//                );
-//                reviewLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
-//                ratingsContainer.getChildren().add(reviewLabel);
-//            }
-//        } catch (SQLException e) {
-//            showAlert("Error", "Failed to load reviews: " + e.getMessage(), Alert.AlertType.ERROR);
-//        }
-//    }
+    private void showWeatherAlert(String weatherData) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informations météo");
+        alert.setHeaderText("Météo pour " + listViewEvenements.getSelectionModel().getSelectedItem().getLieu() + " le " + listViewEvenements.getSelectionModel().getSelectedItem().getDate());
+        alert.setContentText(weatherData); // Display raw JSON for now
+        alert.showAndWait();
+    }
 }
