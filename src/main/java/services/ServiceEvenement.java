@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import models.evenement;
 import models.type_evenement;
 import tools.MyDB;
+import utils.EmailUtil;
 import utils.TwilioSMS;
 
 import java.sql.*;
@@ -34,6 +35,48 @@ public class ServiceEvenement
     }
 
 
+    private void notifyParticipants(int eventId, String subject, String body) throws SQLException {
+        System.out.println("Fetching participants for event ID: " + eventId);
+
+        // Fetch participants for the event
+        String sql = "SELECT p.email FROM user p " +
+                "JOIN participation pt ON p.userId = pt.user_id " +
+                "WHERE pt.evenement_id = ?";
+        try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+            ste.setInt(1, eventId);
+            ResultSet rs = ste.executeQuery();
+
+            int participantCount = 0;
+            while (rs.next()) {
+                String email = rs.getString("email");
+                if (email != null && !email.isEmpty()) {
+                    System.out.println("Sending email to: " + email);
+                    try {
+                        // Send email to each participant
+                        EmailUtil.sendEmail(email, subject, body);
+                        System.out.println("Email sent successfully to: " + email);
+                        participantCount++;
+                    } catch (Exception e) {
+                        System.err.println("Failed to send email to " + email + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Invalid or empty email address for participant.");
+                }
+            }
+
+            if (participantCount == 0) {
+                System.out.println("No participants found for event ID: " + eventId);
+            } else {
+                System.out.println("Emails sent to " + participantCount + " participants.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL error while fetching participants: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-throw the exception to handle it in the calling method
+        }
+    }
+
     public void supprimer(int id) throws SQLException {
         // Fetch event details before deleting
         evenement event = getEventById(id);
@@ -48,11 +91,11 @@ public class ServiceEvenement
             System.out.println("Evenement supprimé");
 
             // Notify participants
-            notifyParticipants(id, "L'événement '" + event.getTitre() + "' a été annulé.");
-
+            notifyParticipants(id, "Annulation de l'événement", "L'événement '" + event.getTitre() + "' a été annulé. Nous sommes désolés pour tout inconvénient.");
         }
     }
-//    @Override
+
+    //    @Override
 //    public void supprimer(int id) throws SQLException {
 //        String sql = "delete from evenement where id=?";
 //        PreparedStatement ste = cnx.prepareStatement(sql);
@@ -60,26 +103,25 @@ public class ServiceEvenement
 //        ste.executeUpdate();
 //        System.out.println("Evenement supprimé");
 //    }
-private void notifyParticipants(int eventId, String message) throws SQLException {
-    String sql = "SELECT p.telephone FROM participants p " +
-            "JOIN participation pt ON p.id = pt.user_id " +
-            "WHERE pt.evenement_id = ?";
-    try (PreparedStatement ste = cnx.prepareStatement(sql)) {
-        ste.setInt(1, eventId);
-        ResultSet rs = ste.executeQuery();
-
-        while (rs.next()) {
-            String phoneNumber = rs.getString("telephone");
-            if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                System.out.println("Sending SMS to: " + phoneNumber);
-                TwilioSMS.sendSMS(phoneNumber, message);
-            } else {
-                System.out.println("No phone number found for participant.");
-            }
-        }
-    }
-}
-
+//private void notifyParticipants(int eventId, String message) throws SQLException {
+//    String sql = "SELECT p.telephone FROM participants p " +
+//            "JOIN participation pt ON p.id = pt.user_id " +
+//            "WHERE pt.evenement_id = ?";
+//    try (PreparedStatement ste = cnx.prepareStatement(sql)) {
+//        ste.setInt(1, eventId);
+//        ResultSet rs = ste.executeQuery();
+//
+//        while (rs.next()) {
+//            String phoneNumber = rs.getString("telephone");
+//            if (phoneNumber != null && !phoneNumber.isEmpty()) {
+//                System.out.println("Sending SMS to: " + phoneNumber);
+//                TwilioSMS.sendSMS(phoneNumber, message);
+//            } else {
+//                System.out.println("No phone number found for participant.");
+//            }
+//        }
+//    }
+//}
 
     public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces, int sponsor) throws SQLException {
         String sql = "UPDATE evenement SET titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? WHERE id=?";
@@ -96,25 +138,10 @@ private void notifyParticipants(int eventId, String message) throws SQLException
             System.out.println("Evenement modifié");
 
             // Notify participants
-            notifyParticipants(id, "L'événement '" + titre + "' a été mis à jour. Nouvelle date: " + date);
+            notifyParticipants(id, "Mise à jour de l'événement", "L'événement '" + titre + "' a été mis à jour. Nouvelle date: " + date);
         }
     }
-//    @Override
-//    public void modifier(int id, String titre, String type, String description, Date date, String lieu, int nbrplaces,
-//                         int sponsor) throws SQLException {
-//        String sql = "update evenement set titre=?, type=?, description=?, date=?, lieu=?, nbrplaces=?, sponsor=? where id=?";
-//        PreparedStatement ste = cnx.prepareStatement(sql);
-//        ste.setString(1, titre);
-//        ste.setString(2, type);
-//        ste.setString(3, description);
-//        ste.setDate(4, new java.sql.Date(date.getTime()));
-//        ste.setString(5, lieu);
-//        ste.setInt(6, nbrplaces);
-//        ste.setInt(7, sponsor);
-//        ste.setInt(8, id);
-//        ste.executeUpdate();
-//        System.out.println("Evenement modifié");
-//    }
+
 
     @Override
     public List<evenement> recuperer() throws SQLException {
