@@ -12,12 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Participation;
+import models.Rating;
 import models.User;
 import models.evenement;
 import services.ServiceEvenement;
 import services.ServiceParticipation;
+import services.ServiceRating;
 import tools.UserSession;
 
 import java.io.IOException;
@@ -26,13 +29,23 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class AfficherEvenementController implements Initializable {
 
+
+    @FXML private RadioButton rating1, rating2, rating3, rating4, rating5;
+    @FXML private TextArea reviewText;
+    @FXML private ToggleGroup ratingGroup = new ToggleGroup();
+    @FXML private VBox ratingSection; // Add this field with fx:id="ratingSection" on the VBox
+
+
     @FXML
     private ListView<evenement> listViewEvenements;
-
-
+    @FXML
+    private VBox ratingsContainer;
+    @FXML
+    private TextField searchField;
     @FXML
     private Label mail;
 
@@ -48,6 +61,7 @@ public class AfficherEvenementController implements Initializable {
 
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
     private ServiceParticipation serviceParticipation = new ServiceParticipation();
+    private ServiceRating serviceRating = new ServiceRating();
 
 
     @FXML
@@ -56,6 +70,8 @@ public class AfficherEvenementController implements Initializable {
         session.cleanUserSession(); // Clear the user session
         SceneController.loadLoginScene(); // Redirect to login scene
     }
+
+
     @FXML
     private void redirectToMesParticipations() {
         try {
@@ -67,6 +83,8 @@ public class AfficherEvenementController implements Initializable {
             showAlert("Erreur", "Impossible de charger la page des participations : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+
     @FXML
     private void handleParticipate() {
         evenement selectedEvent = listViewEvenements.getSelectionModel().getSelectedItem();
@@ -102,12 +120,139 @@ public class AfficherEvenementController implements Initializable {
         loadEvenements();
         UserSession session = UserSession.getInstance();
         User currentUser = session.getUser();
+        if (currentUser != null) {
+            name.setText(currentUser.getFirstName());
+            lastname.setText(currentUser.getLastName());
+            mail.setText(currentUser.getEmail());
+        } else {
+            System.err.println("No user logged in during initialization!");
+        }
 
-        name.setText(currentUser.getFirstName());
-        lastname.setText(currentUser.getLastName());
-        mail.setText(currentUser.getEmail());
+        // Bind radio buttons to the toggle group
+        if (rating1 != null) rating1.setToggleGroup(ratingGroup);
+        if (rating2 != null) rating2.setToggleGroup(ratingGroup);
+        if (rating3 != null) rating3.setToggleGroup(ratingGroup);
+        if (rating4 != null) rating4.setToggleGroup(ratingGroup);
+        if (rating5 != null) rating5.setToggleGroup(ratingGroup);
+
+        // Load ratings when an event is selected
+        listViewEvenements.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                loadRatingsForEvent(newVal.getId());
+            }
+        });
+        if (ratingSection != null) {
+            ratingSection.setVisible(false);
+        }
+
+        // Show rating section when an event is selected
+        listViewEvenements.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                loadRatingsForEvent(newVal.getId());
+                if (ratingSection != null) {
+                    ratingSection.setVisible(true);
+                }
+            } else {
+                if (ratingSection != null) {
+                    ratingSection.setVisible(false);
+                }
+            }
+        });
 
     }
+
+    @FXML
+    private void submitReview() {
+        evenement selectedEvent = listViewEvenements.getSelectionModel().getSelectedItem();
+        if (selectedEvent == null) {
+            showAlert("Erreur", "Veuillez sélectionner un événement pour noter.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        int rating = 0;
+        if (rating1.isSelected()) rating = 1;
+        else if (rating2.isSelected()) rating = 2;
+        else if (rating3.isSelected()) rating = 3;
+        else if (rating4.isSelected()) rating = 4;
+        else if (rating5.isSelected()) rating = 5;
+
+        if (rating == 0) {
+            showAlert("Erreur", "Veuillez sélectionner une note.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        String review = reviewText.getText();
+        int userId = UserSession.getInstance().getUser().getUserId();
+        Rating newRating = new Rating(0, selectedEvent.getId(), userId, rating, review, null);
+
+        try {
+            serviceRating.addRating(newRating);
+            showAlert("Succès", "Merci pour votre avis !", Alert.AlertType.INFORMATION);
+            loadRatingsForEvent(selectedEvent.getId()); // Refresh ratings
+            reviewText.clear(); // Clear the review text
+            ratingGroup.selectToggle(null); // Reset radio buttons
+        } catch (SQLException e) {
+            showAlert("Erreur", "Erreur lors de la soumission de l'avis: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
+    private void loadRatingsForEvent(int eventId) {
+        ratingsContainer.getChildren().clear();
+        try {
+            List<Rating> ratings = serviceRating.getRatingsForEvent(eventId);
+            if (ratings.isEmpty()) {
+                ratingsContainer.getChildren().add(new Label("Aucun avis pour cet événement."));
+            } else {
+                for (Rating rating : ratings) {
+                    Label reviewLabel = new Label(
+                            "Note: " + rating.getRating() + "/5\n" +
+                                    "Avis: " + rating.getReview() + "\n" +
+                                    "Utilisateur: " + rating.getUserId() + "\n" +
+                                    "Date: " + rating.getCreatedAt()
+                    );
+                    reviewLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+                    ratingsContainer.getChildren().add(reviewLabel);
+                }
+            }
+        } catch (SQLException e) {
+            showAlert("Erreur", "Erreur lors du chargement des avis: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+//    private void loadEvenements() {
+//        try {
+//            List<evenement> evenements = serviceEvenement.recuperer();
+//            ObservableList<evenement> observableList = FXCollections.observableArrayList(evenements);
+//            listViewEvenements.setItems(observableList);
+//
+//            listViewEvenements.setCellFactory(listView -> new ListCell<evenement>() {
+//                @Override
+//                protected void updateItem(evenement event, boolean empty) {
+//                    super.updateItem(event, empty);
+//                    if (empty || event == null) {
+//                        setText(null);
+//                        setGraphic(null);
+//                    } else {
+//                        setStyle("-fx-padding: 15px; -fx-background-color: #f9f9f9; "
+//                                + "-fx-border-color: #ddd; -fx-border-radius: 10px; "
+//                                + "-fx-font-size: 14px; -fx-font-weight: bold;");
+//                        setText("\uD83D\uDCC5 " + event.getDate() + "\n"
+//                                + "\uD83C\uDF1F Titre: " + event.getTitre() + "\n"
+//                                + "📌 Type: " + event.getType() + "\n"
+//                                + "📖 Description: " + event.getDescription() + "\n"
+//                                + "📍 Lieu: " + event.getLieu() + "\n"
+//                                + "👥 Places: " + event.getNbrplaces() + "\n"
+//                                + "🤝 Sponsor: " + event.getSponsor());
+//                    }
+//                }
+//            });
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            showAlert("Erreur", "Une erreur s'est produite lors du chargement des événements.", Alert.AlertType.ERROR);
+//        }
+//    }
 
     private void loadEvenements() {
         try {
@@ -123,9 +268,7 @@ public class AfficherEvenementController implements Initializable {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        setStyle("-fx-padding: 15px; -fx-background-color: #f9f9f9; "
-                                + "-fx-border-color: #ddd; -fx-border-radius: 10px; "
-                                + "-fx-font-size: 14px; -fx-font-weight: bold;");
+                        setStyle("-fx-padding: 15px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 10px; -fx-font-size: 14px; -fx-font-weight: bold;");
                         setText("\uD83D\uDCC5 " + event.getDate() + "\n"
                                 + "\uD83C\uDF1F Titre: " + event.getTitre() + "\n"
                                 + "📌 Type: " + event.getType() + "\n"
@@ -136,12 +279,11 @@ public class AfficherEvenementController implements Initializable {
                     }
                 }
             });
-
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Une erreur s'est produite lors du chargement des événements.", Alert.AlertType.ERROR);
+            showAlert("Erreur", "Erreur lors du chargement des événements: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     @FXML
     void deleteEvenement(ActionEvent event) {
@@ -243,5 +385,71 @@ public class AfficherEvenementController implements Initializable {
 //        alert.setContentText("Event Title: Example Event\nEvent Type: Conference\nDate: March 5, 2025\nLocation: New York");
 //
 //        alert.showAndWait();
+//    }
+
+    @FXML
+    private void handleSort(ActionEvent event) {
+        // Show a dialog to select the event type
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("conference", "conference", "fete", "formation");
+        dialog.setTitle("Trier par Type");
+        dialog.setHeaderText("Sélectionnez un type d'événement");
+        dialog.setContentText("Type:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(type -> {
+            try {
+                List<evenement> allEvents = serviceEvenement.recuperer();
+                ObservableList<evenement> sortedEvents = FXCollections.observableArrayList(
+                        allEvents.stream()
+                                .filter(e -> e.getType().name().equalsIgnoreCase(type))
+                                .collect(Collectors.toList())
+                );
+                listViewEvenements.setItems(sortedEvents);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Une erreur s'est produite lors du tri.", Alert.AlertType.ERROR);
+            }
+        });
+    }
+
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = searchField.getText().toLowerCase();
+        try {
+            List<evenement> allEvents = serviceEvenement.recuperer();
+            ObservableList<evenement> filteredEvents = FXCollections.observableArrayList(
+                    allEvents.stream()
+                            .filter(e -> e.getTitre().toLowerCase().contains(searchText) ||
+                                    e.getDescription().toLowerCase().contains(searchText) ||
+                                    e.getLieu().toLowerCase().contains(searchText))
+                            .collect(Collectors.toList())
+            );
+            listViewEvenements.setItems(filteredEvents);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur s'est produite lors de la recherche.", Alert.AlertType.ERROR);
+        }
+    }
+
+
+
+//    private void loadRatings() {
+//        ratingsContainer.getChildren().clear();
+//        try {
+//            List<Rating> ratings = serviceRating.getRatingsForEvent();
+//            for (Rating rating : ratings) {
+//                Label reviewLabel = new Label(
+//                        "Rating: " + rating.getRating() + "/5\n" +
+//                                "Review: " + rating.getReview() + "\n" +
+//                                "By User: " + rating.getUserId() + "\n" +
+//                                "On: " + rating.getCreatedAt()
+//                );
+//                reviewLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+//                ratingsContainer.getChildren().add(reviewLabel);
+//            }
+//        } catch (SQLException e) {
+//            showAlert("Error", "Failed to load reviews: " + e.getMessage(), Alert.AlertType.ERROR);
+//        }
 //    }
 }
