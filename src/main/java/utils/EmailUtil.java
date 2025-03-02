@@ -10,7 +10,7 @@ public class EmailUtil {
     private static final String SMTP_HOST = "smtp.gmail.com"; // Replace with your SMTP server
     private static final String SMTP_PORT = "587"; // Port for TLS
     private static final String EMAIL_USERNAME = "yassinejaouani@gmail.com"; // Replace with your email
-    private static final String EMAIL_PASSWORD = "aklp dfce cnnt kuil "; // Replace with your email password
+    private static final String EMAIL_PASSWORD = ""; // Replace with your email password
 
     /**
      * Send an email notification to a participant.
