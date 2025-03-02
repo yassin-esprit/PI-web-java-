@@ -1,6 +1,8 @@
 package controllers;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -8,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +20,8 @@ import javafx.collections.transformation.SortedList;
 import models.Equipement;
 import services.ServiceEquipement;
 
+
+import services.ServiceSheets ;
 public class AfficherEquipementController {
 
     @FXML
@@ -190,5 +196,50 @@ public class AfficherEquipementController {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.show();
+    }
+
+
+    @FXML
+    private Button syncButton;
+
+    private ServiceEquipement equipementService = new ServiceEquipement();
+    private ServiceSheets ServiceSheets = new ServiceSheets();
+
+
+
+    // Sync data from database to Google Sheet
+
+
+
+    @FXML
+    public void handleSyncButton(ActionEvent actionEvent) {
+        try {
+            // Create an instance of ServiceSheets
+            ServiceSheets sheets = new ServiceSheets();
+
+            // Call the syncWithGoogleSheets method and get the spreadsheet URL
+            String sheetUrl = sheets.syncWithGoogleSheets();
+
+            // Open the spreadsheet URL in the default web browser
+            if (sheetUrl != null && !sheetUrl.isEmpty()) {
+                Desktop.getDesktop().browse(new URI(sheetUrl));
+            }
+
+            // Show a success message to the user
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Sheets Sync");
+            alert.setContentText("Equipment data has been synced with Google Sheets.");
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            // Show an error message if something goes wrong
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Sheets Sync Failed");
+            alert.setContentText("An error occurred while syncing with Google Sheets: " + e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace(); // Print the full stack trace
+        }
     }
 }

@@ -7,9 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEquipementController">
+<AnchorPane prefHeight="408.0" prefWidth="686.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherEquipementController">
     <!-- HBox pour centrer le titre -->
     <HBox alignment="CENTER" layoutX="0.0" layoutY="10.0" prefWidth="600.0">
         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Equipement" textFill="#e48355" />
@@ -19,20 +17,21 @@
     <ListView fx:id="listViewEquipement" layoutX="25.0" layoutY="40.0" prefHeight="300.0" prefWidth="550.0" />
 
     <!-- HBox pour organiser les boutons et le champ de recherche -->
-    <HBox layoutX="25.0" layoutY="350.0" spacing="10" alignment="CENTER_LEFT">
+    <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="350.0" spacing="10">
         <!-- Bouton Modifier -->
-        <Button onAction="#GoToModifier" text="Modifier" styleClass="button" />
+        <Button onAction="#GoToModifier" styleClass="button" text="Modifier" />
 
         <!-- Bouton Supprimer -->
-        <Button onAction="#Supprimer" text="Supprimer" styleClass="button supprimer" />
+        <Button onAction="#Supprimer" styleClass="button supprimer" text="Supprimer" />
 
         <!-- Bouton Reserver -->
-        <Button onAction="#goToReservation" text="Reserver" styleClass="button reserver" />
+        <Button onAction="#goToReservation" styleClass="button reserver" text="Reserver" />
 
         <!-- Bouton Trier -->
-        <Button onAction="#trierParQuantite" text="Trier" styleClass="button trier" />
+        <Button onAction="#trierParQuantite" styleClass="button trier" text="Trier" />
+      <Button fx:id="syncButton" layoutX="321.0" layoutY="10.0" onAction="#handleSyncButton" styleClass="button trier" text="Sheet" />
 
         <!-- Champ de recherche -->
-        <TextField fx:id="searchField" promptText="Rechercher..." prefWidth="200" />
+        <TextField fx:id="searchField" prefHeight="30.0" prefWidth="242.0" promptText="Rechercher..." />
     </HBox>
 </AnchorPane>

@@ -6,7 +6,9 @@ import tools.MyDB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import services.ServiceSheets;
 
 public class ServiceEquipement implements IServices<Equipement> {
 
@@ -72,4 +74,7 @@ public class ServiceEquipement implements IServices<Equipement> {
         }
         return equipements;
     }
+
+
+
 }

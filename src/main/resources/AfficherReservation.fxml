@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@Style/ResStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21.0.1" fx:controller="controllers.AfficherReservationController">
+<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@Style/ResStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
     <!-- HBox pour centrer le titre -->
     <HBox alignment="CENTER" spacing="10">
         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des réservations" textFill="#e48355" />
@@ -27,5 +27,6 @@
     <HBox alignment="CENTER" spacing="10">
         <Button fx:id="btnModifier" disable="true" onAction="#handleModifierButton" text="Modifier" />
         <Button fx:id="btnSupprimer" disable="true" onAction="#handleSupprimerButton" text="Supprimer" />
+      <Button fx:id="Calender" mnemonicParsing="false" onAction="#Calender" text="Calender" />
     </HBox>
 </VBox>
