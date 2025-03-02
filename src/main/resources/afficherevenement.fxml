@@ -48,59 +48,41 @@
 
             <!-- Action Buttons -->
             <HBox spacing="20">
-                <Button onAction="#retour" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Ajouter">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                             <image><Image url="@Images/add1.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button onAction="#deleteEvenement" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Supprimer">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                             <image><Image url="@Images/delete.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button onAction="#modifyEvenement" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Modifier">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                             <image><Image url="@Images/edit.png" /></image>
-                        </ImageView>
-                    </graphic>
-                </Button>
                 <Button onAction="#showStatistics" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Statistiques">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                             <image><Image url="@Images/stat.png" /></image>
+                            <image><Image url="@Images/stat.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button onAction="#handleParticipate" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Participer">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-<!--                            <image><Image url="@Images/participate.png" /></image>-->
+                             <image><Image url="@Images/participate.png" /></image>
                         </ImageView>
-
                     </graphic>
-
                 </Button>
                 <Button fx:id="btnMesParticipations" onAction="#redirectToMesParticipations" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Mes Participations">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-<!--                            <image><Image url="@Images/participate.png" /></image>-->
+                             <image><Image url="@Images/mesparticipations.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
             </HBox>
 
             <!-- List of Events -->
-<!--            <ListView fx:id="listViewEvenements" layoutX="50" layoutY="150"-->
-<!--                      prefHeight="480" prefWidth="900"-->
-<!--                      style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" />-->
-            <ListView fx:id="listViewEvenements" layoutX="50" layoutY="150" prefHeight="480" prefWidth="1019.0" style="               -fx-background-color: rgba(255, 255, 255, 0.8);               -fx-border-radius: 10px;               -fx-background-radius: 10px;               -fx-padding: 10px;               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);               -fx-selection-bar: #1abc9c;               -fx-selection-bar-non-focused: #1abc9c;               -fx-selection-bar-text: white;           ">
+            <ListView fx:id="listViewEvenements" layoutX="50" layoutY="150" prefHeight="480" prefWidth="1019.0" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-selection-bar: #1abc9c; -fx-selection-bar-non-focused: #1abc9c; -fx-selection-bar-text: white;">
             </ListView>
         </VBox>
 
+        <!-- Logout Button -->
+        <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" onMouseClicked="#logout" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image><Image url="@Images/enter.png" /></image>
+                </ImageView>
+            </graphic>
+        </Button>
     </children>
 </AnchorPane>

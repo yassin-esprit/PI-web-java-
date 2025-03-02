@@ -31,4 +31,29 @@ Button:hover {
     -fx-cursor: hand;
 }
 
+.logout-button {
+    -fx-background-color: #e74c3c; /* Red background, consistent with delete button */
+    -fx-text-fill: white; /* White text */
+    -fx-font-family: "FiraCode Nerd Font Bold"; /* Matches your font */
+    -fx-font-size: 14px; /* Readable size */
+    -fx-padding: 8px 16px; /* Comfortable padding */
+    -fx-border-color: #c0392b; /* Darker red border */
+    -fx-border-width: 2px; /* Visible border thickness */
+    -fx-border-radius: 8px; /* Rounded border */
+    -fx-background-radius: 10px; /* Slightly larger radius for background */
+    -fx-alignment: center-left; /* Align text and icon nicely */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); /* Subtle shadow */
+}
 
+.logout-button:hover {
+    -fx-background-color: #c0392b; /* Darker red on hover */
+    -fx-border-color: #962d22; /* Even darker border on hover */
+    -fx-cursor: hand; /* Hand cursor on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3); /* Stronger shadow */
+}
+
+.logout-button:pressed {
+    -fx-background-color: #962d22; /* Even darker when pressed */
+    -fx-border-color: #7f271c; /* Matching darker border */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 3, 0, 0, 1); /* Reduced shadow when pressed */
+}

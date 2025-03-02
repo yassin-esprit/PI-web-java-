@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceParticipation {
     private Connection cnx;
@@ -39,6 +41,22 @@ public class ServiceParticipation {
         }
         return eventIds;
     }
+    public Map<String, Integer> getParticipationCounts() throws SQLException {
+        Map<String, Integer> participationCounts = new HashMap<>();
+        String query = "SELECT e.titre, COUNT(p.user_id) AS participation_count " +
+                "FROM participation p " +
+                "JOIN evenement e ON p.evenement_id = e.id " +
+                "GROUP BY e.titre " +
+                "ORDER BY participation_count DESC";
 
-
+        try (PreparedStatement pst = cnx.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                String eventTitle = rs.getString("titre");
+                int count = rs.getInt("participation_count");
+                participationCounts.put(eventTitle, count);
+            }
+        }
+        return participationCounts;
+    }
 }

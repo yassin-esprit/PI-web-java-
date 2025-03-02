@@ -50,7 +50,12 @@ public class AfficherEvenementController implements Initializable {
     private ServiceParticipation serviceParticipation = new ServiceParticipation();
 
 
-
+    @FXML
+    public void logout(MouseEvent event) throws IOException {
+        UserSession session = UserSession.getInstance();
+        session.cleanUserSession(); // Clear the user session
+        SceneController.loadLoginScene(); // Redirect to login scene
+    }
     @FXML
     private void redirectToMesParticipations() {
         try {

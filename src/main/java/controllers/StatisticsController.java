@@ -7,11 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import models.evenement;
 import services.ServiceEvenement;
+import services.ServiceParticipation;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,38 +25,36 @@ import java.util.Map;
 public class StatisticsController {
 
     @FXML
-    private PieChart pieChart; // Changed from BarChart to PieChart
+    private PieChart pieChart; // PieChart for event types
+
+    @FXML
+    private BarChart<String, Number> participationChart; // BarChart for event participations
 
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
+    private ServiceParticipation serviceParticipation = new ServiceParticipation();
 
-//    @FXML
-//    public void initialize() {
-//        try {
-//            loadStatistics();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            showAlert("Erreur", "Une erreur s'est produite lors du chargement des statistiques.", Alert.AlertType.ERROR);
-//        }
-//    }
-
+    @FXML
     public void initialize() throws SQLException {
-        // Sample Data (Replace with actual data)
-        loadStatistics();
-        // Apply Fade-in Animation
-        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), pieChart);
-        fade.setFromValue(0);
-        fade.setToValue(1);
-        fade.play();
+        // Load event type statistics
+        loadEventTypeStatistics();
 
-        // Apply Rotation Animation (Optional)
-        RotateTransition rotate = new RotateTransition(Duration.seconds(2), pieChart);
-        rotate.setByAngle(360);
-        rotate.play();
+        // Load event participation statistics
+        loadEventParticipationStatistics();
+
+        // Apply Fade-in Animation to PieChart
+        FadeTransition fadePie = new FadeTransition(Duration.seconds(1.5), pieChart);
+        fadePie.setFromValue(0);
+        fadePie.setToValue(1);
+        fadePie.play();
+
+        // Apply Fade-in Animation to BarChart
+        FadeTransition fadeBar = new FadeTransition(Duration.seconds(1.5), participationChart);
+        fadeBar.setFromValue(0);
+        fadeBar.setToValue(1);
+        fadeBar.play();
     }
 
-
-
-    private void loadStatistics() throws SQLException {
+    private void loadEventTypeStatistics() throws SQLException {
         List<evenement> evenements = serviceEvenement.recuperer();
         Map<String, Integer> typeCounts = new HashMap<>();
 
@@ -71,12 +72,22 @@ public class StatisticsController {
 
         // Set the data to the PieChart
         pieChart.setData(pieChartData);
+    }
 
-        // Optional: Add styling to the PieChart
-        pieChart.setTitle("Répartition des Types d'Événements");
-        pieChart.setLegendVisible(true);
-        pieChart.setClockwise(true);
-        pieChart.setLabelsVisible(true);
+    private void loadEventParticipationStatistics() throws SQLException {
+        // Fetch participation data
+        Map<String, Integer> participationCounts = serviceParticipation.getParticipationCounts();
+
+        // Create BarChart data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Participations");
+
+        for (Map.Entry<String, Integer> entry : participationCounts.entrySet()) {
+            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+        }
+
+        // Set the data to the BarChart
+        participationChart.getData().add(series);
     }
 
     @FXML
