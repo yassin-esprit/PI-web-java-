@@ -1,5 +1,9 @@
 package controllers;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import models.Equipement;
 import models.Status_Equipement;
 import services.ServiceEquipement;
@@ -109,5 +113,22 @@ public class ModifierEquipementController {
     private void fermerFenetre() {
         Stage stage = (Stage) nomField.getScene().getWindow();
         stage.close();
+    }
+
+    public void handleLogout(ActionEvent actionEvent) {
+        try {
+            // Charger la page de connexion (login)
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Scene loginScene = new Scene(loginPage);
+
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // Use actionEvent here
+
+            // Changer la scène pour afficher la page de connexion
+            stage.setScene(loginScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

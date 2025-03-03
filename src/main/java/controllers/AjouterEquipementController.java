@@ -1,4 +1,5 @@
 package controllers;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 
 import javafx.event.ActionEvent;
@@ -106,5 +107,22 @@ public class AjouterEquipementController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void handleLogout(ActionEvent actionEvent) {
+        try {
+            // Charger la page de connexion (login)
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/AfficherEquipement.fxml"));
+            Scene loginScene = new Scene(loginPage);
+
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // Use actionEvent here
+
+            // Changer la scène pour afficher la page de connexion
+            stage.setScene(loginScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

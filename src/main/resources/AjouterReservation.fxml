@@ -9,41 +9,86 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterReservationController">
-    <VBox alignment="CENTER" spacing="15" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <!-- Titre -->
-        <!-- Logo -->
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
-            <Image url="@images/logo (2).png" />
-        </ImageView>
-        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Ajouter une réservation d'équipement" textFill="#e48355" />
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4);" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterReservationController">
+    <children>
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
 
-        <!-- Champ ID Événement -->
-        <HBox spacing="20">
-            <Label text="Titre Événement:" />
-            <ComboBox fx:id="comboBoxEvenement" prefWidth="200" />
-        </HBox>
+                <!-- Edit Button Inside User Banner -->
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
+                    <children>
+                        <Label fx:id="edit" layoutX="30.0" layoutY="5.0" text="Edit" textFill="white">
+                            <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
+                        </Label>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
 
-        <!-- Champ Nom Équipement -->
-        <HBox spacing="20">
-            <Label text="Nom Equipement:" />
-            <ComboBox fx:id="comboBoxEquipement" prefWidth="200" />
-        </HBox>
+        <!-- Main Reservation Section -->
+        <VBox layoutX="50.0" layoutY="100.0" spacing="20">
+            <!-- Title -->
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Ajouter une réservation d'équipement" />
 
-        <!-- Champ Date de réservation -->
-        <HBox spacing="20">
-            <Label text="Date de réservation:" />
-            <DatePicker fx:id="datePickerReservation" />
-        </HBox>
+            <!-- Form Fields -->
+            <VBox spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <!-- Champ Titre Événement -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Titre Événement:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <ComboBox fx:id="comboBoxEvenement" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-        <!-- Champ Statut -->
-        <HBox spacing="20">
-            <Label text="Statut:" />
-            <ComboBox fx:id="statutChoiceBox" prefWidth="200" />
-        </HBox>
+                <!-- Champ Nom Équipement -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Nom Équipement:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <ComboBox fx:id="comboBoxEquipement" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-        <!-- Bouton Ajouter -->
-        <Button fx:id="btnAjouter" onAction="#ajouterReservation" text="Ajouter" />
-    </VBox>
+                <!-- Champ Date de réservation -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Date de réservation:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <DatePicker fx:id="datePickerReservation" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
+
+                <!-- Champ Statut -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Statut:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <ComboBox fx:id="statutChoiceBox" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
+
+                <!-- Bouton Ajouter -->
+                <Button fx:id="btnAjouter" onAction="#ajouterReservation" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Ajouter">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+<!--                            <image><Image url="@images/add.png" /></image>-->
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+
+        <!-- Logout Button -->
+        <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout" onAction="#handleLogout">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image><Image url="@images/enter.png" /></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
 </AnchorPane>

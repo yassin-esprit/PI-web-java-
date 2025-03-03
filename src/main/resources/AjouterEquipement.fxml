@@ -8,38 +8,93 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="Style/Ajout.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEquipementController">
-    <!-- HBox pour aligner le logo et le titre -->
-    <HBox layoutX="20" layoutY="20" spacing="10" />
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4);" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEquipementController">
+    <children>
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
 
-    <!-- Champ pour le nom -->
-    <Label layoutX="20.0" layoutY="117.0" text="Nom de l'équipement" />
-    <TextField fx:id="nomTextField" layoutX="164.0" layoutY="112.0" prefWidth="400" />
+                <!-- Edit Button Inside User Banner -->
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
+                    <children>
+                        <Label fx:id="edit" layoutX="30.0" layoutY="5.0" text="Edit" textFill="white">
+                            <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
+                        </Label>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
 
-    <!-- Champ pour la description -->
-    <Label layoutX="20.0" layoutY="164.0" text="Description" />
-    <TextField fx:id="descriptionTextField" layoutX="160.0" layoutY="159.0" prefWidth="400" />
+        <!-- Main Equipment Addition Section -->
+        <VBox layoutX="50.0" layoutY="100.0" spacing="20">
+            <!-- Title -->
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Ajouter un équipement" />
 
-    <!-- Champ pour la quantité totale -->
-    <Label layoutX="20.0" layoutY="206.0" text="Quantité totale" />
-    <TextField fx:id="quantiteTotaleTextField" layoutX="160.0" layoutY="203.0" prefWidth="400" />
+            <!-- Form Fields -->
+            <VBox spacing="15" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 20px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <!-- Champ Nom de l'équipement -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Nom de l'équipement:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <TextField fx:id="nomTextField" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-    <!-- Champ pour la quantité disponible -->
-    <Label layoutX="20.0" layoutY="252.0" text="Quantité disponible" />
-    <TextField fx:id="quantiteDisponibleTextField" layoutX="160.0" layoutY="250.0" prefWidth="400" />
+                <!-- Champ Description -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Description:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <TextField fx:id="descriptionTextField" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-    <!-- ChoiceBox pour le statut -->
-    <Label layoutX="20.0" layoutY="298.0" text="Statut" />
-    <ChoiceBox fx:id="statutChoiceBox" layoutX="160.0" layoutY="294.0" prefWidth="400" />
+                <!-- Champ Quantité totale -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Quantité totale:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <TextField fx:id="quantiteTotaleTextField" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-    <!-- Bouton pour ajouter -->
-    <Button layoutX="250.0" layoutY="343.0" onAction="#ajouterEquipement" text="Ajouter" />
+                <!-- Champ Quantité disponible -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Quantité disponible:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <TextField fx:id="quantiteDisponibleTextField" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
 
-     <!-- Titre -->
-     <Label layoutX="222.0" layoutY="20.0" styleClass="label-title" text="Ajouter un équipement" />
-     <!-- Logo -->
-     <ImageView fitHeight="55.0" fitWidth="154.0" layoutX="237.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@images/logo (2).png" />
-     </ImageView>
+                <!-- Champ Statut -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Statut:" style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" />
+                    <ChoiceBox fx:id="statutChoiceBox" prefWidth="300" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+                </HBox>
+
+                <!-- Bouton Ajouter -->
+                <Button fx:id="btnAjouter" onAction="#ajouterEquipement" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Ajouter">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+<!--                            <image><Image url="@images/add.png" /></image>-->
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+
+        <!-- Logout Button -->
+        <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout" onAction="#handleLogout">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image><Image url="@images/enter.png" /></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
 </AnchorPane>

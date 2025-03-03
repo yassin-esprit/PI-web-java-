@@ -4,29 +4,90 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@Style/ResStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
-    <!-- HBox pour centrer le titre -->
-    <HBox alignment="CENTER" spacing="10">
-        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des réservations" textFill="#e48355" />
-    </HBox>
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4);" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
+    <children>
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
 
-    <!-- TableView pour afficher les réservations -->
-    <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS">
-        <columns>
-            <TableColumn fx:id="colNomEquipement" prefWidth="146.39999389648438" text="Nom Equipement" />
-            <TableColumn fx:id="colTitreEvenement" prefWidth="155.20001220703125" text="Titre Evenement" />
-            <TableColumn fx:id="colDateReservation" prefWidth="162.4000244140625" text="Date Reservation" />
-            <TableColumn fx:id="colStatut" prefWidth="135.99993896484375" text="Statut" />
-        </columns>
-    </TableView>
+                <!-- Edit Button Inside User Banner -->
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
+                    <children>
+                        <Label fx:id="edit" layoutX="30.0" layoutY="5.0" text="Edit" textFill="white">
+                            <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
+                        </Label>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
 
-    <!-- HBox pour les boutons Modifier et Supprimer -->
-    <HBox alignment="CENTER" spacing="10">
-        <Button fx:id="btnModifier" disable="true" onAction="#handleModifierButton" text="Modifier" />
-        <Button fx:id="btnSupprimer" disable="true" onAction="#handleSupprimerButton" text="Supprimer" />
-      <Button fx:id="Calender" mnemonicParsing="false" onAction="#Calender" text="Calender" />
-    </HBox>
-</VBox>
+        <!-- Main Reservation Management Section -->
+        <VBox layoutX="50.0" layoutY="100.0" spacing="20">
+            <!-- Title -->
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Liste des réservations" />
+
+            <!-- TableView pour afficher les réservations -->
+            <TableView fx:id="reservationTable" prefHeight="426.0" prefWidth="700.0" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-selection-bar: #1abc9c; -fx-selection-bar-non-focused: #1abc9c; -fx-selection-bar-text: white;">
+                <columns>
+                    <TableColumn fx:id="colNomEquipement" prefWidth="175" text="Nom Equipement" />
+                    <TableColumn fx:id="colTitreEvenement" prefWidth="175" text="Titre Evenement" />
+                    <TableColumn fx:id="colDateReservation" prefWidth="175" text="Date Reservation" />
+                    <TableColumn fx:id="colStatut" prefWidth="175" text="Statut" />
+                </columns>
+            </TableView>
+
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="btnModifier" disable="true" onAction="#handleModifierButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Modifier">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@images/edit.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnSupprimer" disable="true" onAction="#handleSupprimerButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Supprimer">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@images/delete.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="Calender" onAction="#Calender" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Calender">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+<!--                            <image><Image url="@images/calendar.png" /></image>-->
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+
+        <!-- Logout Button -->
+        <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout" onAction="#handleLogout">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image><Image url="@images/enter.png" /></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>

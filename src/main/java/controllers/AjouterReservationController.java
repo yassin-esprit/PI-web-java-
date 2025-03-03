@@ -3,6 +3,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -282,8 +283,20 @@ private void naviguerVersAfficherReservation() {
         alert.showAndWait();
     }
 
+    public void handleLogout(ActionEvent actionEvent) {
+        try {
+            // Charger la page de connexion (login)
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Scene loginScene = new Scene(loginPage);
 
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // Use actionEvent here
 
-
-
+            // Changer la scène pour afficher la page de connexion
+            stage.setScene(loginScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

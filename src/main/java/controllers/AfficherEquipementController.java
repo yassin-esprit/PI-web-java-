@@ -8,6 +8,8 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -240,6 +242,45 @@ public class AfficherEquipementController {
             alert.setContentText("An error occurred while syncing with Google Sheets: " + e.getMessage());
             alert.showAndWait();
             e.printStackTrace(); // Print the full stack trace
+        }
+    }
+
+    public void handleLogout(ActionEvent actionEvent) {
+        try {
+            // Charger la page de connexion (login)
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Scene loginScene = new Scene(loginPage);
+
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Changer la scène pour afficher la page de connexion
+            stage.setScene(loginScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void handleToAjouter(ActionEvent actionEvent) {
+        try {
+            // Charger la page d'ajout d'équipement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEquipement.fxml"));
+            Parent ajouterEquipementPage = loader.load();
+
+            // Créer une nouvelle scène avec la page d'ajout d'équipement
+            Scene ajouterEquipementScene = new Scene(ajouterEquipementPage);
+
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Changer la scène pour afficher la page d'ajout d'équipement
+            stage.setScene(ajouterEquipementScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Erreur lors du chargement de la page d'ajout d'équipement.");
         }
     }
 }

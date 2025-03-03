@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import models.Reservation_Equipement;
@@ -175,6 +176,22 @@ public class AfficherReservationController {
             alert.setContentText("An error occurred while syncing with Google Calendar: " + e.getMessage());
             alert.showAndWait();
             e.printStackTrace(); // Print the full stack trace
+        }
+    }
+    public void handleLogout(ActionEvent actionEvent) {
+        try {
+            // Charger la page de connexion (login)
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Scene loginScene = new Scene(loginPage);
+
+            // Obtenir la fenêtre actuelle
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // Use actionEvent here
+
+            // Changer la scène pour afficher la page de connexion
+            stage.setScene(loginScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

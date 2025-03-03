@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" styleClass="background" stylesheets="background.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+
+    <children>
+        <!-- Sidebar -->
+        <VBox prefHeight="731.0" prefWidth="220.0" spacing="10" styleClass="sidebar">
+            <children>
+                <AnchorPane prefHeight="731.0" prefWidth="269.0" styleClass="sidebar-container">
+                    <children>
+                        <!-- Profile -->
+                        <Pane layoutY="53.0" prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                            <children>
+                                <Text fill="white" layoutX="67.0" layoutY="36.0" styleClass="sidebar-text" text="My Profile" />
+                                <ImageView layoutX="14.0" layoutY="15.0">
+                                    <image><Image url="@images/user.png" /></image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+
+                        <!-- Navigation -->
+                        <VBox layoutX="5.0" layoutY="148.0" prefHeight="435.0" prefWidth="210.0" spacing="10">
+                            <Pane prefHeight="62.0" prefWidth="210.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Home" />
+                                    <ImageView layoutX="14.0" layoutY="15.0">
+                                        <image><Image url="@images/hm.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#ListEquipement" text="Equipement" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@images/settings.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+
+                            <!-- New Items -->
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navEvenementlist" text="Evenement" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@images/event.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Sponsor" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@images/sponsor.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Publicite" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@images/advertisement.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#ReservationList" text="Reservation" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@images/reserved.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                        </VBox>
+
+                        <!-- Logout -->
+                        <Pane layoutY="632.0" prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                            <children>
+                                <Text fill="white" layoutX="94.0" layoutY="35.0" onMouseClicked="#logout" styleClass="sidebar-text" text="Logout" />
+                                <ImageView layoutX="11.0" layoutY="16.0">
+                                    <image><Image url="@images/enter.png" /></image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+
+        <!-- User Session Banner (Top Right) with Edit Button -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" styleClass="user-banner">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" prefHeight="18.0" prefWidth="70.0" styleClass="user-banner-label" text="First Name" textFill="white" />
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" styleClass="user-banner-label" text="Last Name" textFill="white" />
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" styleClass="user-banner-label" text="Email" textFill="white" />
+
+                <!-- Edit Button Inside User Banner -->
+                <AnchorPane layoutX="172.0" layoutY="54.0" prefHeight="30.0" prefWidth="80.0" styleClass="edit-button">
+                    <children>
+                        <Label fx:id="edit" layoutX="32.0" layoutY="9.0" onMouseClicked="#editpage" styleClass="edit-button-text" text="Edit" textFill="white" />
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+
+        <!-- Search Bar -->
+        <TextField fx:id="searchField" layoutX="450.0" layoutY="120.0" prefWidth="400.0" promptText="Search ..." styleClass="search-bar" />
+
+        <!-- Users Table (Centered) -->
+        <TableView fx:id="usertabel" layoutX="250.0" layoutY="180.0" prefHeight="480.0" prefWidth="900.0" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="fname" prefWidth="151.0" text="First Name" />
+                <TableColumn fx:id="lname" prefWidth="203.0" text="Last Name" />
+                <TableColumn fx:id="phone" prefWidth="145.0" text="Phone" />
+                <TableColumn fx:id="email" prefWidth="264.0" text="Email" />
+                <TableColumn fx:id="role" prefWidth="106.0" text="Role" />
+                <TableColumn fx:id="action" prefWidth="189.0" text="Action" />
+            </columns>
+        </TableView>
+
+    </children>
+</AnchorPane>
