@@ -1,8 +1,5 @@
 package controllers;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,135 +7,235 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.publicites;
 import models.statut_pub;
-import models.type_pub;
 import services.ServicePublicite;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AfficherPubController {
     @FXML
-    private TableColumn<publicites, String> ccontenu;
-    @FXML
-    private TableColumn<publicites, String> cemplacement;
-    @FXML
-    private TableColumn<publicites, statut_pub> cstatut;
-    @FXML
-    private TableColumn<publicites, String> ctitte;
-    @FXML
-    private TableColumn<publicites, type_pub> ctype;
+    private ListView<publicites> listView;
     @FXML
     private Button idModifier;
     @FXML
     private Button idSupprimer;
     @FXML
-    private Button idDisplay;
+    private Button idReserver;
+    @FXML
+    private Button idStatistiques;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> statusFilter;
 
-    @FXML
-    private BarChart<String, Number> barChart;
-    @FXML
-    private CategoryAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
-
-    @FXML
-    private TableView<publicites> idtable;
-    private ObservableList<publicites> publicites = FXCollections.observableArrayList();
+    private ObservableList<publicites> publicitesList = FXCollections.observableArrayList();
     private ServicePublicite servicePublicites = new ServicePublicite();
+    private Map<publicites, Integer> likesMap = new HashMap<>();
+    private Map<publicites, Integer> dislikesMap = new HashMap<>();
 
-    public AfficherPubController() {
+    @FXML
+    void initialize() {
+        // Load CSS if needed
+        listView.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
+        statusFilter.getItems().addAll("Tous", "active", "inactif");
+        statusFilter.setValue("Tous");
+
+        // Set custom cell factory with all details and styled buttons
+        listView.setCellFactory(param -> new ListCell<publicites>() {
+            private final HBox hbox = new HBox();
+            private final Label detailsLabel = new Label();
+            private final Button likeButton = new Button("Like");
+            private final Button dislikeButton = new Button("Dislike");
+            private final Label likesCount = new Label();
+            private final Label dislikesCount = new Label();
+
+            {
+                // Style the buttons
+                likeButton.setStyle(
+                        "-fx-background-color: #2ecc71; " +
+                                "-fx-text-fill: white; " +
+                                "-fx-font-weight: bold; " +
+                                "-fx-font-size: 12px; " +
+                                "-fx-padding: 5px 10px; " +
+                                "-fx-border-radius: 5px; " +
+                                "-fx-background-radius: 5px; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);"
+                );
+
+                dislikeButton.setStyle(
+                        "-fx-background-color: #e74c3c; " +
+                                "-fx-text-fill: white; " +
+                                "-fx-font-weight: bold; " +
+                                "-fx-font-size: 12px; " +
+                                "-fx-padding: 5px 10px; " +
+                                "-fx-border-radius: 5px; " +
+                                "-fx-background-radius: 5px; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);"
+                );
+
+                // Style the count labels
+                likesCount.setStyle("-fx-text-fill: #2ecc71; -fx-font-size: 12px; -fx-padding: 0 5px;");
+                dislikesCount.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 12px; -fx-padding: 0 5px;");
+
+                hbox.getChildren().addAll(detailsLabel, likeButton, likesCount, dislikeButton, dislikesCount);
+                hbox.setSpacing(10);
+
+                likeButton.setOnAction(event -> {
+                    publicites pub = getItem();
+                    if (pub != null) {
+                        handleLike(pub);
+                        updateCounts(pub);
+                    }
+                });
+
+                dislikeButton.setOnAction(event -> {
+                    publicites pub = getItem();
+                    if (pub != null) {
+                        handleDislike(pub);
+                        updateCounts(pub);
+                    }
+                });
+            }
+
+            private void updateCounts(publicites pub) {
+                likesCount.setText("(" + likesMap.getOrDefault(pub, 0) + ")");
+                dislikesCount.setText("(" + dislikesMap.getOrDefault(pub, 0) + ")");
+            }
+
+            @Override
+            protected void updateItem(publicites item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Display all details from the publicites class
+                    String details = String.format(
+                            "ID: %d\nTitre: %s\nType: %s\nContenu: %s\nEmplacement: %s\nStatut: %s",
+                            item.getId_pub(),
+                            item.getTitre_pub(),
+                            item.getType_pub() != null ? item.getType_pub().toString() : "N/A",
+                            item.getContenu_pub(),
+                            item.getEmplacement_pub(),
+                            item.getStatut_pub() != null ? item.getStatut_pub().toString() : "N/A"
+                    );
+                    detailsLabel.setText(details);
+                    updateCounts(item);
+                    setGraphic(hbox);
+                }
+            }
+        });
+
+        updatePublicitesList();
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterPublicites());
+        statusFilter.valueProperty().addListener((observable, oldValue, newValue) -> filterPublicites());
     }
 
-    public void setPublicites(List<publicites> publicitesList) {
-        this.publicites.clear();
-        this.publicites.addAll(publicitesList);
-        this.idtable.setItems(this.publicites);
+    private void handleLike(publicites pub) {
+        likesMap.put(pub, likesMap.getOrDefault(pub, 0) + 1);
+        System.out.println("Liked: " + pub.getTitre_pub() + " | Likes: " + likesMap.get(pub));
+        listView.refresh();
+    }
+
+    private void handleDislike(publicites pub) {
+        dislikesMap.put(pub, dislikesMap.getOrDefault(pub, 0) + 1);
+        System.out.println("Disliked: " + pub.getTitre_pub() + " | Dislikes: " + dislikesMap.get(pub));
+        listView.refresh();
     }
 
     public void updatePublicitesList() {
         try {
-            List<publicites> publicitesList = this.servicePublicites.recuperer();
-            if (publicitesList.isEmpty()) {
-                this.showAlert("Aucune publicite", "Il n'y a aucune publicite disponible.", AlertType.INFORMATION);
-            }
-
-            this.setPublicites(publicitesList);
-        } catch (SQLException var2) {
-            this.showAlert("Erreur de base de donnees", "Une erreur s'est produite lors de la recuperation des publicites.", AlertType.ERROR);
-            var2.printStackTrace();
+            List<publicites> list = servicePublicites.recuperer();
+            publicitesList.setAll(list);
+            filterPublicites();
+        } catch (SQLException e) {
+            showAlert("Erreur de base de données", "Erreur lors de la récupération des publicités.", Alert.AlertType.ERROR);
         }
+    }
+
+    private void filterPublicites() {
+        String searchText = searchField.getText().toLowerCase();
+        String selectedStatus = statusFilter.getValue();
+
+        List<publicites> filteredList = publicitesList.stream()
+                .filter(pub -> pub.getTitre_pub().toLowerCase().contains(searchText))
+                .filter(pub -> {
+                    if (selectedStatus.equals("Tous")) {
+                        return true;
+                    }
+                    Map<String, statut_pub> statusMap = new HashMap<>();
+                    statusMap.put("active", statut_pub.active);
+                    statusMap.put("inactif", statut_pub.inactif);
+                    statut_pub statut = statusMap.get(selectedStatus);
+                    return statut != null && pub.getStatut_pub() == statut;
+                })
+                .collect(Collectors.toList());
+
+        listView.setItems(FXCollections.observableArrayList(filteredList));
     }
 
     @FXML
     void supprimer(ActionEvent event) {
-        publicites selectedPub = this.idtable.getSelectionModel().getSelectedItem();
+        publicites selectedPub = listView.getSelectionModel().getSelectedItem();
         if (selectedPub != null) {
-            Alert confirmation = new Alert(AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicite ?", ButtonType.YES, ButtonType.NO);
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette publicité ?", ButtonType.YES, ButtonType.NO);
             confirmation.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.YES) {
                     try {
-                        this.servicePublicites.supprimer(selectedPub.getId_pub());
-                        this.updatePublicitesList();
-                    } catch (Exception var4) {
-                        var4.printStackTrace();
+                        servicePublicites.supprimer(selectedPub.getId_pub());
+                        updatePublicitesList();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                 }
             });
         } else {
-            this.showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a supprimer.", AlertType.WARNING);
+            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité à supprimer.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
-    public void initialize() {
-        ctitte.setCellValueFactory(new PropertyValueFactory<>("titre_pub"));
-        ctype.setCellValueFactory(new PropertyValueFactory<>("type_pub"));
-        ccontenu.setCellValueFactory(new PropertyValueFactory<>("contenu_pub"));
-        cemplacement.setCellValueFactory(new PropertyValueFactory<>("emplacement_pub"));
-        cstatut.setCellValueFactory(new PropertyValueFactory<>("statut_pub"));
-
-        updatePublicitesList();
-    }
-
-    @FXML
-    void displayPublicites(ActionEvent event) {
-        this.updatePublicitesList();
-    }
-
-    public void initData(publicites pub) {
-        if (pub != null) {
-            // Assuming you want to select the pub in the table
-            idtable.getSelectionModel().select(pub);
+    void modifier(ActionEvent event) {
+        publicites selectedPub = listView.getSelectionModel().getSelectedItem();
+        if (selectedPub != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierpub.fxml"));
+                Parent root = loader.load();
+                ModifierPubController controller = loader.getController();
+                controller.initData(selectedPub);
+                Stage stage = (Stage) idModifier.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            showAlert("Erreur", "La publicite selectionnee est invalide.", AlertType.ERROR);
+            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité à modifier.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     void gotoCampagnePub(ActionEvent event) {
-        publicites selectedPub = idtable.getSelectionModel().getSelectedItem();
+        publicites selectedPub = listView.getSelectionModel().getSelectedItem();
         if (selectedPub == null) {
-            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite.", AlertType.WARNING);
+            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité.", Alert.AlertType.WARNING);
             return;
         }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCamp.fxml"));
             Parent root = loader.load();
-
-            AjouterCampController controller = loader.getController();
-          //  controller.initData(selectedPub);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ajouter une Campagne Publicitaire");
@@ -148,46 +245,26 @@ public class AfficherPubController {
         }
     }
 
-    private void showAlert(String title, String content, AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.show();
-    }
-
-    @FXML
-    void modifier(ActionEvent event) {
-        publicites selectedPub = idtable.getSelectionModel().getSelectedItem();
-        if (selectedPub != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierpub.fxml"));
-                Parent root = loader.load();
-                ModifierPubController controller = loader.getController();
-                controller.initData(selectedPub);
-                Stage stage = (Stage) idtable.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            showAlert("Aucune publicite selectionnee", "Veuillez selectionner une publicite a modifier.", AlertType.WARNING);
-        }
-    }
-
     @FXML
     void afficherStatistiques(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesPub.fxml"));
             Parent root = loader.load();
-
+            StatistiquesPubController statsController = loader.getController();
+            statsController.initData(likesMap, dislikesMap);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Statistiques des Publicites");
+            stage.setTitle("Statistiques des Publicités");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Une erreur s'est produite lors de l'ouverture de la fenetre des statistiques.", AlertType.ERROR);
+            showAlert("Erreur", "Erreur lors de l'ouverture des statistiques.", Alert.AlertType.ERROR);
         }
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.show();
     }
 }

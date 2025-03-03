@@ -1,6 +1,106 @@
-/*.default-color0.chart-bar { -fx-bar-fill: #00FFFF; } !* Bleu *!*/
-.default-color4.chart-bar { -fx-bar-fill: #9b59b9; } /* Violet */
+.custom-list-view {
+    -fx-background-color: #2B4D70;
+    -fx-border-color: #1E3A5F;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
 
-.default-color1.chart-bar { -fx-bar-fill: #FFB190; } /* Vert */
-.default-color2.chart-bar { -fx-bar-fill: #206777; } /* Rouge */
-.default-color3.chart-bar { -fx-bar-fill: #FF6F00FF; } /* Jaune */
+.custom-list-view .list-cell {
+    -fx-background-color: #1E3A5F;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-color: #2B4D70;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 3);
+}
+
+.custom-list-view .list-cell:filled:selected {
+    -fx-background-color: #FFA500;
+    -fx-text-fill: white;
+}
+
+.custom-list-view .list-cell:filled:hover {
+    -fx-background-color: #FFA500;
+    -fx-text-fill: white;
+}
+
+/* Background */
+.background {
+    -fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70);
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #1E3A5F;
+}
+
+.sidebar-container {
+    -fx-padding: 10px;
+}
+
+.sidebar-item {
+    -fx-background-color: #2B4D70;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 3);
+}
+
+.sidebar-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+
+/* User Banner */
+.user-banner {
+    -fx-background-color: #2B4D70;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.user-banner-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.edit-button {
+    -fx-background-color: #FFA500;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 3);
+}
+
+.edit-button-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Search Bar */
+.search-bar {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* ListView */
+.table-view {
+    -fx-background-color: #2B4D70;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 3);
+}
+
+/* Buttons */
+.action-button {
+    -fx-background-color: #FFA500;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 3);
+}

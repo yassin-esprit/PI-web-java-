@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PostController">
+   <children>
+      <AnchorPane layoutX="-11.0" prefHeight="571.0" prefWidth="874.0">
+         <children>
+         
+                      <Label layoutX="347.0" layoutY="96.0" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Create New Post" />
+         
+                      <TextField fx:id="titleField" layoutX="182.0" layoutY="146.0" prefHeight="25.0" prefWidth="478.0" promptText="Enter title" />
+             <TextArea fx:id="contentField" layoutX="186.0" layoutY="184.0" prefRowCount="5" promptText="Enter content" wrapText="true" />
+         
+                      <Button layoutX="398.0" layoutY="305.0" onAction="#handleSubmit" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Submit" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

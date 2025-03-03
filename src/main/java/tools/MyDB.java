@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
-    public final String URL = "jdbc:mysql://localhost:3306/dbpi";
+    public final String URL = "jdbc:mysql://localhost:3306/dbpi1";
     public final String USER = "root";
     public final String pwd = "";
     private Connection connection;

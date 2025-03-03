@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.User;
 import models.publicites;
 import models.statut_pub;
 import models.type_pub;
@@ -21,6 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.UserServices;
+import utils.EmailUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -74,8 +77,25 @@ public class AjouterPubController {
 
         System.out.println("Publicité ajoutée avec succès !");
 
+        // Récupérer tous les utilisateurs avec le rôle ADMIN
+        UserServices userServices = new UserServices();
+        List<User> admins = userServices.getAdmins();
+
+        // Envoyer un e-mail à chaque administrateur
+        for (User admin : admins) {
+            String subject = "Nouvelle publicité ajoutée";
+            String body = "Une nouvelle publicité a été ajoutée :\n\n"
+                    + "Titre : " + titre + "\n"
+                    + "Type : " + type.name() + "\n"
+                    + "Contenu : " + contenu + "\n"
+                    + "Emplacement : " + emplacement + "\n"
+                    + "Statut : " + statut.name();
+
+            EmailUtil.sendEmail(admin.getEmail(), subject, body);
+        }
+
         // Récupérer tous les publicités après l'ajout
-        List<publicites> publicites = sp.recuperer(); // Assurez-vous que `recuperer` retourne une liste d'objets publicites
+        List<publicites> publicites = sp.recuperer();
 
         // Passer la liste des publicités au contrôleur de la fenêtre d'affichage
         try {
@@ -84,7 +104,7 @@ public class AjouterPubController {
 
             // Récupérer le contrôleur de la fenêtre d'affichage et lui passer la liste des publicités
             AfficherPubController controller = loader.getController();
-            controller.setPublicites(publicites);
+            // controller.setPublicites(publicites);
 
             // Changer la scène pour afficher la fenêtre d'affichage
             Stage stage = (Stage) idTitre.getScene().getWindow();
@@ -92,15 +112,13 @@ public class AjouterPubController {
             stage.show();
 
             // Réinitialiser les champs après l'ajout
-           resetFields();
+            resetFields();
 
         } catch (IOException e) {
             showAlert("Erreur", "Problème lors du chargement de la fenêtre d'affichage: " + e.getMessage());
         }
 
         // Fermer la fenêtre actuelle
-//((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
-        // Fermer la fenêtre actuelle avec une vérification de null
         Button sourceButton = (Button) event.getSource();
         Scene scene = sourceButton.getScene();
         if (scene != null && scene.getWindow() != null) {
@@ -109,7 +127,6 @@ public class AjouterPubController {
         } else {
             System.out.println("The scene or window is null, cannot close the window.");
         }
-
     }
 
     private void resetFields() {

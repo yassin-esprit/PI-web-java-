@@ -1,21 +1,12 @@
 package services;
 
-import models.publicites;
-import models.statut_pub;
-import models.type_pub;
-
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IServices<T> {
-
     void ajouter(T p) throws SQLException;
-    void supprimer (int id_pub)throws SQLException;
+    void supprimer(int id) throws SQLException;
+    public void edit(T p);
+    public List<T> getAll();
 
-    void modifier(int id_pub, String titre_pub, type_pub type_pub, String contenu_pub, String emplacement_pub, statut_pub statut_pub) throws SQLException;
-
-    List<T> recuperer() throws SQLException;
 }
-
-
-

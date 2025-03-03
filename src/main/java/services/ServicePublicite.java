@@ -4,14 +4,12 @@ import models.publicites;
 import tools.MyDB;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import models.statut_pub;
 import models.type_pub;
 
-public class ServicePublicite implements IServices<publicites> {
+public class ServicePublicite implements IServicesP<publicites> {
     private Connection cnx;
 
     public ServicePublicite() {
