@@ -81,6 +81,7 @@ public class StatistiquesPubController {
         // Create BarChart
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle("Likes et Dislikes par Publicité");
+        barChart.setPrefSize(600, 300); // Ajuster la taille du BarChart
 
         // Add data to the BarChart
         XYChart.Series<String, Number> likesSeries = new XYChart.Series<>();
@@ -105,6 +106,7 @@ public class StatistiquesPubController {
         // Create PieChart
         PieChart pieChart = new PieChart();
         pieChart.setTitle("Total Likes et Dislikes");
+        pieChart.setPrefSize(400, 300); // Ajuster la taille du PieChart
 
         // Calculate total likes and dislikes
         int totalLikes = likesMap.values().stream().mapToInt(Integer::intValue).sum();
@@ -115,5 +117,4 @@ public class StatistiquesPubController {
         pieChart.getData().add(new PieChart.Data("Dislikes", totalDislikes));
 
         return pieChart;
-    }
-}
+    }}

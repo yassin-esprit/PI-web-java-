@@ -10,10 +10,10 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom, #4079c5, #26c8ba); -fx-padding: 20;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatistiquesPubController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to bottom, #4079c5, #26c8ba); -fx-padding: 20;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatistiquesPubController">
     <children>
         <!-- Horizontal container for stats and charts -->
-        <HBox layoutX="20.0" layoutY="20.0" spacing="20">
+        <HBox layoutX="10.0" layoutY="10.0" spacing="10">
             <!-- Left side: Active/Inactive stats -->
             <VBox spacing="10">
                 <Label fx:id="labelStatistiques" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Statistiques des Publicités">
@@ -24,7 +24,7 @@
             </VBox>
 
             <!-- Right side: Likes/Dislikes charts -->
-            <VBox fx:id="chartContainer" spacing="20" style="-fx-background-color: transparent;">
+            <VBox fx:id="chartContainer" spacing="10" style="-fx-background-color: transparent;">
             </VBox>
         </HBox>
     </children>
