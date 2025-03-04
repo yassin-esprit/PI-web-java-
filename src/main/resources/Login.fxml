@@ -15,54 +15,70 @@
    <children>
       <VBox layoutX="683.0" prefHeight="731.0" prefWidth="584.0">
          <children>
-            <AnchorPane prefHeight="742.0" prefWidth="584.0" style="-fx-background-color: #FFFF;">
+            <AnchorPane prefHeight="715.0" prefWidth="622.0" style="-fx-background-color: #FFFF;">
                <children>
-                  <TextField fx:id="email" alignment="CENTER" layoutX="169.0" layoutY="229.0" prefHeight="39.0" prefWidth="247.0" promptText="Email">
+                  <TextField fx:id="email" alignment="CENTER" layoutX="127.0" layoutY="301.0" prefHeight="39.0" prefWidth="247.0" promptText="Email">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <CheckBox fx:id="remember" layoutX="169.0" layoutY="407.0" mnemonicParsing="false" onAction="#Remember_pass" text="Remember">
+                  <CheckBox fx:id="remember" layoutX="139.0" layoutY="449.0" mnemonicParsing="false" onAction="#Remember_pass" text="Remember">
                      <font>
                         <Font name="FiraCode Nerd Font Reg" size="14.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="Login_button" layoutX="214.0" layoutY="460.0" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="157.0" style="-fx-background-color: #079af5;" text="LOGIN" textFill="WHITE">
+                  <Button fx:id="Login_button" layoutX="135.0" layoutY="491.0" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="247.0" style="-fx-background-color: #079af5;" text="LOGIN" textFill="WHITE">
                      <font>
                         <Font name="FiraCode Nerd Font Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Hyperlink fx:id="forgotpass" layoutX="279.0" layoutY="404.0" onAction="#forgotpass" onMouseClicked="#forgotpasspage" text="Forgot Password ?">
+                  <Hyperlink fx:id="forgotpass" layoutX="259.0" layoutY="446.0" onAction="#forgotpass" onMouseClicked="#forgotpasspage" text="Forgot Password ?">
                      <font>
                         <Font name="FiraCode Nerd Font Reg" size="14.0" />
                      </font></Hyperlink>
-                  <ImageView layoutX="176.0" layoutY="237.0">
+                  <ImageView layoutX="143.0" layoutY="309.0">
                      <image>
                         <Image url="@Images/mail.png" />
                      </image>
                   </ImageView>
-                  <PasswordField fx:id="password" alignment="CENTER" layoutX="169.0" layoutY="321.0" prefHeight="39.0" prefWidth="247.0" promptText="Password">
+                  <PasswordField fx:id="password" alignment="CENTER" layoutX="127.0" layoutY="366.0" prefHeight="39.0" prefWidth="247.0" promptText="Password">
                      <font>
                         <Font name="FiraCode Nerd Font Reg" size="14.0" />
                      </font>
                   </PasswordField>
-                  <ImageView layoutX="176.0" layoutY="329.0">
+                  <ImageView layoutX="142.0" layoutY="374.0">
                      <image>
                         <Image url="@Images/lock.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="singup" layoutX="214.0" layoutY="517.0" mnemonicParsing="false" onAction="#singup" prefHeight="39.0" prefWidth="157.0" style="-fx-background-color: #07B263FF;" text="SINGUP" textFill="WHITE">
+                  <Button fx:id="singup" layoutX="135.0" layoutY="553.0" mnemonicParsing="false" onAction="#singup" prefHeight="39.0" prefWidth="247.0" style="-fx-background-color: #07B263FF;" text="SINGUP" textFill="WHITE">
                      <font>
                         <Font name="FiraCode Nerd Font Bold" size="14.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="149.0" fitWidth="307.0" layoutX="97.0" layoutY="81.0">
+                     <image>
+                        <!--            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />-->
+                        <Image url="@Images/logo (2).png" />
+            
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="774.0" fitWidth="131.0" layoutX="491.0" layoutY="-6.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.3">
+                     <image>
+                        <!--            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />-->
+                        <Image url="@Images/slide.png" />
+            
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <ImageView fitHeight="737.0" fitWidth="678.0">
+      <ImageView fitHeight="774.0" fitWidth="661.0" layoutX="22.0" layoutY="-3.0" opacity="0.3">
          <image>
 <!--            <Image url="@Images/b44c665c88d2d14d1b4a6904bd133acb.gif" />-->
+                        <Image url="@Images/MythosPlanner.png" />
+
          </image>
       </ImageView>
    </children>
