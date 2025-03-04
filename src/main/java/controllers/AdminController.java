@@ -271,4 +271,11 @@ public class AdminController {
     public void navEvenementlist(MouseEvent mouseEvent) throws IOException {
         SceneController.loadlistev();
     }
+    public void navPublist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistpub();
+    }
+
+    public void navCamplist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadCamplist();
+    }
 }

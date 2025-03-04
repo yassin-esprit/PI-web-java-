@@ -11,7 +11,7 @@
 
     public class SceneController {
 
-        private static Stage primaryStage ;
+        private static Stage primaryStage;
 
         // Initialize primaryStage, call this first in your main class
         public static void setPrimaryStage(Stage stage) {
@@ -65,6 +65,7 @@
         public static void loadAddressSignupScene() throws IOException {
             loadScene("/AdressSingup.fxml", "Address Signup");
         }
+
         public static void loadlistev() throws IOException {
             loadScene("/evenementdash.fxml", "list Evenements");
         }
@@ -78,4 +79,16 @@
         public static void loadAdminDashScene() throws IOException {
             loadScene("/AdminDash.fxml", "Admin Dashboard");
         }
+
+        public static void loadlistpub() throws IOException {
+
+            loadScene("/PubDash.fxml", "Publicite Dashboard");
+
+        }
+
+        public static void loadCamplist() throws IOException {
+            loadScene("/CampDash.fxml", "Campagne Publicitaire Dashboard");
+
+        }
+
     }
