@@ -26,7 +26,7 @@
                             <children>
                                 <Text fill="white" layoutX="67.0" layoutY="36.0" styleClass="sidebar-text" text="My Profile" />
                                 <ImageView layoutX="14.0" layoutY="15.0">
-                                    <image><Image url="@images/user.png" /></image>
+                                    <image><Image url="@Images/user.png" /></image>
                                 </ImageView>
                             </children>
                         </Pane>
@@ -38,7 +38,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Home" />
                                     <ImageView layoutX="14.0" layoutY="15.0">
-                                        <image><Image url="@images/hm.png" /></image>
+                                        <image><Image url="@Images/hm.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -48,7 +48,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Settings" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/settings.png" /></image>
+                                        <image><Image url="@Images/settings.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -58,7 +58,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Evenement" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/event.png" /></image>
+                                        <image><Image url="@Images/event.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -68,7 +68,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Sponsor" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/sponsor.png" /></image>
+                                        <image><Image url="@Images/sponsor.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -78,7 +78,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Publicite" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/advertisement.png" /></image>
+                                        <image><Image url="@Images/advertisement.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -88,7 +88,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Reservation" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/reserved.png" /></image>
+                                        <image><Image url="@Images/reserved.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -99,7 +99,7 @@
                             <children>
                                 <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Logout" />
                                 <ImageView layoutX="11.0" layoutY="16.0">
-                                    <image><Image url="@images/enter.png" /></image>
+                                    <image><Image url="@Images/enter.png" /></image>
                                 </ImageView>
                             </children>
                         </Pane>
@@ -128,7 +128,7 @@
                             <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
                         </Label>
                         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
-                            <image><Image url="@images/edit-button.png" /></image>
+                            <image><Image url="@Images/edit-button.png" /></image>
                         </ImageView>
                     </children>
                 </AnchorPane>
@@ -146,28 +146,28 @@
                 <Button onAction="#retour" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Ajouter">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/add1.png" /></image>
+                            <image><Image url="@Images/add1.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button onAction="#deleteEvenement" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Supprimer">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/delete.png" /></image>
+                            <image><Image url="@Images/delete.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button onAction="#modifyEvenement" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Modifier">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/edit.png" /></image>
+                            <image><Image url="@Images/edit.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button onAction="#showStatistics" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Statistiques">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/stat.png" /></image>
+                            <image><Image url="@Images/stat.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>

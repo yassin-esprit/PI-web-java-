@@ -78,7 +78,7 @@
                             </Pane>
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
-<!--                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navCamplist" text="Campagne Publicitaire" />-->
+                                    <!--                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navCamplist" text="Campagne Publicitaire" />-->
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
                                         <image><Image url="@Images/advertisement.png" /></image>
                                     </ImageView>

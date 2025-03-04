@@ -33,7 +33,7 @@
                             <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>
                         </Label>
                         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
-                            <image><Image url="@images/edit-button.png" /></image>
+                            <image><Image url="@Images/edit-button.png" /></image>
                         </ImageView>
                     </children>
                 </AnchorPane>
@@ -60,14 +60,14 @@
                 <Button fx:id="btnModifier" disable="true" onAction="#handleModifierButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Modifier">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/edit.png" /></image>
+                            <image><Image url="@Images/edit.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button fx:id="btnSupprimer" disable="true" onAction="#handleSupprimerButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="Supprimer">
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@images/delete.png" /></image>
+                            <image><Image url="@Images/delete.png" /></image>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -85,7 +85,7 @@
         <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout" onAction="#handleLogout">
             <graphic>
                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                    <image><Image url="@images/enter.png" /></image>
+                    <image><Image url="@Images/enter.png" /></image>
                 </ImageView>
             </graphic>
         </Button>

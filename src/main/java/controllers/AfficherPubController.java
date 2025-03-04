@@ -8,11 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import models.User;
 import models.publicites;
 import models.statut_pub;
 import services.ServicePublicite;
+import tools.UserSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +25,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AfficherPubController {
+
+
+    @FXML
+    private Label mail;
+
+    @FXML
+    private Label name;
+
+    @FXML
+    private Label lastname;
+
+
     @FXML
     private ListView<publicites> listView;
     @FXML
@@ -44,6 +59,17 @@ public class AfficherPubController {
 
     @FXML
     void initialize() {
+
+
+
+        UserSession session = UserSession.getInstance();
+        User currentUser = session.getUser();
+
+        // Display current user info
+        name.setText(currentUser.getFirstName());
+        lastname.setText(currentUser.getLastName());
+        mail.setText(currentUser.getEmail());
+
         // Load CSS if needed
         listView.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
@@ -266,5 +292,9 @@ public class AfficherPubController {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.show();
+    }
+
+    public void navEvenementlist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistev();
     }
 }
