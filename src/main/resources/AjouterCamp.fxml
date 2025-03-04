@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="457.0" prefWidth="646.0" style="-fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterCampController">
+   <children>
+      <!-- Titre principal -->
+      <Text layoutX="130.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-weight: bold; -fx-font-size: 22px;" text="AJOUTER UNE CAMPAGNE PUBLICITAIRE" textAlignment="CENTER" wrappingWidth="400">
+         <font>
+            <Font name="Bell MT Bold" size="22.0" />
+         </font>
+      </Text>
+
+      <!-- Champs de saisie -->
+      <TextField fx:id="IDnom" layoutX="24.0" layoutY="93.0" prefHeight="30.0" prefWidth="222.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-padding: 5; -fx-font-size: 14px;" />
+      <TextField fx:id="IDbudget" layoutX="24.0" layoutY="174.0" prefHeight="30.0" prefWidth="222.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-padding: 5; -fx-font-size: 14px;" />
+      <DatePicker fx:id="IDdebut" layoutX="24.0" layoutY="265.0" prefHeight="30.0" prefWidth="222.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-font-size: 14px;" />
+      <DatePicker fx:id="IDfin" layoutX="353.0" layoutY="265.0" prefHeight="30.0" prefWidth="222.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-font-size: 14px;" />
+      <ChoiceBox fx:id="IDstatut" layoutX="24.0" layoutY="360.0" prefHeight="30.0" prefWidth="222.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-font-size: 14px;" />
+      <ComboBox fx:id="IDpub" layoutX="376.0" layoutY="417.0" prefWidth="150.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: white; -fx-font-size: 14px;" />
+
+      <!-- Bouton Ajouter -->
+      <Button fx:id="btnAjouter" layoutX="371.0" layoutY="413.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="AJOUTER" />
+
+      <!-- Étiquettes -->
+      <Text layoutX="50.0" layoutY="80.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Nom :" />
+      <Text layoutX="50.0" layoutY="160.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Budget :" />
+      <Text layoutX="50.0" layoutY="250.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Date De Début :" />
+      <Text layoutX="380.0" layoutY="250.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Date De Fin :" />
+      <Text layoutX="50.0" layoutY="350.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Statut :" />
+
+      <!-- Logo -->
+      <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="500.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

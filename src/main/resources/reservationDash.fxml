@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" styleClass="background" stylesheets="background.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherReservationController">
+
+    <children>
+        <!-- Sidebar (Copied from the Previous File) -->
+        <VBox prefHeight="731.0" prefWidth="220.0" spacing="10" styleClass="sidebar">
+            <children>
+                <AnchorPane prefHeight="731.0" prefWidth="269.0" styleClass="sidebar-container">
+                    <children>
+                        <!-- Profile -->
+                        <Pane layoutY="53.0" prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                            <children>
+                                <Text fill="white" layoutX="67.0" layoutY="36.0" styleClass="sidebar-text" text="My Profile" />
+                                <ImageView layoutX="14.0" layoutY="15.0">
+                                    <image><Image url="@Images/user.png" /></image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+
+                        <!-- Navigation -->
+                        <VBox layoutX="5.0" layoutY="148.0" prefHeight="435.0" prefWidth="210.0" spacing="10">
+                            <Pane prefHeight="62.0" prefWidth="210.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Home" />
+                                    <ImageView layoutX="14.0" layoutY="15.0">
+                                        <image><Image url="@Images/hm.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Equipement" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/settings.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Evenement" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/event.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Sponsor" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/sponsor.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Publicite" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/advertisement.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Reservation" />
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/reserved.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                        </VBox>
+
+                        <!-- Logout -->
+                        <Pane layoutY="632.0" prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                            <children>
+                                <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Logout" />
+                                <ImageView layoutX="11.0" layoutY="16.0">
+                                    <image><Image url="@Images/enter.png" /></image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
+                    <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@Images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+
+        <!-- Main Campaigns Management Section -->
+        <VBox layoutX="250.0" layoutY="100.0" spacing="20">
+            <!-- Title -->
+            <Label text="LES CAMPAGNES PUBLICITAIRES" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;">
+                <font>
+                    <Font name="Bell MT Bold" size="24.0" />
+                </font>
+            </Label>
+
+            <!-- TableView for Campaigns -->
+            <TableView fx:id="tableCampagnes" prefHeight="480.0" prefWidth="900.0" style="
+                -fx-background-color: rgba(255, 255, 255, 0.8);
+                -fx-border-radius: 10px;
+                -fx-background-radius: 10px;
+                -fx-padding: 10px;
+                -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+                -fx-selection-bar: #1abc9c;
+                -fx-selection-bar-non-focused: #1abc9c;
+                -fx-selection-bar-text: white;
+            ">
+                <columns>
+                    <TableColumn fx:id="colNomEquipement" prefWidth="175" text="Nom Equipement" />
+                    <TableColumn fx:id="colTitreEvenement" prefWidth="175" text="Titre Evenement" />
+                    <TableColumn fx:id="colDateReservation" prefWidth="175" text="Date Reservation" />
+                    <TableColumn fx:id="colStatut" prefWidth="175" text="Statut" />
+                </columns>
+            </TableView>
+
+            <!-- Action Buttons -->
+            <HBox spacing="20">
+                <Button onAction="#handleModifierButton" prefHeight="30.0" prefWidth="150.0" text="Modifier" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/edit.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#Calender" prefHeight="30.0" prefWidth="150.0" text="Calendrier" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/stat.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#handleSupprimerButton" prefHeight="30.0" prefWidth="150.0" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@Images/delete.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </children>
+
+</AnchorPane>

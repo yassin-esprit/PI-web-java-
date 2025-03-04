@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="457.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierCampController">
+    <children>
+        <Label layoutX="345.0" layoutY="126.0" text="Nouveau Budge :" />
+        <Label layoutX="28.0" layoutY="233.0" text="Date De Début :" />
+        <Label layoutX="28.0" layoutY="126.0" text="Nouveau nom :" />
+        <Label layoutX="353.0" layoutY="233.0" text="Date De Fin :" />
+        <Label layoutX="29.0" layoutY="334.0" text="Nouveau Statut :" />
+        <TextField fx:id="nomField" layoutX="24.0" layoutY="169.0" prefHeight="26.0" prefWidth="222.0" />
+        <TextField fx:id="budgetField" layoutX="345.0" layoutY="169.0" prefHeight="26.0" prefWidth="222.0" />
+        <Label layoutX="149.0" layoutY="23.0" text="MODIFIER UNE CAMPAGNE PUBLICITAIRE">
+            <font>
+                <Font name="Bell MT" size="17.0" />
+            </font>
+        </Label>
+<!--                <Button fx:id="modifierButton" layoutX="419.0" layoutY="378.0" mnemonicParsing="false" text="MODIFIER" />-->
+<!--                <Button fx:id="annulerButton" layoutX="519.0" layoutY="378.0" mnemonicParsing="false" text="ANNULER" />-->
+        <Button fx:id="modifierButton" layoutX="419.0" layoutY="378.0" mnemonicParsing="false" onAction="#modifierCampagne" text="MODIFIER" />
+<!--        <Button fx:id="annulerButton" layoutX="519.0" layoutY="378.0" mnemonicParsing="false" onAction="#fermerFenetre" text="ANNULER" />-->
+        <ChoiceBox fx:id="statutField" layoutX="24.0" layoutY="377.0" prefHeight="26.0" prefWidth="222.0" />
+        <DatePicker fx:id="dateDebutField" layoutX="24.0" layoutY="290.0" prefHeight="26.0" prefWidth="222.0" />
+        <DatePicker fx:id="dateFinField" layoutX="353.0" layoutY="290.0" prefHeight="26.0" prefWidth="222.0" />
+    </children>
+</AnchorPane>

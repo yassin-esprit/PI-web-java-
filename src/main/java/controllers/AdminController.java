@@ -271,6 +271,9 @@ public class AdminController {
     public void navEvenementlist(MouseEvent mouseEvent) throws IOException {
         SceneController.loadlistev();
     }
+    public void navReservationlist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistRes();
+    }
 
     public void ListEquipement(MouseEvent mouseEvent) throws IOException {
         SceneController.loadlisteq();
@@ -280,4 +283,10 @@ public class AdminController {
     public void ReservationList(MouseEvent mouseEvent) throws IOException {
         SceneController.loadlistRes();
     }
+
+
+    public void navPublist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistpub();
+    }
 }
+

@@ -6,6 +6,7 @@
     import javafx.scene.Scene;
     import javafx.stage.Stage;
 
+    import java.awt.event.MouseEvent;
     import java.io.IOException;
     import java.util.Objects;
 
@@ -80,12 +81,17 @@
         }
 
         public static void loadlisteq() throws IOException {
-            loadScene("/AfficherEquipement.fxml", "list Equipements");
+            loadScene("/equipementDash.fxml", "list Equipements");
         }
 
         public static void loadlistRes() throws IOException {
-            loadScene("/AfficherReservation.fxml", "list Reservations");
+            loadScene("/reservationDash.fxml", "list Reservations");
         }
 
 
+        public static void loadlistpub() throws IOException {
+
+            loadScene("/PubDash.fxml", "Publicite Dashboard");
+
+        }
     }
