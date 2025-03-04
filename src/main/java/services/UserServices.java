@@ -70,6 +70,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserServices {
     private Connection cnx;
@@ -141,6 +143,28 @@ public User getUser(int id) throws SQLException {
     return null; // Return null if user not found
 }
 
+    public List<User> getAdmins() throws SQLException {
+        String query = "SELECT * FROM user WHERE role = ?";
+        PreparedStatement stmt = cnx.prepareStatement(query);
+        stmt.setString(1, User.Role.ADMIN.name()); // Récupérer uniquement les utilisateurs avec le rôle ADMIN
+        ResultSet rs = stmt.executeQuery();
+
+        List<User> admins = new ArrayList<>();
+        while (rs.next()) {
+            User user = new User(
+                    rs.getInt("userid"),
+                    rs.getString("firstname"),
+                    rs.getString("lastname"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    User.Role.valueOf(rs.getString("role").toUpperCase())
+                    //   rs.getTimestamp("created_at")
+            );
+            admins.add(user);
+        }
+        return admins;
+    }
 
 ///////////////////////////////////////
 

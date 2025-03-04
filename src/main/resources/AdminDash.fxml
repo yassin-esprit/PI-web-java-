@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="731.0" prefWidth="1266.0" styleClass="background" stylesheets="background.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" styleClass="background" stylesheets="background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
 
     <children>
         <!-- Sidebar -->
@@ -24,7 +24,7 @@
                             <children>
                                 <Text fill="white" layoutX="67.0" layoutY="36.0" styleClass="sidebar-text" text="My Profile" />
                                 <ImageView layoutX="14.0" layoutY="15.0">
-                                    <image><Image url="@images/user.png" /></image>
+                                    <image><Image url="@Images/user.png" /></image>
                                 </ImageView>
                             </children>
                         </Pane>
@@ -35,16 +35,16 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Home" />
                                     <ImageView layoutX="14.0" layoutY="15.0">
-                                        <image><Image url="@images/hm.png" /></image>
+                                        <image><Image url="@Images/hm.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
 
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
-                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#ListEquipement" text="Equipement" />
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Settings" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/settings.png" /></image>
+                                        <image><Image url="@Images/settings.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -54,7 +54,7 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navEvenementlist" text="Evenement" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/event.png" /></image>
+                                        <image><Image url="@Images/event.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -63,25 +63,33 @@
                                 <children>
                                     <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Sponsor" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/sponsor.png" /></image>
+                                        <image><Image url="@Images/sponsor.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
 
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
-                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Publicite" />
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navPublist" text="Publicite" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/advertisement.png" /></image>
+                                        <image><Image url="@Images/advertisement.png" /></image>
+                                    </ImageView>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
+                                <children>
+<!--                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#navCamplist" text="Campagne Publicitaire" />-->
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
+                                        <image><Image url="@Images/advertisement.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
 
                             <Pane prefHeight="62.0" prefWidth="220.0" styleClass="sidebar-item">
                                 <children>
-                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" onMouseClicked="#ReservationList" text="Reservation" />
+                                    <Text fill="white" layoutX="94.0" layoutY="35.0" styleClass="sidebar-text" text="Reservation" />
                                     <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="14.0" layoutY="16.0">
-                                        <image><Image url="@images/reserved.png" /></image>
+                                        <image><Image url="@Images/reserved.png" /></image>
                                     </ImageView>
                                 </children>
                             </Pane>
@@ -92,7 +100,7 @@
                             <children>
                                 <Text fill="white" layoutX="94.0" layoutY="35.0" onMouseClicked="#logout" styleClass="sidebar-text" text="Logout" />
                                 <ImageView layoutX="11.0" layoutY="16.0">
-                                    <image><Image url="@images/enter.png" /></image>
+                                    <image><Image url="@Images/enter.png" /></image>
                                 </ImageView>
                             </children>
                         </Pane>
@@ -113,7 +121,7 @@
                     <children>
                         <Label fx:id="edit" layoutX="32.0" layoutY="9.0" onMouseClicked="#editpage" styleClass="edit-button-text" text="Edit" textFill="white" />
                         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
-                            <image><Image url="@images/edit-button.png" /></image>
+                            <image><Image url="@Images/edit-button.png" /></image>
                         </ImageView>
                     </children>
                 </AnchorPane>

@@ -6,6 +6,7 @@
     import javafx.scene.Scene;
     import javafx.stage.Stage;
 
+    import java.awt.event.MouseEvent;
     import java.io.IOException;
     import java.util.Objects;
 
@@ -88,4 +89,9 @@
         }
 
 
+        public static void loadlistpub() throws IOException {
+
+            loadScene("/PubDash.fxml", "Publicite Dashboard");
+
+        }
     }

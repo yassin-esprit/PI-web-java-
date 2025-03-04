@@ -280,4 +280,10 @@ public class AdminController {
     public void ReservationList(MouseEvent mouseEvent) throws IOException {
         SceneController.loadlistRes();
     }
+
+
+    public void navPublist(MouseEvent mouseEvent) throws IOException {
+        SceneController.loadlistpub();
+    }
 }
+
