@@ -2,39 +2,58 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierPubController">
+<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierPubController">
     <children>
         <!-- Titre principal -->
-        <Text layoutX="180.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: orange; -fx-font-weight: bold; -fx-font-size: 22px;" text="MODIFIER PUBLICITÉ" textAlignment="CENTER" wrappingWidth="320">
+        <Text layoutX="180.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;" text="MODIFIER PUBLICITÉ" textAlignment="CENTER" wrappingWidth="320">
             <font>
                 <Font name="Arial" size="22.0" />
             </font>
         </Text>
 
-        <!-- Champs de saisie -->
-        <TextField fx:id="txtTitre" layoutX="215.0" layoutY="93.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
-        <ChoiceBox fx:id="txtType" layoutX="215.0" layoutY="145.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
-        <TextField fx:id="txtContenu" layoutX="215.0" layoutY="193.0" prefHeight="60.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
-        <TextField fx:id="txtEmplacement" layoutX="215.0" layoutY="277.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
-        <ChoiceBox fx:id="txtStatut" layoutX="215.0" layoutY="328.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
+        <!-- Form Section -->
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="80.0" prefHeight="300.0" prefWidth="580.0" spacing="15">
+            <children>
+                <!-- Titre Publicité -->
+                <TextField fx:id="txtTitre" promptText="Titre Publicité" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px; -fx-pref-width: 100%;" />
 
-        <!-- Boutons -->
-        <Button layoutX="215.0" layoutY="390.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold;                      -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Enregistrer" />
-        <Button layoutX="345.0" layoutY="390.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: grey; -fx-text-fill: white; -fx-font-weight: bold;                      -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Annuler" />
+                <!-- Type Publicité -->
+                <ChoiceBox fx:id="txtType" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px; -fx-pref-width: 100%;">
 
-        <!-- Étiquettes -->
-        <Text layoutX="43.0" layoutY="115.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Titre Publicité" />
-        <Text layoutX="42.0" layoutY="166.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Type Publicité" />
-        <Text layoutX="42.0" layoutY="228.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Contenu Publicité" />
-        <Text layoutX="42.0" layoutY="299.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Emplacement Publicité" />
-        <Text layoutX="38.0" layoutY="349.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Statut Publicité" />
+                        <Label style="-fx-text-fill: #2c3e50; -fx-opacity: 0.7;" text="Type Publicité" />
+
+                </ChoiceBox>
+
+                <!-- Contenu Publicité -->
+                <TextField fx:id="txtContenu" promptText="Contenu Publicité" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px; -fx-pref-width: 100%;" />
+
+                <!-- Emplacement Publicité -->
+                <TextField fx:id="txtEmplacement" promptText="Emplacement Publicité" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px; -fx-pref-width: 100%;" />
+
+                <!-- Statut Publicité -->
+                <ChoiceBox fx:id="txtStatut" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px; -fx-pref-width: 100%;">
+
+                        <Label style="-fx-text-fill: #2c3e50; -fx-opacity: 0.7;" text="Statut Publicité" />
+
+                </ChoiceBox>
+
+                <!-- Button Section -->
+                <HBox alignment="CENTER" prefHeight="68.0" prefWidth="580.0" spacing="20">
+                    <Button onAction="#saveChanges" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12px 30px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);" text="Enregistrer" />
+                    <Button onAction="#cancel" prefHeight="50.0" prefWidth="134.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12px 30px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);" text="Annuler" />
+                </HBox>
+            </children>
+        </VBox>
 
         <!-- Logo -->
         <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="500.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">

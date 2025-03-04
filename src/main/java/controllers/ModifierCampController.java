@@ -77,7 +77,7 @@ public class ModifierCampController {
                     campagneToModify.getPublicite() // Passage de l'objet Publicite
                 );
 
-              //  redirectToAfficherCam();
+                redirectToAfficherCam();
 
                 // Fermer la fenêtre de modification après avoir sauvegardé
                 Stage stage = (Stage) nomField.getScene().getWindow();
