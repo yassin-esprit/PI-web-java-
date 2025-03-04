@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #1E3C72, #2A5298);"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DonController">
+    <!-- Sidebar on the Left -->
+    <left>
+        <VBox prefWidth="200.0" style="-fx-background-color: #2A5298; -fx-padding: 10;" spacing="10">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Menu Utilisateur" />
+                <Button text="Marchandises" onAction="#showMarchandisesView" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10; -fx-border-radius: 5px;" prefWidth="180"/>
+                <Button text="Ajouter Don" onAction="#showAddDonForm" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10; -fx-border-radius: 5px;" prefWidth="180"/>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox fx:id="mainContent" prefWidth="800.0" prefHeight="600.0" spacing="20" style="-fx-padding: 20;">
+            <!-- Initially Empty, will be populated dynamically -->
+        </VBox>
+    </center>
+</BorderPane>
