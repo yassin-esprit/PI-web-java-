@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import models.campagnes_publicitaires;
 import models.publicites;
 import models.statut_camp;
@@ -50,6 +51,37 @@ public class AjouterCampController {
 
         // Charger les publicités disponibles
         chargerPublicites();
+
+        // Définir une cell factory pour afficher uniquement le titre_pub dans le ComboBox
+        IDpub.setCellFactory(new Callback<ListView<publicites>, ListCell<publicites>>() {
+            @Override
+            public ListCell<publicites> call(ListView<publicites> param) {
+                return new ListCell<publicites>() {
+                    @Override
+                    protected void updateItem(publicites pub, boolean empty) {
+                        super.updateItem(pub, empty);
+                        if (pub == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(pub.getTitre_pub()); // Afficher uniquement le titre_pub
+                        }
+                    }
+                };
+            }
+        });
+
+        // Définir la même cell factory pour le bouton du ComboBox
+        IDpub.setButtonCell(new ListCell<publicites>() {
+            @Override
+            protected void updateItem(publicites pub, boolean empty) {
+                super.updateItem(pub, empty);
+                if (pub == null || empty) {
+                    setText(null);
+                } else {
+                    setText(pub.getTitre_pub()); // Afficher uniquement le titre_pub
+                }
+            }
+        });
     }
 
     private void chargerPublicites() {
@@ -61,11 +93,11 @@ public class AjouterCampController {
             // Sélectionner par défaut le premier élément s'il existe
             if (!publicitesList.isEmpty()) {
                 IDpub.getSelectionModel().selectFirst();
-            }      } catch (SQLException e) {
+            }
+        } catch (SQLException e) {
             showAlert("Erreur", "Impossible de charger les publicités : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
 
     @FXML
     void ajouter(ActionEvent event) {
@@ -76,7 +108,6 @@ public class AjouterCampController {
             LocalDate dateDebut = IDdebut.getValue();
             LocalDate dateFin = IDfin.getValue();
             statut_camp statut = IDstatut.getValue();
-            //publicites pub = IDpub.getValue(); // Récupérer l'objet publicites sélectionné
             publicites pub = IDpub.getSelectionModel().getSelectedItem(); // Récupération de la publicité sélectionnée
 
             // Vérification des champs
