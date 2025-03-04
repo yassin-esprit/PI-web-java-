@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.scene.Scene;
 import models.User;
 import tools.MyDB;
 import tools.UserSession;
@@ -53,7 +54,8 @@ public class LoginController {
             User.Role role = session.getUser().getRole();
 
             if (role.equals(User.Role.PARTICIPANT)) {
-                SceneController.loadProfilePageScene();
+//                SceneController.loadProfilePageScene()
+                SceneController.loadProfilePub();
             } else if (role.equals(User.Role.ADMIN)) {
                 SceneController.loadAdminDashScene();
             } else if (role.equals(User.Role.OWNER)) {

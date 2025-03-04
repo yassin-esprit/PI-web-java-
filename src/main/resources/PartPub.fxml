@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="731.0" prefWidth="1266.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherPubController">
+    <children>
+        <!-- User Session Banner (Top Right) -->
+        <AnchorPane layoutX="1000.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #1abc9c; -fx-background-radius: 20px;">
+            <children>
+                <Label fx:id="name" layoutX="20.0" layoutY="10.0" text="First Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="lastname" layoutX="130.0" layoutY="10.0" text="Last Name" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="14.0" /></font>
+                </Label>
+                <Label fx:id="mail" layoutX="20.0" layoutY="40.0" text="Email" textFill="white">
+                    <font><Font name="FiraCode Nerd Font Reg" size="12.0" /></font>
+                </Label>
+
+                <!-- Edit Button Inside User Banner -->
+                <AnchorPane layoutX="160.0" layoutY="45.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16a085; -fx-background-radius: 10px;">
+                    <children>
+<!--                        <Label fx:id="edit" layoutX="30.0" layoutY="5.0" onMouseClicked="#editpage" text="Edit" textFill="white">-->
+<!--                            <font><Font name="FiraCode Nerd Font Bold" size="12.0" /></font>-->
+<!--                        </Label>-->
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="5.0" layoutY="5.0">
+                            <image><Image url="@Images/edit-button.png" /></image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+
+        <!-- Main Content -->
+        <Text layoutX="212.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="La liste des Publicites" textAlignment="CENTER" wrappingWidth="324.7998962402344">
+            <font>
+                <Font name="FiraCode Nerd Font Bold" size="24.0" />
+            </font>
+        </Text>
+
+        <!-- Champ de recherche -->
+        <TextField fx:id="searchField" layoutX="41.0" layoutY="170.0" prefWidth="200.0" promptText="Rechercher..." style="-fx-background-color: white; -fx-padding: 5px; -fx-border-radius: 5px;" />
+
+        <!-- ComboBox pour le tri -->
+        <ComboBox fx:id="statusFilter" layoutX="270.0" layoutY="170.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-radius: 5px;" />
+
+        <!-- ListView remplaçant le TableView -->
+        <ListView fx:id="listView" layoutX="41.0" layoutY="225.0" prefHeight="376.0" prefWidth="822.0" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-selection-bar: #1abc9c; -fx-selection-bar-non-focused: #1abc9c; -fx-selection-bar-text: white;" />
+
+        <Button fx:id="idOpenMap" layoutX="281.0" layoutY="641.0" mnemonicParsing="false" onAction="#openMap" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Open Map" />
+
+        <!-- Logo -->
+        <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="500.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/logo.png" />
+            </image>
+        </ImageView>
+
+        <!-- Bouton Statistiques -->
+        <Button fx:id="idStatistiques" layoutX="74.0" layoutY="637.0" mnemonicParsing="false" onAction="#afficherStatistiques" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Statistiques" />
+
+        <!-- Logout Button -->
+<!--        <Button fx:id="logoutButton" layoutX="20.0" layoutY="24.0" onMouseClicked="#logout" prefHeight="40.0" prefWidth="150.0" styleClass="logout-button" text="Logout">-->
+<!--            <graphic>-->
+<!--                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">-->
+<!--                    <image><Image url="@Images/enter.png" /></image>-->
+<!--                </ImageView>-->
+<!--            </graphic>-->
+<!--        </Button>-->
+      <Button fx:id="idOpenMap1" layoutX="689.0" layoutY="164.0" mnemonicParsing="false" onAction="#navevnements"  prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Evenements" />
+    </children>
+</AnchorPane>

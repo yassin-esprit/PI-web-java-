@@ -94,4 +94,12 @@
             loadScene("/PubDash.fxml", "Publicite Dashboard");
 
         }
+
+        public static void loadProfilePub() throws IOException {
+            loadScene("/PartPub.fxml", "Profile Page");
+        }
+
+        public static void loadevPart() throws IOException {
+            loadScene("/afficherevenement.fxml", "Profile Page");
+        }
     }
