@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: linear-gradient(to bottom, #1E3A5F, #2B4D70); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierPubController">
+    <children>
+        <!-- Titre principal -->
+        <Text layoutX="180.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: orange; -fx-font-weight: bold; -fx-font-size: 22px;" text="MODIFIER PUBLICITÉ" textAlignment="CENTER" wrappingWidth="320">
+            <font>
+                <Font name="Arial" size="22.0" />
+            </font>
+        </Text>
+
+        <!-- Champs de saisie -->
+        <TextField fx:id="txtTitre" layoutX="215.0" layoutY="93.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+        <ChoiceBox fx:id="txtType" layoutX="215.0" layoutY="145.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
+        <TextField fx:id="txtContenu" layoutX="215.0" layoutY="193.0" prefHeight="60.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+        <TextField fx:id="txtEmplacement" layoutX="215.0" layoutY="277.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-padding: 5; -fx-font-size: 14px;" />
+        <ChoiceBox fx:id="txtStatut" layoutX="215.0" layoutY="328.0" prefHeight="30.0" prefWidth="250.0" style="-fx-border-color: orange; -fx-border-radius: 8; -fx-background-radius: 8;                         -fx-background-color: #E5E5E5; -fx-font-size: 14px;" />
+
+        <!-- Boutons -->
+        <Button layoutX="215.0" layoutY="390.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold;                      -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Enregistrer" />
+        <Button layoutX="345.0" layoutY="390.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: grey; -fx-text-fill: white; -fx-font-weight: bold;                      -fx-font-size: 14px; -fx-border-radius: 20; -fx-background-radius: 20;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Annuler" />
+
+        <!-- Étiquettes -->
+        <Text layoutX="43.0" layoutY="115.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Titre Publicité" />
+        <Text layoutX="42.0" layoutY="166.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Type Publicité" />
+        <Text layoutX="42.0" layoutY="228.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Contenu Publicité" />
+        <Text layoutX="42.0" layoutY="299.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Emplacement Publicité" />
+        <Text layoutX="38.0" layoutY="349.0" style="-fx-fill: white; -fx-font-size: 14px;" text="Statut Publicité" />
+
+        <!-- Logo -->
+        <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="500.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/logo.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>
