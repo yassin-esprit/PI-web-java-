@@ -1,5 +1,6 @@
 package controllers;
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.publicites;
 import models.statut_pub;
@@ -141,6 +145,39 @@ public class AfficherPubController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterPublicites());
         statusFilter.valueProperty().addListener((observable, oldValue, newValue) -> filterPublicites());
     }
+
+
+
+    @FXML
+    void openMap(ActionEvent event) {
+        publicites selectedPub = listView.getSelectionModel().getSelectedItem();
+        if (selectedPub == null) {
+            showAlert("Aucune publicité sélectionnée", "Veuillez sélectionner une publicité pour afficher la carte.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        try {
+            // URL-encode the location
+            String location = URLEncoder.encode(selectedPub.getEmplacement_pub(), StandardCharsets.UTF_8.toString());
+            String mapUrl = "https://www.google.com/maps?q=" + location;
+
+            // Create a new stage for the map
+            Stage mapStage = new Stage();
+            WebView webView = new WebView();
+            WebEngine webEngine = webView.getEngine();
+            webEngine.load(mapUrl);
+
+            VBox vbox = new VBox(webView);
+            Scene scene = new Scene(vbox, 800, 600);
+            mapStage.setScene(scene);
+            mapStage.setTitle("Map: " + selectedPub.getTitre_pub());
+            mapStage.show();
+        } catch (Exception e) {
+            showAlert("Erreur", "Erreur lors de l'ouverture de la carte.", Alert.AlertType.ERROR);
+        }
+    }
+
+
 
     private void handleLike(publicites pub) {
         likesMap.put(pub, likesMap.getOrDefault(pub, 0) + 1);

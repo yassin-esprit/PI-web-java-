@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="509.0" prefWidth="777.0" style="-fx-background-color: linear-gradient(to right, #2c3e50, #36d8f4); -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherPubController">
     <children>
-        <Text layoutX="212.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La liste des Publicites" textAlignment="CENTER" wrappingWidth="324.7998962402344" style="-fx-fill: white;">
+        <Text layoutX="212.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="La liste des Publicites" textAlignment="CENTER" wrappingWidth="324.7998962402344">
             <font>
                 <Font name="FiraCode Nerd Font Bold" size="24.0" />
             </font>
@@ -33,6 +33,7 @@
         <!-- Bouton Modifier -->
         <Button fx:id="idModifier" layoutX="50.0" layoutY="408.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Modifier" />
 
+        <Button fx:id="idOpenMap" layoutX="623.0" layoutY="433.0" mnemonicParsing="false" onAction="#openMap" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Open Map" />
         <!-- Logo -->
         <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="500.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -42,6 +43,6 @@
 
         <!-- Autres boutons -->
         <Button fx:id="idReserver" layoutX="250.0" layoutY="432.0" mnemonicParsing="false" onAction="#gotoCampagnePub" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Ajouter Campagne" />
-        <Button fx:id="idStatistiques" layoutX="500.0" layoutY="432.0" mnemonicParsing="false" onAction="#afficherStatistiques" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Statistiques" />
+        <Button fx:id="idStatistiques" layoutX="439.0" layoutY="432.0" mnemonicParsing="false" onAction="#afficherStatistiques" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" text="Statistiques" />
     </children>
 </AnchorPane>
