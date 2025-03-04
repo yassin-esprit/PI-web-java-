@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PopUpAdController">
+    <children>
+        <!-- ImageView for the ad -->
+        <ImageView fx:id="adImage" fitHeight="574.0" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/popupadd.jpg" /> <!-- Replace with your image path -->
+            </image>
+        </ImageView>
+
+        <!-- Close Button -->
+        <Button fx:id="closeButton" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onAction="#closePopUp" text="X" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;" />
+    </children>
+</AnchorPane>

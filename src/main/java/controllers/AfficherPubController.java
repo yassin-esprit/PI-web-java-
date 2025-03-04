@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.User;
 import models.publicites;
 import models.statut_pub;
@@ -56,9 +57,27 @@ public class AfficherPubController {
     private ServicePublicite servicePublicites = new ServicePublicite();
     private Map<publicites, Integer> likesMap = new HashMap<>();
     private Map<publicites, Integer> dislikesMap = new HashMap<>();
+    private void showPopUpAd() {
+        try {
+            // Load the pop-up ad FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PopUpAd.fxml"));
+            Parent root = loader.load();
 
+            // Create a new stage for the pop-up
+            Stage popUpStage = new Stage();
+            popUpStage.initStyle(StageStyle.UTILITY); // Use a simple window style
+            popUpStage.setTitle("Advertisement");
+            popUpStage.setScene(new Scene(root));
+
+            // Show the pop-up
+            popUpStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     void initialize() {
+        showPopUpAd();
 
         UserSession session = UserSession.getInstance();
         User currentUser = session.getUser();
