@@ -81,7 +81,7 @@
         }
 
         public static void loadlisteq() throws IOException {
-            loadScene("/equipementDash.fxml", "list Equipements");
+            loadScene("/AfficherEquipement.fxml", "list Equipements");
         }
 
         public static void loadlistRes() throws IOException {
