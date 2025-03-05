@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="simple-java-mail-8.12.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/PI-web-java--main/lib/simple-java-mail-8.12.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

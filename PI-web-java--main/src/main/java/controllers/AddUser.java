@@ -97,22 +97,20 @@ public class AddUser {
             }
 
             // Proceed to add user
-            user.add(new User(
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    email,
-                    password,
-                    selectedRole // Using Enum
-            ));
+            User newUser = new User(firstName, lastName, phoneNumber, email, password, selectedRole);
+            user.add(newUser);
+
+            // Send Welcome Email
+            MailService.sendWelcomeEmail(email, firstName);
 
             // Optionally, redirect to the dashboard or a success page
-            showSuccess("User created successfully!");
+            showSuccess("User created successfully! A welcome email has been sent.");
 
         } catch (SQLException e) {
             showError("Database error: " + e.getMessage());
         }
     }
+
 
     // Show error messages in a pop-up
     private void showError(String message) {

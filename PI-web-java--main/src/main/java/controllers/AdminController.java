@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.scene.layout.StackPane;
 import models.User;
 import models.User.Role;
 import tools.MyDB;
@@ -20,6 +21,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class AdminController {
     @FXML
@@ -47,10 +56,14 @@ public class AdminController {
     @FXML
     private TableColumn<User, String> email;
     @FXML
+
     private TableColumn<User, String> role;
 
+    @FXML
+    private StackPane qrcodeparent;
     private Connection cnx = MyDB.getInstance().getConnection();
     private ObservableList<User> usersList = FXCollections.observableArrayList();
+
 
     @FXML
     void initialize() {
@@ -78,6 +91,8 @@ public class AdminController {
             });
         });
         usertabel.setItems(filteredUsers);
+        usertabel.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
     }
 
     private void setupTableColumns() {
@@ -90,8 +105,13 @@ public class AdminController {
         action.setCellFactory(param -> new TableCell<>() {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
+            private final Button qrButton = new Button("Details");
 
             {
+
+                //deleteButton.setStyle("-fx-font-size: 6px;");
+
+
                 editButton.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
                     handleEditUser(user);
@@ -100,6 +120,11 @@ public class AdminController {
                 deleteButton.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
                     handleDeleteUser(user);
+                });
+
+                qrButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    generateQRCode(user);
                 });
             }
 
@@ -110,13 +135,54 @@ public class AdminController {
                     setGraphic(null);
                 } else {
                     GridPane pane = new GridPane();
-                    pane.setHgap(10);
+                    pane.setHgap(2);
                     pane.add(editButton, 0, 0);
                     pane.add(deleteButton, 1, 0);
+                   pane.add(qrButton, 2, 0);
                     setGraphic(pane);
                 }
             }
         });
+    }
+
+
+
+    private void generateQRCode(User user) {
+        // Format user details as QR Code content
+        String qrContent = "User Details:\n"
+                + "Name: " + user.getFirstName() + " " + user.getLastName() + "\n"
+                + "Email: " + user.getEmail() + "\n"
+                + "Phone: " + user.getPhone() + "\n"
+                + "Role: " + user.getRole().name();
+
+        QRGenerator qrGenerator;
+        try {
+            qrGenerator = new QRGenerator(qrContent, BarcodeFormat.QR_CODE, 300, 300, BufferedImage.TYPE_INT_ARGB);
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        BufferedImage qrImage = qrGenerator.qrImage();
+
+        // Save QR code as an image file (optional)
+        try {
+            qrGenerator.save("qrcode.png", "PNG");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image image = SwingFXUtils.toFXImage(qrImage, null);
+        ImageView imageView = new ImageView(image);
+
+        // **Scale the ImageView to make QR Code smaller**
+        imageView.setFitWidth(150);  // Set desired width
+        imageView.setFitHeight(150); // Set desired height
+        imageView.setPreserveRatio(true); // Maintain aspect ratio
+
+        // Display QR code in JavaFX UI
+        qrcodeparent.getChildren().clear();  // Clear previous QR code
+        qrcodeparent.getChildren().add(imageView);
     }
 
 
